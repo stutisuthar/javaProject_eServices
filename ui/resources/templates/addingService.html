@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"
+        integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous" />
+
+    <script defer src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous">
+        </script>
+
+    <link rel="stylesheet" href="../static/css/login.css" />
+</head>
+
+<body>
+    <nav class="navbar navbar-expand navbar-dark bg-dark">
+        <a class="h3 navbar-brand text-warning font-weight-bold" href="#">e-Services <span
+                class=" h4 text-light font-weight-light"> Admin </span></a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">View services <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Add a service</a>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <button class="btn btn-outline-warning my-2 my-sm-0 rounded-0">Sign out</button>
+            </form>
+        </div>
+    </nav>
+
+    <div class="container-fluid main-body">
+        <div class="row justify-content-center align-items-center h-100">
+            <div class="col-8">
+                <form>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <!-- <label for="inputEmail4">Name </label> -->
+                            <input type="email" class="form-control" id="inputEmail4" placeholder="Name">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <!-- <label for="inputPassword4">Email</label> -->
+                            <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <!-- <label for="inputPassword4">Contact Number</label> -->
+                            <input type="number" class="form-control" id="inputEmail4" placeholder="Contact Number">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <!-- <label for="inputState">Service Category</label> -->
+                        <select id="inputState" class="form-control">
+                            <option selected>Choose a service category</option>
+                            <option>Civil</option>
+                            <option>Electronics</option>
+                            <option>Electrical</option>
+                            <option>Carpentry</option>
+                            <option>Sanitary</option>
+                            <option>Software</option>
+                            <option>Hardware</option>
+                            <option>Interior Decorators</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <!-- <label for="inputAddress">Address</label> -->
+                        <input type="text" class="form-control" id="inputAddress" placeholder="Address">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <!-- <label for="inputCity">Location/City</label> -->
+                            <input type="text" class="form-control" id="inputCity" placeholder="Location/City">
+                        </div>
+                        
+                     
+                    </div>
+
+                    <button type="submit" class="btn btn-warning">Save</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
