@@ -4,13 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Login</title>
-
-  <!-- <script src="webjars/jquery/1.9.1/jquery.min.js" th:src="@{/webjars/jquery/1.9.1/jquery.min.js}"></script> -->
-  <script type="text/javascript" src="js/jquery-3.5.1.js"></script>
-
-  <!-- <script src="webjars/bootstrap/4.5.0/css/bootstrap.min.css"></script>
-  <link rel="stylesheet" href="webjar/bootstrap/4.5.0/css/bootstrap.min.css" /> -->
+  <title>Admin login</title>
 
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
     integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous" />
@@ -19,33 +13,36 @@
     integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous">
   </script>
 
-  <link rel="stylesheet" href="css/login.css" />
+  <link rel="stylesheet" href="../static/css/login.css" />
 </head>
 
 <body>
   <div class="container-fluid main-body">
     <div class="row justify-content-center align-items-center h-100">
-      <div class="col-5">
+      <div class="col-6">
         <div class="card text-left border border-dark">
           <div class="card-header text-center text-warning bg-dark font-weight-bold">
-            e-Services
+            <h3>
+              e-Services
+              <span class="h4 text-light font-weight-light"> Admin </span>
+            </h3>
           </div>
           <div class="card-body">
-            <form action="#" th:action="@{/login}" method="post" th:object="${user}">
+            <form>
               <div class="form-group">
                 <input type="email" class="form-control" id="loginEmailAddress" aria-describedby="emailHelp"
-                  placeholder="Email address" 
-                  th:field="*{email}"/>
+                  placeholder="Email address" />
               </div>
               <div class="form-group">
-                <input type="password" class="form-control" placeholder="Password" th:field="*{password}" />
+                <input type="password" class="form-control" placeholder="Password" />
               </div>
 
               <div class="btn-group" role="group" aria-label="Basic example">
-                <button type="submit" class="btn btn-secondary">
-                  Sign in
+                <!-- <button type="button" class="btn btn-secondary" onclick="">Sign in</button> -->
+                <a type="button" class="btn btn-secondary" onclick="" href="./adminDashboard.html">Sign in</a>
+                <button type="button" class="btn btn-dark">
+                  <del>Sign up</del>
                 </button>
-                <a type="button" class="btn btn-dark" href="./registration">Sign up</a>
               </div>
             </form>
           </div>

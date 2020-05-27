@@ -1,0 +1,9 @@
+{
+    "java.configuration.updateBuildConfiguration": "automatic",
+    "cSpell.ignoreWords": [
+        "http",
+        "http servlet request",
+        "request",
+        "servlet"
+    ]
+}
