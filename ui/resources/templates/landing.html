@@ -21,12 +21,130 @@
       crossorigin="anonymous"
     ></script>
 
-    <link rel="stylesheet" href="../static/css/login.css" />
+    <link rel="stylesheet" href="/resources/static/css/login.css" />
 
     <script src="/resources/static/js/reuseNavbar.js"></script>
   </head>
 
   <body>
     <div id="navbar-user-frame"></div>
+    <div class="container-fluid main-body">
+      <div class="row">
+        <div class="col-2 sidebar bg-light main-body d-flex align-items-start">
+
+          <form class="mt-5">
+            <div class="form-row">
+              <div class="form-group">
+                <input type="text" class="form-control" id="serviceNameFilterBox" placeholder="Service Name">
+              </div>
+            </div>
+            
+            <div class="form-row">
+              <!-- <div class="form-group col-12">
+                <input type="text" class="form-control" id="locationNameFilterBox" placeholder="Location">
+              </div> -->
+
+              <div class="form-group">
+                <select id="inputState" class="form-control">
+                  <option selected>Select location</option>
+                  <option>Mumbai</option>
+                  <option>Bangalore</option>
+                  <option>Mysore</option>
+                  <option>Thane</option>
+
+                </select>
+              </div>
+
+              <div class="form-group">
+                <select id="inputState" class="form-control">
+                  <option selected>Choose a service category</option>
+                  <option>Civil</option>
+                  <option>Electronics</option>
+                  <option>Electrical</option>
+                  <option>Carpentry</option>
+                  <option>Sanitary</option>
+                  <option>Software</option>
+                  <option>Hardware</option>
+                  <option>Interior Decorators</option>
+                </select>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group col-12 ">
+                  <input type="text" class="form-control" id="serviceNameFilterBox" placeholder="Cost">
+                </div>
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-dark">Filter</button>
+          </form>          
+        </div>
+        <div class="col-10 d-flex align-items-center">
+          <div class="row row-cols-1 row-cols-md-3">
+
+            <div class="col mb-4">
+              <div class="card border-dark">
+                <div class="card-body">
+                  <h5 class="card-title">Civil</h5>
+                  <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                  <a href="#" class="btn btn-dark">Open service</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="col mb-4">
+             <div class="card border-dark">
+              <div class="card-body">
+                <h5 class="card-title">Electronics</h5>
+                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                <a href="#" class="btn btn-dark">Open service</a>
+              </div>
+             </div>
+            </div>
+
+            <div class="col mb-4">
+              <div class="card border-dark">
+                <div class="card-body">
+                  <h5 class="card-title">Electrical</h5>
+                  <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                  <a href="#" class="btn btn-dark">Open service</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="col mb-4">
+              <div class="card border-dark">
+                <div class="card-body">
+                  <h5 class="card-title">Civil</h5>
+                  <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                  <a href="#" class="btn btn-dark">Open service</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="col mb-4">
+             <div class="card border-dark">
+              <div class="card-body">
+                <h5 class="card-title">Electronics</h5>
+                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                <a href="#" class="btn btn-dark">Open service</a>
+              </div>
+             </div>
+            </div>
+
+            <div class="col mb-4">
+              <div class="card border-dark">
+                <div class="card-body">
+                  <h5 class="card-title">Electrical</h5>
+                  <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                  <a href="#" class="btn btn-dark">Open service</a>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
