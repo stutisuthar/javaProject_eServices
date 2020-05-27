@@ -1,8 +1,8 @@
 $(document).ready(function() {
-    $("#navbar-frame").load("/templates/adminNavbar.html")
+    $("#navbar-frame").load("/resources/templates/adminNavbar.html")
 });
 
 
 $(document).ready(function() {
-    $("#navbar-user-frame").load("/templates/navbar.html");
+    $("#navbar-user-frame").load("/resources/templates/navbar.html");
 })
