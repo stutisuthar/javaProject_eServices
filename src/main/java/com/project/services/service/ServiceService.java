@@ -12,6 +12,8 @@ public class ServiceService {
 
     @Autowired
     private ServiceRepository serviceRepository;
+    private Service user;
+
 
     public Boolean insertRow(Map<String, String> payload)
     {
@@ -32,4 +34,16 @@ public class ServiceService {
         return serviceRepository.findAll();
     }
 
+    public Boolean SaveData(com.project.services.model.Service data){
+        com.project.services.model.Service insRow = new com.project.services.model.Service();;
+        insRow.setName(data.getName());
+        insRow.setPassword(data.getPassword());
+        insRow.setEmail(data.getEmail());
+        try {
+            serviceRepository.save(insRow);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
 }
