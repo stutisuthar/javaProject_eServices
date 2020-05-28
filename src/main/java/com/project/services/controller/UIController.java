@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 // Session Management
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 @Controller
 public class UIController {
@@ -24,9 +25,18 @@ public class UIController {
     private userDetailsService userService;
     // private Service user;
 
-    @GetMapping("/index")
-    public String renderIndex() {
+    @GetMapping("/")
+    public String renderRoot(Model model) {
+        UserDetails user = new UserDetails();
+        model.addAttribute("user", user);
         return "login";
+    }
+
+    @GetMapping("/index")
+    public String renderIndex(Model model) {
+        UserDetails user = new UserDetails();
+        model.addAttribute("user", user);
+        return "redirect:/login";
     }
 
     @GetMapping("/login")
@@ -53,6 +63,19 @@ public class UIController {
     @GetMapping("/service")
     public String renderService() {
         return "service";
+    }
+
+    @GetMapping("/navbar")
+    public String renderNavbar(Model model, HttpServletRequest request) {
+        String userName =(String)request.getSession().getAttribute("userName");
+        model.addAttribute("userName", userName);
+        return "navbar";
+    }
+
+    @PostMapping("/signout")
+    public String signOut(HttpSession session){
+        session.invalidate();
+        return "redirect:/login";
     }
 
 

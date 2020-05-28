@@ -4,5 +4,5 @@ $(document).ready(function() {
 
 
 $(document).ready(function() {
-    $("#navbar-user-frame").load("../../templates/navbar.html");
+    $("#navbar-user-frame").load("navbar");
 })
