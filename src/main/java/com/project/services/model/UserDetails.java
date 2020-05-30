@@ -1,13 +1,17 @@
 package com.project.services.model;
 
+import org.hibernate.criterion.Order;
+
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "userDetails")
 public class UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name="id")
+    @Column(name="user_id")
     private int id;
 
     @Column(name="name")
@@ -19,13 +23,6 @@ public class UserDetails {
     @Column(name="email")
     private String email;
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
@@ -49,5 +46,25 @@ public class UserDetails {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    @OneToMany
+    @JoinColumn(name="user_id")
+    private UserDetails userDetails;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public UserDetails getUserDetails() {
+        return userDetails;
+    }
+
+    public void setUserDetails(UserDetails userDetails) {
+        this.userDetails = userDetails;
     }
 }
