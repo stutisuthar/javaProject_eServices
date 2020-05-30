@@ -1,10 +1,11 @@
 package com.project.services.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "orderDetails")
-public class OrderDetails {
+public class OrderDetails implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id")
@@ -13,8 +14,9 @@ public class OrderDetails {
     @Column(name = "status")
     private String status;
 
-    @Column(name = "userId")
-    private int userId;
+     @ManyToOne(fetch = FetchType.LAZY, optional = false)
+     @JoinColumn(name = "user_id", nullable = false)
+     private UserDetails user;
 
     @Column(name = "s_Id")
     private int s_Id;
@@ -24,6 +26,12 @@ public class OrderDetails {
 
     @Column(name = "rating")
     private int rating;
+
+    @Column(name = "address")
+    private String address;
+
+    @Column(name = "Contact")
+    private long contact;
 
     public int getId() {
         return id;
@@ -41,12 +49,12 @@ public class OrderDetails {
         this.status = status;
     }
 
-    public int getUserId() {
-        return userId;
+    public int getUser() {
+        return user.getId();
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUser(int user_id) {
+        this.user.setId(user_id);
     }
 
     public int getS_Id() {
@@ -71,6 +79,22 @@ public class OrderDetails {
 
     public void setRating(int rating) {
         this.rating = rating;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public long getContact() {
+        return contact;
+    }
+
+    public void setContact(long contact) {
+        this.contact = contact;
     }
 }
 
