@@ -10,6 +10,11 @@ import java.util.Set;
 @Entity
 @Table(name = "userDetails")
 public class UserDetails implements Serializable {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name="user_id")

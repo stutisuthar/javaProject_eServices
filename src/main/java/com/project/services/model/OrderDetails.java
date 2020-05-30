@@ -6,6 +6,11 @@ import java.io.Serializable;
 @Entity
 @Table(name = "orderDetails")
 public class OrderDetails implements Serializable {
+    /**
+     * Error shown by vs code hence used the quick fix, can be removed
+     */
+    private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id")
@@ -14,9 +19,9 @@ public class OrderDetails implements Serializable {
     @Column(name = "status")
     private String status;
 
-     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-     @JoinColumn(name = "user_id", nullable = false)
-     private UserDetails user;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "user_id")
+    private UserDetails user;
 
     @Column(name = "s_Id")
     private int s_Id;
