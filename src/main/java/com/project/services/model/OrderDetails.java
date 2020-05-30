@@ -14,9 +14,9 @@ public class OrderDetails implements Serializable {
     @Column(name = "status")
     private String status;
 
-    @ManyToOne
-    @JoinColumn(name = "userDetails")
-    private UserDetails userDetails;
+     @ManyToOne(fetch = FetchType.LAZY, optional = false)
+     @JoinColumn(name = "user_id", nullable = false)
+     private UserDetails user;
 
     @Column(name = "s_Id")
     private int s_Id;
@@ -49,12 +49,12 @@ public class OrderDetails implements Serializable {
         this.status = status;
     }
 
-    public UserDetails getUserDetails() {
-        return userDetails;
+    public int getUser() {
+        return user.getId();
     }
 
-    public void setUserDetails(UserDetails userDetails) {
-        this.userDetails = userDetails;
+    public void setUser(int user_id) {
+        this.user.setId(user_id);
     }
 
     public int getS_Id() {

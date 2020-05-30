@@ -1,4 +1,5 @@
 package com.project.services.model;
+import java.io.Serializable;
 
 import org.hibernate.criterion.Order;
 
@@ -8,7 +9,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "userDetails")
-public class UserDetails {
+public class UserDetails implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name="user_id")
@@ -48,9 +49,8 @@ public class UserDetails {
         this.email = email;
     }
 
-    @OneToMany
-    @JoinColumn(name="user_id")
-    private UserDetails userDetails;
+    @OneToMany(mappedBy="user", fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    private Set<OrderDetails> orderDetails;
 
     public int getId() {
         return id;
@@ -60,11 +60,11 @@ public class UserDetails {
         this.id = id;
     }
 
-    public UserDetails getUserDetails() {
-        return userDetails;
+    public Set<OrderDetails> getOrderDetails() {
+        return orderDetails;
     }
 
-    public void setUserDetails(UserDetails userDetails) {
-        this.userDetails = userDetails;
+    public void setOrderDetails(Set<OrderDetails> orderDetails) {
+        this.orderDetails = orderDetails;
     }
 }
