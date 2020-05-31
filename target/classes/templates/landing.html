@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+xmlns:th="http://www.thymeleaf.org"
+layout:decorate="~{fragments/layout}">
 
 <head>
   <meta charset="UTF-8" />
@@ -8,12 +11,17 @@
 
   <script src="js/jquery-3.5.1.js"></script>
 
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous" />
+  <!-- <link rel="stylesheet"  th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous" /> -->
 
-  <script defer src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+  <link rel="stylesheet"  th:href="@{/webjars/bootstrap/4.5.0/css/bootstrap.min.css}" />
+
+  <!-- <script defer src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
     integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous">
-  </script>
+  </script> -->
+
+  <!-- <script defer th:src="@{/webjars/bootstrap/4.5.0/css/bootstrap.min.css}">
+  </script> -->
 
   <link rel="stylesheet" href="css/login.css" />
 
@@ -21,11 +29,14 @@
 </head>
 
 <body>
+  <!-- <div layout:fragment="content" th:remove="tag"> -->
+  <div th:replace="fragments/header :: header"></div>
   <div id="navbar-user-frame"></div>
+  
   <div class="container-fluid main-body">
     <div class="row">
       <div class="col-2 sidebar bg-light main-body d-flex align-items-start">
-
+        
         <form class="mt-5">
           <div class="form-row">
             <div class="form-group">
@@ -140,6 +151,7 @@
       </div>
     </div>
   </div>
+</div>
 </body>
 
 </html>

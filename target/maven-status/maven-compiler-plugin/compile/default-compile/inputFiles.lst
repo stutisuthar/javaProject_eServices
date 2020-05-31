@@ -1,4 +1,6 @@
+/home/akki/Documents/javaProject_eServices/src/main/java/com/project/services/controller/LoginAccessDeniedController.java
 /home/akki/Documents/javaProject_eServices/src/main/java/com/project/services/model/ServiceProvider.java
+/home/akki/Documents/javaProject_eServices/src/main/java/com/project/services/config/SecurityConfig.java
 /home/akki/Documents/javaProject_eServices/src/main/java/com/project/services/repository/ServiceRepository.java
 /home/akki/Documents/javaProject_eServices/src/main/java/com/project/services/controller/ServiceController.java
 /home/akki/Documents/javaProject_eServices/src/main/java/com/project/services/model/OrderDetails.java
