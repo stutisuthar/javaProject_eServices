@@ -1,7 +1,10 @@
 package com.project.services.service;
 
+import com.project.services.model.Location;
 import com.project.services.model.ServiceProvider;
 import com.project.services.repository.AddServiceProviderRepository;
+import com.project.services.repository.LocationRepository;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,18 +13,17 @@ import org.springframework.stereotype.Service;
 public class addServiceToDB {
     @Autowired
     private AddServiceProviderRepository serviceProviderRepo;
+    private LocationRepository locationRepo;
 
     public Boolean SaveServicesData(ServiceProvider data) {
-        ServiceProvider insRow = new ServiceProvider();
-        // insRow = data;
-        BeanUtils.copyProperties(data, insRow);
-        // insRow.setId(data.getId());
-        // insRow.setName(data.getName());
-        // insRow.setPassword(data.getPassword());
-        // insRow.setEmail(data.getEmail());
         try {
-            System.out.println(insRow);
-            serviceProviderRepo.save(insRow);
+            Location loc = new Location();
+            loc = locationRepo.findLocationById(2);
+            // Location loc = new Location();
+            // loc.setId(2);
+            data.setLocation(loc);
+            System.out.println(data);
+            serviceProviderRepo.save(data);
         } catch (Exception e) {
             return false;
         }

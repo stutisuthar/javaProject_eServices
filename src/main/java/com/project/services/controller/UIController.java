@@ -102,13 +102,6 @@ public class UIController {
         return "redirect:/login";
     }
 
-    @PostMapping("/addingService")
-    public String addServiceToDB(@ModelAttribute("service") ServiceProvider service)
-    {
-        addingService.SaveServicesData(service);
-        return "redirect:/addService";
-    }
-
     @PostMapping("/login")
     public String submitLogin(@ModelAttribute("user") UserDetails user, HttpServletRequest request) {
         // System.out.println(user.getName());
@@ -142,7 +135,15 @@ public class UIController {
     }
 
     @GetMapping("/addService")
-    public String renderAdminAddService() {
+    public String renderAdminAddService(Model model) {
+        ServiceProvider service = new ServiceProvider();
+        model.addAttribute("service", service);
+        return "adminAddService";
+    }
+
+    @PostMapping("/addingService")
+    public String addServiceToDB(@ModelAttribute("service") ServiceProvider service) {
+        addingService.SaveServicesData(service);
         return "adminAddService";
     }
 
