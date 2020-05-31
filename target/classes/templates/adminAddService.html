@@ -24,21 +24,21 @@
   <div class="container-fluid main-body">
     <div class="row justify-content-center align-items-center h-100">
       <div class="col-8">
-        <form>
+        <form action="#" th:action="@{/addingService}" method="post" th:object="${service}">
           <div class="form-row">
             <div class="form-group col-md-6">
-              <input type="email" class="form-control" id="inputEmail4" placeholder="Name" />
+              <input type="text" class="form-control" id="name" placeholder="Service Name" th:field="*{service_name}" />
             </div>
             <div class="form-group col-md-6">
-              <input type="email" class="form-control" id="inputEmail4" placeholder="Email" />
+              <input type="text" class="form-control" id="cname" placeholder="Contact Name" th:field="*{contact_name}" />
             </div>
             <div class="form-group col-md-6">
-              <input type="number" class="form-control" id="inputEmail4" placeholder="Contact Number" />
+              <input type="number" class="form-control" id="inputEmail4" placeholder="Contact Number" th:field="*{contact_number}" />
             </div>
           </div>
 
           <div class="form-group">
-            <select id="inputState" class="form-control">
+            <select id="inputState" class="form-control" th:field="*{serviceCategory}">
               <option selected>Choose a service category</option>
               <option>Civil</option>
               <option>Electronics</option>
@@ -52,12 +52,12 @@
           </div>
 
           <div class="form-group">
-            <input type="text" class="form-control" id="inputAddress" placeholder="Address" />
+            <input type="number" class="form-control" id="cost" placeholder="Cost" th:field="*{cost}"/>
           </div>
 
           <div class="form-row">
             <div class="form-group col-md-6">
-              <input type="text" class="form-control" id="inputCity" placeholder="Location/City" />
+              <input type="text" class="form-control" id="inputCity" placeholder="Location/City" th:field="*{location}" />
             </div>
           </div>
 

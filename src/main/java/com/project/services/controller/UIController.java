@@ -1,8 +1,10 @@
 package com.project.services.controller;
 
 import com.project.services.model.Service;
+import com.project.services.model.ServiceProvider;
 import com.project.services.model.UserDetails;
 // import com.project.services.service.ServiceService;
+import com.project.services.service.addServiceToDB;
 import com.project.services.service.userDetailsService;
 
 import org.springframework.stereotype.Controller;
@@ -23,6 +25,7 @@ public class UIController {
     @Autowired
     // private ServiceService eService;
     private userDetailsService userService;
+    private addServiceToDB addingService;
     // private Service user;
 
     @GetMapping("/")
@@ -99,6 +102,13 @@ public class UIController {
         return "redirect:/login";
     }
 
+    @PostMapping("/addingService")
+    public String addServiceToDB(@ModelAttribute("service") ServiceProvider service)
+    {
+        addingService.SaveServicesData(service);
+        return "redirect:/addService";
+    }
+
     @PostMapping("/login")
     public String submitLogin(@ModelAttribute("user") UserDetails user, HttpServletRequest request) {
         // System.out.println(user.getName());
@@ -135,6 +145,7 @@ public class UIController {
     public String renderAdminAddService() {
         return "adminAddService";
     }
+
 
     @GetMapping("/adminNavbar")
     public String renderAdminNavBar() {
