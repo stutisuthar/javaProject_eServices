@@ -1,0 +1,13 @@
+com/project/services/model/UserDetails.class
+com/project/services/service/ServiceService.class
+com/project/services/model/ServiceProvider.class
+com/project/services/model/AdminDetails.class
+com/project/services/controller/UIController.class
+com/project/services/repository/userDetailsRepository.class
+com/project/services/model/OrderDetails.class
+com/project/services/service/userDetailsService.class
+com/project/services/controller/ServiceController.class
+com/project/services/model/Service.class
+com/project/services/repository/ServiceRepository.class
+com/project/services/model/Location.class
+com/project/services/ServicesApplication.class

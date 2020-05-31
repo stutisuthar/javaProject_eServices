@@ -13,13 +13,14 @@
   </script> -->
   <link rel="stylesheet"  th:href="@{/webjars/bootstrap/4.5.0/css/bootstrap.min.css}" />
 
-  <!-- <script defer th:src="@{/webjars/bootstrap/4.5.0/css/bootstrap.min.css}">
-  </script> -->
+  <script defer th:src="@{/webjars/bootstrap/4.5.0/css/bootstrap.min.css}">
+  </script>
 
   <link rel="stylesheet" href="../static/css/login.css" />
 </head>
 
 <body>
+  <th:block th:fragment="header">
   <nav class="navbar navbar-expand navbar-dark bg-dark">
     <a class="h3 navbar-brand text-warning font-weight-bold" href="#">e-Services</a>
 
@@ -44,5 +45,6 @@
     </div>
   </nav>
 </body>
+</th:block>
 
 </html>

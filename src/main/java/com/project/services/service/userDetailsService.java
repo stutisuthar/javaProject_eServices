@@ -36,16 +36,24 @@ public class userDetailsService {
 
     public String AuthenticateUser(UserDetails data) {
         UserDetails details = new UserDetails();
+        int auth = 0;
         // insRow.setName(data.getName());
         // insRow.setPassword(data.getPassword());
         // insRow.setEmail(data.getEmail());
         try {
             details = userDetailsRepo.findByEmail(data.getEmail());
-            System.out.println(details.getName());
+            System.out.println(details.getPassword()+" and "+ data.getPassword());
+            if(details.getPassword().contentEquals(data.getPassword())){
+                System.out.println(details.getName());
+                auth = 1;
+                return details.getName();
+            }else{
+                return "invalid";
+            }
         } catch (Exception e) {
             System.out.println("Error: "+e);
-            return "false";
+            return "error";
         }
-        return details.getName();
+        // return "false";
     }
 }
