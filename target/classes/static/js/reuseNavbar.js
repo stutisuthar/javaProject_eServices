@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    $("#navbar-frame").load("../../templates/adminNavbar.html")
+    $("#navbar-frame").load("adminNavbar")
 });
 
 
