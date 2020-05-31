@@ -1,6 +1,7 @@
 package com.project.services.model;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name ="location")
@@ -13,6 +14,9 @@ public class Location {
 
     @Column(name = "locationName")
     private String locName;
+
+    @OneToMany(mappedBy="location", fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    private Set<ServiceProvider> serviceProvider;
 
     public int getId() {
         return id;
@@ -29,4 +33,5 @@ public class Location {
     public void setLocName(String locName) {
         this.locName = locName;
     }
+
 }

@@ -20,6 +20,7 @@ public class userDetailsService {
         insRow.setName(data.getName());
         insRow.setPassword(data.getPassword());
         insRow.setEmail(data.getEmail());
+        insRow.setOrderDetails(data.getOrderDetails());
         try {
             userDetailsRepo.save(insRow);
         } catch (Exception e) {

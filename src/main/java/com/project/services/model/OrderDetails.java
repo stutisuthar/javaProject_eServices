@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "orderDetails")
-public class OrderDetails implements Serializable {
+public class OrderDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id")
@@ -15,11 +15,12 @@ public class OrderDetails implements Serializable {
     private String status;
 
      @ManyToOne(fetch = FetchType.LAZY, optional = false)
-     @JoinColumn(name = "user_id", nullable = false)
+     @JoinColumn(name = "user_id" , nullable = false)
      private UserDetails user;
 
-    @Column(name = "s_Id")
-    private int s_Id;
+     @ManyToOne(fetch = FetchType.LAZY, optional = false)
+     @JoinColumn(name = "s_Id" ,nullable = false)
+     private ServiceProvider service;
 
     @Column(name = "feedback")
     private String feedback;
@@ -57,12 +58,12 @@ public class OrderDetails implements Serializable {
         this.user.setId(user_id);
     }
 
-    public int getS_Id() {
-        return s_Id;
+    public int getService() {
+        return service.getId();
     }
 
-    public void setS_Id(int s_Id) {
-        this.s_Id = s_Id;
+    public void setService(int service) {
+        this.service.setId(service);
     }
 
     public String getFeedback() {

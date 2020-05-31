@@ -1,10 +1,12 @@
 package com.project.services.model;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.project.services.repository.ServiceRepository;
 
+import javax.persistence.*;
+import java.util.Set;
+
+@Entity
+@Table(name = "ServiceProvider")
 public class ServiceProvider {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -23,8 +25,33 @@ public class ServiceProvider {
     @Column(name = "contactNumber")
     private String contact_number;
 
+
     @Column(name = "cost")
     private int cost;
+
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "locName" ,nullable = false)
+    private Location location;
+
+    public String getLocation() {
+        return location.getLocName();
+    }
+
+    public void setLocation(String location) {
+        this.location.setLocName(location);
+    }
+
+    @OneToMany(mappedBy="service", fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    private Set<OrderDetails> orderDetails;
+
+    public Set<OrderDetails> getOrderDetails() {
+        return orderDetails;
+    }
+
+    public void setOrderDetails(Set<OrderDetails> orderDetails) {
+        this.orderDetails = orderDetails;
+    }
 
     public int getId() {
         return id;
