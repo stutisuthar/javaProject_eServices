@@ -118,4 +118,27 @@ public class UIController {
         }
         
     }
+
+    // admin URLS mapping
+    
+    @GetMapping("/adminLogin")
+    public String renderAdminLogin() {
+        return "adminLogin";
+    }
+
+    @GetMapping("/dashboard")
+    public String renderAdminDashboard() {
+        return "adminDashboard";
+    }
+
+    @GetMapping("/addService")
+    public String renderAdminAddService() {
+        return "adminAddService";
+    }
+
+    @GetMapping("/adminNavbar")
+    public String renderAdminNavBar() {
+        return "adminNavbar";
+    }
+
 }
