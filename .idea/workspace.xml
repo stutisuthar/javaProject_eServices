@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="434cfa0b-2986-4029-9cb4-1368c9e981c2" name="Default Changelist" comment="" />
+    <list default="true" id="434cfa0b-2986-4029-9cb4-1368c9e981c2" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/landing.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/landing.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/service.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/service.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/landing.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/landing.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/service.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/service.html" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -13,6 +19,11 @@
   </component>
   <component name="ProjectId" id="1cZvUDr0nGwCCrKwI0ndfobA8O8" />
   <component name="PropertiesComponent">
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
   </component>
@@ -39,6 +50,7 @@
       <option name="presentableId" value="Default" />
       <updated>1590748944354</updated>
       <workItem from="1590748948597" duration="26000" />
+      <workItem from="1590930708301" duration="904000" />
     </task>
     <servers />
   </component>
@@ -50,7 +62,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
