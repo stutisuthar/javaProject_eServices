@@ -103,14 +103,42 @@ public class UIController {
     public String submitLogin(@ModelAttribute("user") UserDetails user, HttpServletRequest request) {
         // System.out.println(user.getName());
         String signedUser = userService.AuthenticateUser(user);
-        if(signedUser!="false"){
+        System.out.println(signedUser);
+        if(signedUser == "invalid"){
+            System.out.println("invalid User");
+            return "login";
+        }
+        else if(signedUser == "error"){    
+            return "login";
+        }
+        else{
             request.getSession().setAttribute("userName", signedUser);
             System.out.println(request.getSession().getAttribute("userName"));
             return "redirect:/landing";
         }
-        else{
-            return "login";
-        }
         
     }
+
+    // admin URLS mapping
+    
+    @GetMapping("/adminLogin")
+    public String renderAdminLogin() {
+        return "adminLogin";
+    }
+
+    @GetMapping("/dashboard")
+    public String renderAdminDashboard() {
+        return "adminDashboard";
+    }
+
+    @GetMapping("/addService")
+    public String renderAdminAddService() {
+        return "adminAddService";
+    }
+
+    @GetMapping("/adminNavbar")
+    public String renderAdminNavBar() {
+        return "adminNavbar";
+    }
+
 }
