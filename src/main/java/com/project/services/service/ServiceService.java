@@ -12,7 +12,7 @@ public class ServiceService {
 
     @Autowired
     private ServiceRepository serviceRepository;
-    private Service user;
+    // private Service user;
 
 
     public Boolean insertRow(Map<String, String> payload)

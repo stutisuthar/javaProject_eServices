@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 // Session Management
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 @Controller
 public class UIController {
@@ -24,9 +25,18 @@ public class UIController {
     private userDetailsService userService;
     // private Service user;
 
-    @GetMapping("/index")
-    public String renderIndex() {
+    @GetMapping("/")
+    public String renderRoot(Model model) {
+        UserDetails user = new UserDetails();
+        model.addAttribute("user", user);
         return "login";
+    }
+
+    @GetMapping("/index")
+    public String renderIndex(Model model) {
+        UserDetails user = new UserDetails();
+        model.addAttribute("user", user);
+        return "redirect:/login";
     }
 
     @GetMapping("/login")
@@ -55,6 +65,19 @@ public class UIController {
         return "service";
     }
 
+    @GetMapping("/navbar")
+    public String renderNavbar(Model model, HttpServletRequest request) {
+        String userName =(String)request.getSession().getAttribute("userName");
+        model.addAttribute("userName", userName);
+        return "navbar";
+    }
+
+    @PostMapping("/signout")
+    public String signOut(HttpSession session){
+        session.invalidate();
+        return "redirect:/login";
+    }
+
 
     // @GetMapping("/test")
     // public String renderTest(@RequestParam(name = "name", required = false,
@@ -80,14 +103,42 @@ public class UIController {
     public String submitLogin(@ModelAttribute("user") UserDetails user, HttpServletRequest request) {
         // System.out.println(user.getName());
         String signedUser = userService.AuthenticateUser(user);
-        if(signedUser!="false"){
+        System.out.println(signedUser);
+        if(signedUser == "invalid"){
+            System.out.println("invalid User");
+            return "login";
+        }
+        else if(signedUser == "error"){    
+            return "login";
+        }
+        else{
             request.getSession().setAttribute("userName", signedUser);
             System.out.println(request.getSession().getAttribute("userName"));
             return "redirect:/landing";
         }
-        else{
-            return "login";
-        }
         
     }
+
+    // admin URLS mapping
+    
+    @GetMapping("/adminLogin")
+    public String renderAdminLogin() {
+        return "adminLogin";
+    }
+
+    @GetMapping("/dashboard")
+    public String renderAdminDashboard() {
+        return "adminDashboard";
+    }
+
+    @GetMapping("/addService")
+    public String renderAdminAddService() {
+        return "adminAddService";
+    }
+
+    @GetMapping("/adminNavbar")
+    public String renderAdminNavBar() {
+        return "adminNavbar";
+    }
+
 }

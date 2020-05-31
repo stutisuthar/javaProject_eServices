@@ -23,4 +23,6 @@
 hs_err_pid*
 
 # Removing application.properties as it has sensitive information
-src/main/resources/application.properties
+# src/main/resources/application.properties
+target/**
+.classpath

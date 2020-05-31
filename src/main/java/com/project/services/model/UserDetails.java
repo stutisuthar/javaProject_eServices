@@ -1,13 +1,23 @@
 package com.project.services.model;
+import java.io.Serializable;
+
+import org.hibernate.criterion.Order;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "userDetails")
-public class UserDetails {
+public class UserDetails implements Serializable {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name="id")
+    @Column(name="user_id")
     private int id;
 
     @Column(name="name")
@@ -19,13 +29,6 @@ public class UserDetails {
     @Column(name="email")
     private String email;
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
@@ -49,5 +52,24 @@ public class UserDetails {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    @OneToMany(mappedBy="user", fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    private Set<OrderDetails> orderDetails;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Set<OrderDetails> getOrderDetails() {
+        return orderDetails;
+    }
+
+    public void setOrderDetails(Set<OrderDetails> orderDetails) {
+        this.orderDetails = orderDetails;
     }
 }
