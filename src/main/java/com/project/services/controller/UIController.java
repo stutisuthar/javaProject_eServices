@@ -153,26 +153,16 @@ public class UIController {
 
     @PostMapping("/addService")
     public String addServiceToDB(@ModelAttribute("service") ServiceProvider service) {
-        // addingService.SaveServicesData(service);
-        try {
-            System.out.println("Test");
-            // System.out.println("Test2");
-            System.out.println(locationRepo.findAll());
-            System.out.println("test5");
-            // System.out.println(locationRepo.existsById(3).orElse(null));
-            // location = locationRepo.findById(3);
-            // System.out.println(location.getLocName());
-            // Location loc = new Location();
-            // loc.setId(2);
-            // loc.setId(2);
-            service.setLocation(locationRepo.findById(3));
-            System.out.println("Test4");
-            System.out.println("Service:\t"+service.toString());
-            System.out.println(service.getLocation().getLocName());
-            serviceProviderRepo.save(service);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        addingService.SaveServicesData(service);
+        // try {
+        //     System.out.println(locationRepo.findAll());
+        //     service.setLocation(locationRepo.findById(3));
+        //     System.out.println("Service:\t"+service.toString());
+        //     System.out.println(service.getLocation().getLocName());
+        //     serviceProviderRepo.save(service);
+        // } catch (Exception e) {
+        //     System.out.println(e);
+        // }
         return "adminAddService";
     }
 

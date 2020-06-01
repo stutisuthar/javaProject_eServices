@@ -16,17 +16,15 @@ public class addServiceToDB {
     @Autowired
     private LocationRepository locationRepo;
 
-    public Boolean SaveServicesData(ServiceProvider data) {
+    public Boolean SaveServicesData(ServiceProvider service) {
         try {
-            Location loc = new Location();
-            // loc = locationRepo.findLocationById(2);
-            // Location loc = new Location();
-            // loc.setId(2);
-            loc.setId(2);
-            data.setLocation(loc);
-            System.out.println(data);
-            serviceProviderRepo.save(data);
+            System.out.println(locationRepo.findAll());
+            service.setLocation(locationRepo.findById(3));
+            System.out.println("Service:\t" + service.toString());
+            System.out.println(service.getLocation().getLocName());
+            serviceProviderRepo.save(service);
         } catch (Exception e) {
+            System.out.println(e);
             return false;
         }
         return true;
