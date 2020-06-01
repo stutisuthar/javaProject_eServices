@@ -30,7 +30,7 @@ public class ServiceProvider {
     private int cost;
 
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "locName")
     private Location location;
 
@@ -39,7 +39,7 @@ public class ServiceProvider {
     }
 
     public void setLocation(Location location) {
-        this.location=location;
+        this.location = location;
     }
 
     @OneToMany(mappedBy="service", fetch = FetchType.LAZY,cascade = CascadeType.ALL)
@@ -103,6 +103,6 @@ public class ServiceProvider {
 
     @Override
     public String toString(){
-        return cost+location.toString()+serviceCategory+service_name;
+        return cost+location.getLocName()+serviceCategory+service_name+contact_name+contact_number+" o "+orderDetails;
     }
 }

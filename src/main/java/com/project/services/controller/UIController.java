@@ -1,8 +1,11 @@
 package com.project.services.controller;
 
+import com.project.services.model.Location;
 import com.project.services.model.Service;
 import com.project.services.model.ServiceProvider;
 import com.project.services.model.UserDetails;
+import com.project.services.repository.AddServiceProviderRepository;
+import com.project.services.repository.LocationRepository;
 // import com.project.services.service.ServiceService;
 import com.project.services.service.addServiceToDB;
 import com.project.services.service.userDetailsService;
@@ -15,6 +18,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 // import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
+
 // Session Management
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -23,10 +28,15 @@ import javax.servlet.http.HttpSession;
 public class UIController {
 
     @Autowired
-    // private ServiceService eService;
+    private LocationRepository locationRepo;
+    @Autowired
     private userDetailsService userService;
+    @Autowired
     private addServiceToDB addingService;
-    // private Service user;
+    @Autowired
+    private AddServiceProviderRepository serviceProviderRepo;
+    // @Autowired
+    // private Location location;
 
     @GetMapping("/")
     public String renderRoot(Model model) {
@@ -141,9 +151,28 @@ public class UIController {
         return "adminAddService";
     }
 
-    @PostMapping("/addingService")
+    @PostMapping("/addService")
     public String addServiceToDB(@ModelAttribute("service") ServiceProvider service) {
-        addingService.SaveServicesData(service);
+        // addingService.SaveServicesData(service);
+        try {
+            System.out.println("Test");
+            // System.out.println("Test2");
+            System.out.println(locationRepo.findAll());
+            System.out.println("test5");
+            // System.out.println(locationRepo.existsById(3).orElse(null));
+            // location = locationRepo.findById(3);
+            // System.out.println(location.getLocName());
+            // Location loc = new Location();
+            // loc.setId(2);
+            // loc.setId(2);
+            service.setLocation(locationRepo.findById(3));
+            System.out.println("Test4");
+            System.out.println("Service:\t"+service.toString());
+            System.out.println(service.getLocation().getLocName());
+            serviceProviderRepo.save(service);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return "adminAddService";
     }
 

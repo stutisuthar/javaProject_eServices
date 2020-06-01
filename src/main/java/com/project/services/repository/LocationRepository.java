@@ -1,12 +1,15 @@
 package com.project.services.repository;
 
+// import java.util.List;
 
 import com.project.services.model.Location;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface LocationRepository extends JpaRepository <Location,Integer>{
-    Location findLocationById(int id);
-    // findById(Integer )
+public interface LocationRepository extends JpaRepository <Location, Long>{
+    // Location findLocationById(int id);
+    Location findById(int id);
+    // Location findByLocation(String loc_name);
+    // List<Location> findLocationById(int id);
 }

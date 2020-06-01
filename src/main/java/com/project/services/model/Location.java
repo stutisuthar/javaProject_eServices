@@ -34,16 +34,16 @@ public class Location {
         this.locName = locName;
     }
 
-    @Override
-    public String toString(){
-        return id+locName;
+    // @Override
+    // public String toString(){
+    //     return id+locName;
+    // }
+
+    public Set<ServiceProvider> getServiceProvider() {
+        return serviceProvider;
     }
 
-    // public Set<ServiceProvider> getServiceProvider() {
-    //     return serviceProvider;
-    // }
-
-    // public void setServiceProvider(Set<ServiceProvider> serviceProvider) {
-    //     this.serviceProvider = serviceProvider;
-    // }
+    public void setServiceProvider(Set<ServiceProvider> serviceProvider) {
+        this.serviceProvider = serviceProvider;
+    }
 }

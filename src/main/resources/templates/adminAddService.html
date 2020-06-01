@@ -24,7 +24,7 @@
   <div class="container-fluid main-body">
     <div class="row justify-content-center align-items-center h-100">
       <div class="col-8">
-        <form action="#" th:action="@{/addingService}" method="post" th:object="${service}">
+        <form action="#" th:action="@{/addService}" method="post" th:object="${service}">
           <div class="form-row">
             <div class="form-group col-md-6">
               <input type="text" class="form-control" id="name" placeholder="Service Name" th:field="*{service_name}" />

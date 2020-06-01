@@ -13,14 +13,16 @@ import org.springframework.stereotype.Service;
 public class addServiceToDB {
     @Autowired
     private AddServiceProviderRepository serviceProviderRepo;
+    @Autowired
     private LocationRepository locationRepo;
 
     public Boolean SaveServicesData(ServiceProvider data) {
         try {
             Location loc = new Location();
-            loc = locationRepo.findLocationById(2);
+            // loc = locationRepo.findLocationById(2);
             // Location loc = new Location();
             // loc.setId(2);
+            loc.setId(2);
             data.setLocation(loc);
             System.out.println(data);
             serviceProviderRepo.save(data);
