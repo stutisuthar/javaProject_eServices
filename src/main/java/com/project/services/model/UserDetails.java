@@ -1,19 +1,12 @@
 package com.project.services.model;
-import java.io.Serializable;
-
-import org.hibernate.criterion.Order;
+// import java.io.Serializable;
 
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table(name = "userDetails")
-public class UserDetails implements Serializable {
-    /**
-     *
-     */
-    private static final long serialVersionUID = 1L;
+public class UserDetails{
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name="user_id")

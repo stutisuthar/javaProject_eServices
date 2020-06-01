@@ -1,8 +1,13 @@
 package com.project.services.controller;
 
+import com.project.services.model.Location;
 import com.project.services.model.Service;
+import com.project.services.model.ServiceProvider;
 import com.project.services.model.UserDetails;
+import com.project.services.repository.AddServiceProviderRepository;
+import com.project.services.repository.LocationRepository;
 // import com.project.services.service.ServiceService;
+import com.project.services.service.addServiceToDB;
 import com.project.services.service.userDetailsService;
 
 import org.springframework.stereotype.Controller;
@@ -13,6 +18,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 // import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
+
 // Session Management
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -21,9 +28,15 @@ import javax.servlet.http.HttpSession;
 public class UIController {
 
     @Autowired
-    // private ServiceService eService;
+    private LocationRepository locationRepo;
+    @Autowired
     private userDetailsService userService;
-    // private Service user;
+    @Autowired
+    private addServiceToDB addingService;
+    @Autowired
+    private AddServiceProviderRepository serviceProviderRepo;
+    // @Autowired
+    // private Location location;
 
     @GetMapping("/")
     public String renderRoot(Model model) {
@@ -132,9 +145,27 @@ public class UIController {
     }
 
     @GetMapping("/addService")
-    public String renderAdminAddService() {
+    public String renderAdminAddService(Model model) {
+        ServiceProvider service = new ServiceProvider();
+        model.addAttribute("service", service);
         return "adminAddService";
     }
+
+    @PostMapping("/addService")
+    public String addServiceToDB(@ModelAttribute("service") ServiceProvider service) {
+        addingService.SaveServicesData(service);
+        // try {
+        //     System.out.println(locationRepo.findAll());
+        //     service.setLocation(locationRepo.findById(3));
+        //     System.out.println("Service:\t"+service.toString());
+        //     System.out.println(service.getLocation().getLocName());
+        //     serviceProviderRepo.save(service);
+        // } catch (Exception e) {
+        //     System.out.println(e);
+        // }
+        return "adminAddService";
+    }
+
 
     @GetMapping("/adminNavbar")
     public String renderAdminNavBar() {

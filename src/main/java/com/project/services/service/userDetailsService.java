@@ -18,16 +18,16 @@ public class userDetailsService {
     private userDetailsRepository userDetailsRepo;
 
     public Boolean SaveUserData(UserDetails data) {
-        UserDetails insRow = new UserDetails();
-        // insRow = data;
-        BeanUtils.copyProperties(data, insRow);
+        // UserDetails insRow = new UserDetails();
+        // // insRow = data;
+        // BeanUtils.copyProperties(data, insRow);
         // insRow.setId(data.getId());
         // insRow.setName(data.getName());
         // insRow.setPassword(data.getPassword());
         // insRow.setEmail(data.getEmail());
         try {
-            System.out.println(insRow);
-            userDetailsRepo.save(insRow);
+            System.out.println(data);
+            userDetailsRepo.save(data);
         } catch (Exception e) {
             return false;
         }
@@ -35,18 +35,20 @@ public class userDetailsService {
     }
 
     public String AuthenticateUser(UserDetails data) {
-        UserDetails details = new UserDetails();
-        int auth = 0;
+        // UserDetails details = new UserDetails();
+        // int auth = 0;
         // insRow.setName(data.getName());
         // insRow.setPassword(data.getPassword());
         // insRow.setEmail(data.getEmail());
         try {
-            details = userDetailsRepo.findByEmail(data.getEmail());
-            System.out.println(details.getPassword()+" and "+ data.getPassword());
-            if(details.getPassword().contentEquals(data.getPassword())){
-                System.out.println(details.getName());
-                auth = 1;
-                return details.getName();
+            String email = userDetailsRepo.findByEmail(data.getEmail()).getEmail();
+            String password = userDetailsRepo.findByEmail(data.getEmail()).getPassword(); 
+            String name = userDetailsRepo.findByEmail(data.getEmail()).getName();
+            System.out.println(email+" and "+ data.getPassword());
+            if(password.contentEquals(data.getPassword())){
+                System.out.println(name);
+                // auth = 1;
+                return name;
             }else{
                 return "invalid";
             }
