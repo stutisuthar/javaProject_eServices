@@ -83,8 +83,8 @@
         </form>
       </div>
       <div class="col-10 d-flex align-items-center">
-        <div class="row row-cols-1 row-cols-md-3" th:each="service: ${serviceList}">
-          <div class="col mb-4">
+        <div class="row row-cols-1 row-cols-md-3">
+          <div class="col mb-4" th:each="service, srvIter: ${serviceList}">
             <div class="card border-dark">
               <div class="card-body">
                 <!-- <script th:inline="javascript" type="text/javascript">
@@ -99,7 +99,14 @@
                 <h5 class="card-title" th:text="${service.serviceCategory}"></h5>
                 <p class="card-text" th:text="${service.service_name}"></p>
                 <p class="card-text" th:text="${service.cost}"></p>
-                <a href="#" class="btn btn-dark">Open details</a>
+                <p class="card-text" th:text="${srvIter.index}"></p>
+                <!-- Creating a small hidden form for security -->
+                <!-- <form th:action="@{/services}" th:object="${serviceList[__${srvIter.index}__]}" method="post"> -->
+                <form th:action="@{/services}" th:object="${service}" method="post">
+                  <!-- <form th:action="@{/services}" method="post"> -->
+                  <input type="hidden" th:value="*{id}" />
+                  <button type="submit" class="btn btn-dark">Open details</button>
+                </form>
               </div>
             </div>
           </div>
@@ -129,7 +136,7 @@
               <div class="card-body">
                 <h5 class="card-title">Electrical</h5>
                 <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                <a href="./service" class="btn btn-dark">Open service</a>
+                <a href="./services" class="btn btn-dark">Open service</a>
               </div>
             </div>
           </div>
