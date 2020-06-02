@@ -35,20 +35,18 @@ public class userDetailsService {
     }
 
     public String AuthenticateUser(UserDetails data) {
-        // UserDetails details = new UserDetails();
+        UserDetails details = new UserDetails();
         // int auth = 0;
         // insRow.setName(data.getName());
         // insRow.setPassword(data.getPassword());
         // insRow.setEmail(data.getEmail());
         try {
-            String email = userDetailsRepo.findByEmail(data.getEmail()).getEmail();
-            String password = userDetailsRepo.findByEmail(data.getEmail()).getPassword(); 
-            String name = userDetailsRepo.findByEmail(data.getEmail()).getName();
-            System.out.println(email+" and "+ data.getPassword());
-            if(password.contentEquals(data.getPassword())){
-                System.out.println(name);
+            details = userDetailsRepo.findByEmail(data.getEmail());
+            System.out.println(details.getPassword()+" and "+ data.getPassword());
+            if(details.getPassword().contentEquals(data.getPassword())){
+                System.out.println(details.getName());
                 // auth = 1;
-                return name;
+                return details.getName();
             }else{
                 return "invalid";
             }
