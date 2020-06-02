@@ -1,10 +1,11 @@
 package com.project.services.controller;
 
+import com.project.services.model.Location;
 import com.project.services.model.Service;
 import com.project.services.model.ServiceProvider;
 import com.project.services.model.UserDetails;
 import com.project.services.repository.ServiceProviderRepository;
-// import com.project.services.repository.LocationRepository;
+import com.project.services.repository.LocationRepository;
 // import com.project.services.service.ServiceService;
 import com.project.services.service.addServiceToDB;
 import com.project.services.service.userDetailsService;
@@ -25,8 +26,8 @@ import java.util.List;
 @Controller
 public class UIController {
 
-    // @Autowired
-    // private LocationRepository locationRepo;
+    @Autowired
+    private LocationRepository locationRepo;
     @Autowired
     private userDetailsService userService;
     @Autowired
