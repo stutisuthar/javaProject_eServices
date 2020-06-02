@@ -62,12 +62,11 @@
           </div>
 
           <div>
-            <select th:field="${location}">
+            <select id="Location" th:field="${location.locName}">
               <option value=""> CHOOSE A LOCATION </option>
-              <option
               <option th:each="city : ${cities}"
-                      th:value="${city.id}"
-                      th:utext="${city.locName}"/>
+                      th:value="${city.locName}"
+                      th:utext="${city.locName}"></option>
             </select>
           </div>
 <div>

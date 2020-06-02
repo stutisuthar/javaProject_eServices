@@ -146,9 +146,9 @@ public class UIController {
     public String renderAdminAddService(Model model) {
         ServiceProvider service = new ServiceProvider();
         model.addAttribute("service", service);
-        Location loc = new Location();
-        int loca = 0;
-        model.addAttribute("location", loca);
+        Location location = new Location();
+        // String loca = null;
+        model.addAttribute("location", location);
         List<Location> list = locationRepo.findAll();
         model.addAttribute("cities", list);
         System.out.println("testing"+ list);
@@ -156,10 +156,10 @@ public class UIController {
     }
 
     @PostMapping("/addService")
-    public String addServiceToDB(@ModelAttribute("service") ServiceProvider service , @ModelAttribute("location") int location) {
-        System.out.println("test" + location);
+    public String addServiceToDB(@ModelAttribute("service") ServiceProvider service , @ModelAttribute("location") Location location) {
+        System.out.println("test1:\t " + location.toString());
         addingService.SaveServicesData(service,location);
-        return "adminAddService";
+        return "redirect:/addService";
     }
 
 

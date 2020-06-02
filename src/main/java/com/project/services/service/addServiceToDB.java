@@ -16,11 +16,12 @@ public class addServiceToDB {
     @Autowired
     private LocationRepository locationRepo;
 
-    public Boolean SaveServicesData(ServiceProvider service, int location) {
+    public Boolean SaveServicesData(ServiceProvider service, Location location) {
         try {
-//            int id = location.getId();
-            System.out.println("test" + location);
-            service.setLocation(locationRepo.findById(location));
+            String locName = location.getLocName();
+            // System.out.println("test2: " + location.getId());
+            // System.out.println("test2: " + location.getLocName());
+            service.setLocation(locationRepo.findBylocName(locName));
             System.out.println("Service:\t" + service.toString());
             System.out.println(service.getLocation().getLocName());
             serviceProviderRepo.save(service);
