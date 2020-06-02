@@ -36,6 +36,24 @@
       <div class="col-2 sidebar bg-light main-body d-flex align-items-start">
 
         <form class="mt-5">
+
+          <div class="form-row">
+            <div class="form-group">
+              <select id="inputState" class="form-control">
+                <option selected>Choose a service category</option>
+                <option>Civil</option>
+                <option>Electronics</option>
+                <option>Electrical</option>
+                <option>Carpentry</option>
+                <option>Sanitary</option>
+                <option>Software</option>
+                <option>Hardware</option>
+                <option>Interior Decorators</option>
+              </select>
+            </div>
+  
+          </div>
+          
           <div class="form-row">
             <div class="form-group">
               <input type="text" class="form-control" id="serviceNameFilterBox" placeholder="Service Name">
@@ -58,23 +76,15 @@
               </select>
             </div>
 
-            <div class="form-group">
-              <select id="inputState" class="form-control">
-                <option selected>Choose a service category</option>
-                <option>Civil</option>
-                <option>Electronics</option>
-                <option>Electrical</option>
-                <option>Carpentry</option>
-                <option>Sanitary</option>
-                <option>Software</option>
-                <option>Hardware</option>
-                <option>Interior Decorators</option>
-              </select>
-            </div>
-
             <div class="form-row">
-              <div class="form-group col-12 ">
-                <input type="text" class="form-control" id="serviceNameFilterBox" placeholder="Cost">
+              <div class="form-group col-6 ">
+                <input type="number" class="form-control" id="serviceNameFilterBox" placeholder="Min">
+                
+              </div>
+              
+              <div class="form-group col-6 ">
+                <input type="number" class="form-control" id="serviceNameFilterBox" placeholder="Max">
+                
               </div>
             </div>
           </div>
@@ -83,8 +93,8 @@
         </form>
       </div>
       <div class="col-10 d-flex align-items-center">
-        <div class="row row-cols-1 row-cols-md-3" >
-          <div class="col mb-4" th:each="service: ${serviceList}">
+        <div class="row row-cols-1 row-cols-md-3" style="margin-top: 2vh;">
+          <div class="col mb-3" th:each="service: ${serviceList}">
             <div class="card border-dark">
               <div class="card-body">
                 <!-- <script th:inline="javascript" type="text/javascript">
