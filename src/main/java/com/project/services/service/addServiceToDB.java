@@ -1,11 +1,9 @@
 package com.project.services.service;
 
-import com.project.services.model.Location;
 import com.project.services.model.ServiceProvider;
-import com.project.services.repository.AddServiceProviderRepository;
+import com.project.services.repository.ServiceProviderRepository;
 import com.project.services.repository.LocationRepository;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +11,7 @@ import org.springframework.stereotype.Service;
 public class addServiceToDB {
     
     @Autowired
-    private AddServiceProviderRepository serviceProviderRepo;
+    private ServiceProviderRepository serviceProviderRepo;
     @Autowired
     private LocationRepository locationRepo;
 

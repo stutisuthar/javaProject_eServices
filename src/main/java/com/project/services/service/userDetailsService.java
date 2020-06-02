@@ -3,7 +3,7 @@ package com.project.services.service;
 import com.project.services.model.UserDetails;
 import com.project.services.repository.userDetailsRepository;
 
-import org.springframework.beans.BeanUtils;
+// import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -51,7 +51,7 @@ public class userDetailsService {
                 return "invalid";
             }
         } catch (Exception e) {
-            System.out.println("Error: "+e);
+            System.out.println("Error: " + e);
             return "error";
         }
         // return "false";
