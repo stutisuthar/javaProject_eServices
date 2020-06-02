@@ -169,4 +169,7 @@ public class UIController {
         return "adminNavbar";
     }
 
+    @GetMapping("/userProfile")
+    public String renderUserProfile() {return "userProfile"; }
+
 }
