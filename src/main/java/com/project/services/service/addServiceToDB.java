@@ -9,15 +9,18 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class addServiceToDB {
+    
     @Autowired
     private ServiceProviderRepository serviceProviderRepo;
     @Autowired
     private LocationRepository locationRepo;
 
-    public Boolean SaveServicesData(ServiceProvider service) {
+    public Boolean SaveServicesData(ServiceProvider service, Location location) {
         try {
-            System.out.println(locationRepo.findAll());
-            service.setLocation(locationRepo.findById(3));
+            String locName = location.getLocName();
+            // System.out.println("test2: " + location.getId());
+            // System.out.println("test2: " + location.getLocName());
+            service.setLocation(locationRepo.findBylocName(locName));
             System.out.println("Service:\t" + service.toString());
             System.out.println(service.getLocation().getLocName());
             serviceProviderRepo.save(service);

@@ -147,22 +147,20 @@ public class UIController {
     public String renderAdminAddService(Model model) {
         ServiceProvider service = new ServiceProvider();
         model.addAttribute("service", service);
+        Location location = new Location();
+        // String loca = null;
+        model.addAttribute("location", location);
+        List<Location> list = locationRepo.findAll();
+        model.addAttribute("cities", list);
+        System.out.println("testing"+ list);
         return "adminAddService";
     }
 
     @PostMapping("/addService")
-    public String addServiceToDB(@ModelAttribute("service") ServiceProvider service) {
-        addingService.SaveServicesData(service);
-        // try {
-        // System.out.println(locationRepo.findAll());
-        // service.setLocation(locationRepo.findById(3));
-        // System.out.println("Service:\t"+service.toString());
-        // System.out.println(service.getLocation().getLocName());
-        // serviceProviderRepo.save(service);
-        // } catch (Exception e) {
-        // System.out.println(e);
-        // }
-        return "adminAddService";
+    public String addServiceToDB(@ModelAttribute("service") ServiceProvider service , @ModelAttribute("location") Location location) {
+        System.out.println("test1:\t " + location.toString());
+        addingService.SaveServicesData(service,location);
+        return "redirect:/addService";
     }
 
     @GetMapping("/adminNavbar")
