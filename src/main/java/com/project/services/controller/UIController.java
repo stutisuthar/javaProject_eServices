@@ -1,38 +1,38 @@
 package com.project.services.controller;
 
-import com.project.services.model.Location;
 import com.project.services.model.Service;
 import com.project.services.model.ServiceProvider;
 import com.project.services.model.UserDetails;
-import com.project.services.repository.AddServiceProviderRepository;
-import com.project.services.repository.LocationRepository;
+import com.project.services.repository.ServiceProviderRepository;
+// import com.project.services.repository.LocationRepository;
 // import com.project.services.service.ServiceService;
 import com.project.services.service.addServiceToDB;
 import com.project.services.service.userDetailsService;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 // import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.List;
 
 // Session Management
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 public class UIController {
 
-    @Autowired
-    private LocationRepository locationRepo;
+    // @Autowired
+    // private LocationRepository locationRepo;
     @Autowired
     private userDetailsService userService;
     @Autowired
     private addServiceToDB addingService;
     @Autowired
-    private AddServiceProviderRepository serviceProviderRepo;
+    private ServiceProviderRepository serviceProviderRepo;
     // @Autowired
     // private Location location;
 
@@ -66,8 +66,12 @@ public class UIController {
 
     @GetMapping("/landing")
     public String renderLanding(Model model, HttpServletRequest request) {
-        String userName =(String)request.getSession().getAttribute("userName");
+        System.out.println("\n Service Providers \n\t");
+        List<ServiceProvider> serviceList = serviceProviderRepo.findAll();
+        // serviceList.forEach(data -> System.out.println(data.getContact_number()));
+        String userName = (String) request.getSession().getAttribute("userName");
         model.addAttribute("userName", userName);
+        model.addAttribute("serviceList", serviceList);
         return "landing";
     }
 
@@ -78,17 +82,16 @@ public class UIController {
 
     @GetMapping("/navbar")
     public String renderNavbar(Model model, HttpServletRequest request) {
-        String userName =(String)request.getSession().getAttribute("userName");
+        String userName = (String) request.getSession().getAttribute("userName");
         model.addAttribute("userName", userName);
         return "navbar";
     }
 
     @PostMapping("/signout")
-    public String signOut(HttpSession session){
+    public String signOut(HttpSession session) {
         session.invalidate();
         return "redirect:/login";
     }
-
 
     // @GetMapping("/test")
     // public String renderTest(@RequestParam(name = "name", required = false,
@@ -115,23 +118,21 @@ public class UIController {
         // System.out.println(user.getName());
         String signedUser = userService.AuthenticateUser(user);
         System.out.println(signedUser);
-        if(signedUser == "invalid"){
+        if (signedUser == "invalid") {
             System.out.println("invalid User");
             return "login";
-        }
-        else if(signedUser == "error"){    
+        } else if (signedUser == "error") {
             return "login";
-        }
-        else{
+        } else {
             request.getSession().setAttribute("userName", signedUser);
             System.out.println(request.getSession().getAttribute("userName"));
             return "redirect:/landing";
         }
-        
+
     }
 
     // admin URLS mapping
-    
+
     @GetMapping("/adminLogin")
     public String renderAdminLogin() {
         return "adminLogin";
@@ -146,22 +147,23 @@ public class UIController {
     public String renderAdminAddService(Model model) {
         ServiceProvider service = new ServiceProvider();
         model.addAttribute("service", service);
-        Location loc = new Location();
-        int loca = 0;
-        model.addAttribute("location", loca);
-        List<Location> list = locationRepo.findAll();
-        model.addAttribute("cities", list);
-        System.out.println("testing"+ list);
         return "adminAddService";
     }
 
     @PostMapping("/addService")
-    public String addServiceToDB(@ModelAttribute("service") ServiceProvider service , @ModelAttribute("location") int location) {
-        System.out.println("test" + location);
-        addingService.SaveServicesData(service,location);
+    public String addServiceToDB(@ModelAttribute("service") ServiceProvider service) {
+        addingService.SaveServicesData(service);
+        // try {
+        // System.out.println(locationRepo.findAll());
+        // service.setLocation(locationRepo.findById(3));
+        // System.out.println("Service:\t"+service.toString());
+        // System.out.println(service.getLocation().getLocName());
+        // serviceProviderRepo.save(service);
+        // } catch (Exception e) {
+        // System.out.println(e);
+        // }
         return "adminAddService";
     }
-
 
     @GetMapping("/adminNavbar")
     public String renderAdminNavBar() {

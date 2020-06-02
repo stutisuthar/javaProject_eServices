@@ -1,7 +1,5 @@
 package com.project.services.model;
 
-import com.project.services.repository.ServiceRepository;
-
 import javax.persistence.*;
 import java.util.Set;
 
@@ -13,22 +11,20 @@ public class ServiceProvider {
     @Column(name = "id")
     private int id;
 
-    @Column(name= "serviceName")
+    @Column(name = "serviceName")
     private String service_name;
 
     @Column(name = "serviceCat")
     private String serviceCategory;
 
-    @Column(name="contactName")
+    @Column(name = "contactName")
     private String contact_name;
 
     @Column(name = "contactNumber")
     private String contact_number;
 
-
     @Column(name = "cost")
     private int cost;
-
 
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
     @JoinColumn(name = "locName")
@@ -42,7 +38,7 @@ public class ServiceProvider {
         this.location = location;
     }
 
-    @OneToMany(mappedBy="service", fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "service", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<OrderDetails> orderDetails;
 
     public Set<OrderDetails> getOrderDetails() {
@@ -102,7 +98,8 @@ public class ServiceProvider {
     }
 
     @Override
-    public String toString(){
-        return cost+location.getLocName()+serviceCategory+service_name+contact_name+contact_number+" o "+orderDetails;
+    public String toString() {
+        return cost + location.getLocName() + serviceCategory + service_name + contact_name + contact_number + " o "
+                + orderDetails;
     }
 }
