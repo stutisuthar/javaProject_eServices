@@ -12,9 +12,7 @@ import com.project.services.service.userDetailsService;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 // import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -148,21 +146,19 @@ public class UIController {
     public String renderAdminAddService(Model model) {
         ServiceProvider service = new ServiceProvider();
         model.addAttribute("service", service);
+        Location loc = new Location();
+        int loca = 0;
+        model.addAttribute("location", loca);
+        List<Location> list = locationRepo.findAll();
+        model.addAttribute("cities", list);
+        System.out.println("testing"+ list);
         return "adminAddService";
     }
 
     @PostMapping("/addService")
-    public String addServiceToDB(@ModelAttribute("service") ServiceProvider service) {
-        addingService.SaveServicesData(service);
-        // try {
-        //     System.out.println(locationRepo.findAll());
-        //     service.setLocation(locationRepo.findById(3));
-        //     System.out.println("Service:\t"+service.toString());
-        //     System.out.println(service.getLocation().getLocName());
-        //     serviceProviderRepo.save(service);
-        // } catch (Exception e) {
-        //     System.out.println(e);
-        // }
+    public String addServiceToDB(@ModelAttribute("service") ServiceProvider service , @ModelAttribute("location") int location) {
+        System.out.println("test" + location);
+        addingService.SaveServicesData(service,location);
         return "adminAddService";
     }
 
