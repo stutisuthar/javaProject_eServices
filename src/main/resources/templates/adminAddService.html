@@ -61,7 +61,21 @@
             </div>
           </div>
 
-          <button type="submit" class="btn btn-warning">Save</button>
+          <div>
+            <select th:field="${location}">
+              <option value=""> CHOOSE A LOCATION </option>
+              <option
+              <option th:each="city : ${cities}"
+                      th:value="${city.id}"
+                      th:utext="${city.locName}"/>
+            </select>
+          </div>
+<div>
+  <div>
+  <button type="submit" class="btn btn-warning">Save</button>
+</div>
+</div>
+
         </form>
       </div>
     </div>
