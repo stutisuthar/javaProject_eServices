@@ -91,10 +91,10 @@ public class UIController {
         return "navbar";
     }
 
-    @GetMapping("/services")
-    public String renderService() {
-        return "service";
-    }
+    // @GetMapping("/services")
+    // public String renderService() {
+    //     return "service";
+    // }
 
     // @GetMapping("/test")
     // public String renderTest(@RequestParam(name = "name", required = false,
@@ -131,13 +131,21 @@ public class UIController {
     // // model.addAttribute("service", service);
     // return "service";
     // }
+    
+    // @PostMapping(value)
 
-    @RequestMapping(value = "/services", params = { "srvid" })
-    public String renderService(ServiceProvider service, BindingResult bindingResult, HttpServletRequest req) {
-        Integer serviceId = Integer.valueOf(req.getParameter("srvid"));
-        System.out.println(serviceId);
-        return "service";
-    }
+
+    // @RequestMapping(value = "/services/{srvid}", params = { "srvid" })
+    // @GetMapping("/services")
+    // public String renderServices(){
+    // public String renderService(@PathVariable("srvId") int srvId, ServiceProvider service, BindingResult bindingResult, HttpServletRequest req) {
+        // Integer serviceId = Integer.valueOf(req.getParameter("srvid"));
+        // System.out.println(srvId);
+        // ServiceProvider serviceP = new ServiceProvider();
+        // serviceP = serviceProviderRepo.findById(srvId);
+        // System.out.println(serviceP);
+    //     return "service";
+    // }
 
     @PostMapping("/register")
     public String submitUser(@ModelAttribute("user") UserDetails user) {
@@ -176,6 +184,19 @@ public class UIController {
         return "adminDashboard";
     }
 
+    @GetMapping("/service/{srvId}")
+    public String renderServices(@PathVariable("srvId") int srvId,Model model) {
+        System.out.println(srvId);
+        ServiceProvider serviceP = new ServiceProvider();
+        serviceP = serviceProviderRepo.findById(srvId);
+        System.out.println(serviceP);
+        if(serviceP==null){
+            return "redirect:/error";
+        }
+        model.addAttribute("service", serviceP);
+        return "service";
+    }
+
     @GetMapping("/addService")
     public String renderAdminAddService(Model model) {
         ServiceProvider service = new ServiceProvider();
@@ -200,6 +221,11 @@ public class UIController {
     @GetMapping("/adminNavbar")
     public String renderAdminNavBar() {
         return "adminNavbar";
+    }
+
+    @GetMapping("/error")
+    public String renderError() {
+        return "error";
     }
 
 }
