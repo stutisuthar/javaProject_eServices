@@ -19,4 +19,6 @@ public interface ServiceProviderRepository extends JpaRepository<ServiceProvider
     // contact_name, );
 
     public List<ServiceProvider> findAll();
+
+    public ServiceProvider findById(int id);
 }
