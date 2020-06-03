@@ -100,12 +100,14 @@
                 <p class="card-text" th:text="${service.service_name}"></p>
                 <p class="card-text" th:text="${service.cost}"></p>
                 <p class="card-text" th:text="${srvIter.index}"></p>
+                <p class="card-text" th:text="${service.id}"></p>
                 <!-- Creating a small hidden form for security -->
                 <!-- <form th:action="@{/services}" th:object="${serviceList[__${srvIter.index}__]}" method="post"> -->
-                <form th:action="@{/services}" th:object="${service}" method="post">
+                <form action="#" th:action="@{/services}" th:object="${service}" method="post">
                   <!-- <form th:action="@{/services}" method="post"> -->
-                  <input type="hidden" th:value="*{id}" />
-                  <button type="submit" class="btn btn-dark">Open details</button>
+                  <!-- <input type="hidden" th:field="*{id}" /> -->
+                  <input type="hidden" th:value="*{id}" th:name="id" />
+                  <button th:value="*{id}" type="submit" name="srvid" class="btn btn-dark">Open details</button>
                 </form>
               </div>
             </div>

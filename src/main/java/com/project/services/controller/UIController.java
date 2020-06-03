@@ -11,11 +11,13 @@ import com.project.services.service.userDetailsService;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 // import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -116,15 +118,23 @@ public class UIController {
     // @PostMapping(value = "/services/", consumes =
     // MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     // "application/x-www-form-urlencoded"
-    @PostMapping("/services/")
-    public String renderService(@ModelAttribute("service") ServiceProvider service, Model model) {
-        // public String rendService(@RequestBody Map<String, String> params, Model
-        // model) {
-        // public String renderService(@ModelAttribute("service") ServiceProvider
-        // service, Model model) {
-        System.out.println(service.getId());
-        // ServiceProvider service = serviceProviderRepo.findById(id);
-        // model.addAttribute("service", service);
+    // @PostMapping("/services/")
+    // public String renderService(@ModelAttribute("service") ServiceProvider
+    // service, Model model) {
+    // // public String rendService(@RequestBody Map<String, String> params, Model
+    // // model) {
+    // // public String renderService(@ModelAttribute("service") ServiceProvider
+    // // service, Model model) {
+    // System.out.println(service.getId());
+    // // ServiceProvider service = serviceProviderRepo.findById(id);
+    // // model.addAttribute("service", service);
+    // return "service";
+    // }
+
+    @RequestMapping(value = "/services", params = { "srvid" })
+    public String renderService(ServiceProvider service, BindingResult bindingResult, HttpServletRequest req) {
+        Integer serviceId = Integer.valueOf(req.getParameter("srvid"));
+        System.out.println(serviceId);
         return "service";
     }
 
