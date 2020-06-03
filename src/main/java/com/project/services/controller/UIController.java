@@ -1,6 +1,6 @@
 package com.project.services.controller;
 
-import com.project.services.model.Location;										   
+import com.project.services.model.Location;
 import com.project.services.model.Service;
 import com.project.services.model.ServiceProvider;
 import com.project.services.model.UserDetails;
@@ -93,7 +93,7 @@ public class UIController {
 
     @GetMapping("/services")
     public String renderService() {
-    return "service";
+        return "service";
     }
 
     // @GetMapping("/test")
@@ -180,28 +180,21 @@ public class UIController {
     public String renderAdminAddService(Model model) {
         ServiceProvider service = new ServiceProvider();
         model.addAttribute("service", service);
-		Location location = new Location();
+        Location location = new Location();
         // String loca = null;
         model.addAttribute("location", location);
         List<Location> list = locationRepo.findAll();
         model.addAttribute("cities", list);
-        System.out.println("testing"+ list);
+        System.out.println("testing" + list);
         return "adminAddService";
     }
 
     @PostMapping("/addService")
-    public String addServiceToDB(@ModelAttribute("service") ServiceProvider service , @ModelAttribute("location") Location location) {
-												
-				
-													  
-														 
+    public String addServiceToDB(@ModelAttribute("service") ServiceProvider service,
+            @ModelAttribute("location") Location location) {
         System.out.println("test1:\t " + location.toString());
-        addingService.SaveServicesData(service,location);
+        addingService.SaveServicesData(service, location);
         return "redirect:/addService";
-								  
-								 
-			
-								 
     }
 
     @GetMapping("/adminNavbar")
