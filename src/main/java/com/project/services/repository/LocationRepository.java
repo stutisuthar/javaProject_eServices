@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 public interface LocationRepository extends JpaRepository <Location, Long>{
     // Location findLocationById(int id);
     Location findById(int id);
+    Location findBylocName(String locString);
     // Location findByLocation(String loc_name);
     // List<Location> findLocationById(int id);
 }
