@@ -42,8 +42,8 @@ public class UIController {
     private addServiceToDB addingService;
     @Autowired
     private ServiceProviderRepository serviceProviderRepo;
-    @Autowired
-    private Location location;
+    // @Autowired
+    // private Location location;
 
     @GetMapping("/")
     public String renderRoot(Model model) {
