@@ -1,10 +1,11 @@
 package com.project.services.controller;
 
+import com.project.services.model.Location;										   
 import com.project.services.model.Service;
 import com.project.services.model.ServiceProvider;
 import com.project.services.model.UserDetails;
 import com.project.services.repository.ServiceProviderRepository;
-// import com.project.services.repository.LocationRepository;
+import com.project.services.repository.LocationRepository;
 // import com.project.services.service.ServiceService;
 import com.project.services.service.addServiceToDB;
 import com.project.services.service.userDetailsService;
@@ -33,16 +34,16 @@ import java.util.Optional;
 @Controller
 public class UIController {
 
-    // @Autowired
-    // private LocationRepository locationRepo;
+    @Autowired
+    private LocationRepository locationRepo;
     @Autowired
     private userDetailsService userService;
     @Autowired
     private addServiceToDB addingService;
     @Autowired
     private ServiceProviderRepository serviceProviderRepo;
-    // @Autowired
-    // private Location location;
+    @Autowired
+    private Location location;
 
     @GetMapping("/")
     public String renderRoot(Model model) {
@@ -90,10 +91,10 @@ public class UIController {
         return "navbar";
     }
 
-    // @GetMapping("/services")
-    // public String renderService() {
-    // return "service";
-    // }
+    @GetMapping("/services")
+    public String renderService() {
+    return "service";
+    }
 
     // @GetMapping("/test")
     // public String renderTest(@RequestParam(name = "name", required = false,
@@ -179,22 +180,28 @@ public class UIController {
     public String renderAdminAddService(Model model) {
         ServiceProvider service = new ServiceProvider();
         model.addAttribute("service", service);
+		Location location = new Location();
+        // String loca = null;
+        model.addAttribute("location", location);
+        List<Location> list = locationRepo.findAll();
+        model.addAttribute("cities", list);
+        System.out.println("testing"+ list);
         return "adminAddService";
     }
 
     @PostMapping("/addService")
-    public String addServiceToDB(@ModelAttribute("service") ServiceProvider service) {
-        addingService.SaveServicesData(service);
-        // try {
-        // System.out.println(locationRepo.findAll());
-        // service.setLocation(locationRepo.findById(3));
-        // System.out.println("Service:\t"+service.toString());
-        // System.out.println(service.getLocation().getLocName());
-        // serviceProviderRepo.save(service);
-        // } catch (Exception e) {
-        // System.out.println(e);
-        // }
-        return "adminAddService";
+    public String addServiceToDB(@ModelAttribute("service") ServiceProvider service , @ModelAttribute("location") Location location) {
+												
+				
+													  
+														 
+        System.out.println("test1:\t " + location.toString());
+        addingService.SaveServicesData(service,location);
+        return "redirect:/addService";
+								  
+								 
+			
+								 
     }
 
     @GetMapping("/adminNavbar")
