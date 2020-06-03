@@ -105,6 +105,25 @@ public class UIController {
         return "navbar";
     }
 
+    // Curretly using all the service ( Ordered and not ordered ) in "Your orders" inside userProfile
+
+    @GetMapping("/userProfile")
+    public String renderUserProfile(Model model, HttpServletRequest request) {
+        if(request.getSession().getAttribute("userName")!=null) {
+            
+        System.out.println("\n Service Providers \n\t");
+        List<ServiceProvider> serviceList = serviceProviderRepo.findAll();
+        String userName = (String) request.getSession().getAttribute("userName");
+        model.addAttribute("userName", userName);
+        model.addAttribute("serviceList", serviceList);
+        return "userProfile";
+        }
+        else {
+            return "redirect:/forbidden";
+        }
+    }
+
+
     // @GetMapping("/services")
     // public String renderService() {
     //     return "service";
@@ -243,17 +262,7 @@ public class UIController {
         return "adminNavbar";
     }
   
-    @GetMapping("/userProfile")
-    public String renderUserProfile(Model model, HttpServletRequest request) {
-        System.out.println("\n Service Providers \n\t");
-        List<ServiceProvider> serviceList = serviceProviderRepo.findAll();
-        // serviceList.forEach(data -> System.out.println(data.getContact_number()));
-        // String userName = (String) request.getSession().getAttribute("userName");
-        // model.addAttribute("userName", userName);
-        model.addAttribute("serviceList", serviceList);
-        return "userProfile";
-    }
-
+   
     // @GetMapping("/error")
     // public String renderError() {
     //     return "error";
