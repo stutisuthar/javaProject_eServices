@@ -109,7 +109,8 @@
                 <h5 class="card-title" th:text="${service.serviceCategory}"></h5>
                 <p class="card-text" th:text="${service.service_name}"></p>
                 <p class="card-text" th:text="${service.cost}"></p>
-                <p class="card-text" th:text="${srvIter.index}"></p>
+                <!--TODO:Check why this was not working-->
+                <!-- <p class="card-text" th:text="${srvIter.index}"></p> -->
                 <p class="card-text" th:text="${service.id}"></p>
                 <!-- Creating a small hidden form for security -->
                 <!-- <form th:action="@{/services}" th:object="${serviceList[__${srvIter.index}__]}" method="post"> -->

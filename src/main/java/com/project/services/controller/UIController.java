@@ -234,8 +234,8 @@ public class UIController {
         return "userProfile";
     }
 
-    @GetMapping("/error")
-    public String renderError() {
-        return "error";
-    }
+    // @GetMapping("/error")
+    // public String renderError() {
+    //     return "error";
+    // }
 }
