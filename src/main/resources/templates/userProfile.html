@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org"
+  layout:decorate="~{fragments/layout}">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Landing Page</title>
+
+  <script src="js/jquery-3.5.1.js"></script>
+
+  <!-- <link rel="stylesheet"  th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous" /> -->
+
+  <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.0/css/bootstrap.min.css}" />
+
+  <!-- <script defer src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+    integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous">
+  </script> -->
+
+  <!-- <script defer th:src="@{/webjars/bootstrap/4.5.0/css/bootstrap.min.css}">
+  </script> -->
+
+  <link rel="stylesheet" href="css/login.css" />
+
+  <script src="js/userProfile.js"></script>
+</head>
+
+<body>
+  <!-- <div layout:fragment="content" th:remove="tag"> -->
+  <div th:replace="fragments/header :: header"></div>
+  <div id="navbar-user-frame"></div>
+
+  <div class="container-fluid main-body">
+    <div class="row">
+      <div class="col-2 sidebar bg-light main-body d-flex align-items-start">
+          <div style="width: inherit;">
+            <button type="button" class="btn btn-outline-secondary btn-block rounded-0 edit-profile-btn text-wrap" style="margin-top: 4vh;">Edit profile</button>
+            <button type="button" class="btn btn-outline-secondary btn-block rounded-0 your-orders-btn text-wrap" style="margin-top: 4vh;">Your orders</button>
+          </div>
+      </div>
+      <div class="col-10 d-flex align-items-center justify-content-center">
+
+      <!-- Your orders starts -->
+        <!-- Your orders ends -->
+
+          <div class="row row-cols-1 row-cols-md-3 your-orders-container" style="margin-top: 2vh;" >
+            <div class="col mb-3" th:each="service: ${serviceList}">
+              <div class="card border-dark">
+                <div class="card-body">
+                  <!-- <script th:inline="javascript" type="text/javascript">
+                    /*<![CDATA[*/
+                    var servN = /*[[${service.service_name}]]*/ 'Namer';
+                    var servcat = /*[[${service.serviceCategory}]]*/ 'Cat';
+                    var co = /*[[${service.cost}]]*/ 100;
+                    console.log(servN);
+                    console.log(servcat);
+                    console.log(co);
+                  </script> -->
+                   <h5 class="card-title" th:text="${service.serviceCategory}"></h5>
+                  <p class="card-text" th:text="${service.service_name}"></p>
+                  <p class="card-text" th:text="${service.cost}"></p>
+                  <a href="#" class="btn btn-dark">Open details</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <form class="edit-profile-container" style="min-width: 50vw;">
+            <div class="form-group">
+              <input type="email" class="form-control" id="" aria-describedby="emailHelp" placeholder="Your email address">
+            </div>
+            <div class="form-group">
+              <input type="password" class="form-control" id="" placeholder="Your password">
+            </div>
+            <div class="form-group">
+              <input type="email" class="form-control" id="" aria-describedby="address" placeholder="Your address">
+            </div>            
+            <button type="submit" class="btn btn-dark">Save changes</button>
+          </form>
+
+       
+
+
+        
+
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

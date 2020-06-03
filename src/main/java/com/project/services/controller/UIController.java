@@ -222,10 +222,20 @@ public class UIController {
     public String renderAdminNavBar() {
         return "adminNavbar";
     }
+  
+    @GetMapping("/userProfile")
+    public String renderUserProfile(Model model, HttpServletRequest request) {
+        System.out.println("\n Service Providers \n\t");
+        List<ServiceProvider> serviceList = serviceProviderRepo.findAll();
+        // serviceList.forEach(data -> System.out.println(data.getContact_number()));
+        String userName = (String) request.getSession().getAttribute("userName");
+        model.addAttribute("userName", userName);
+        model.addAttribute("serviceList", serviceList);
+        return "userProfile";
+    }
 
     @GetMapping("/error")
     public String renderError() {
         return "error";
     }
-
 }

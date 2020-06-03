@@ -2,11 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="97e97cbf-5b9c-4403-a665-ba6499dcb75d" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/services/controller/UIController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/services/controller/UIController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/services/repository/LocationRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/services/repository/LocationRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/services/service/addServiceToDB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/services/service/addServiceToDB.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/adminAddService.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/adminAddService.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/templates/adminAddService.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/adminAddService.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/landing.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/landing.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/landing.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/landing.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -38,6 +36,15 @@
         </RuleState>
       </list>
     </option>
+  </component>
+  <component name="RunManager">
+    <configuration name="ServicesApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="services" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.project.services.ServicesApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
   </component>
   <component name="SvnConfiguration">
     <configuration />

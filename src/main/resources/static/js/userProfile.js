@@ -1,11 +1,4 @@
-// $(document).ready(function() {
-//     $("#navbar-frame").load("adminNavbar")
-// });
 
-
-// $(document).ready(function() {
-//     $("#navbar-user-frame").load("navbar");
-// });
 $(document).ready(function() {
     $(".edit-profile-container").show()
     $(".your-orders-container").hide()
