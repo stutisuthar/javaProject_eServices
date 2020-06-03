@@ -19,7 +19,9 @@ $(document).ready(function() {
         $(".edit-button-view-profile").hide();
         $(".save-button-view-profile").show();
         $(".close-button-view-profile").show();
-        $(".editableContent").attr("contenteditable", "true");
+        $('.form-control-plaintext').prop('disabled',false);
+        $('.disabled-input-field').addClass('form-control')
+        $('.disabled-input-field').removeClass('form-control-plaintext')
     })
 
     $(".save-button-view-profile").click(function() {
@@ -27,15 +29,9 @@ $(document).ready(function() {
         $(".edit-button-view-profile").show();
         $(".save-button-view-profile").hide();
         $(".close-button-view-profile").hide();
-        $(".editableContent").attr("contenteditable", "false");
-    })
-
-    $(".close-button-view-profile").click(function() {
-        event.preventDefault();
-        $(".edit-button-view-profile").show();
-        $(".save-button-view-profile").hide();
-        $(".close-button-view-profile").hide();
-        $(".editableContent").attr("contenteditable", "false");
+        $('.form-control-plaintext').prop('disabled',true);
+        $('.disabled-input-field').removeClass('form-control')
+        $('.disabled-input-field').addClass('form-control-plaintext')
     })
 
 });
