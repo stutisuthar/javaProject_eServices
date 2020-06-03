@@ -21,7 +21,7 @@
 
 <body>
   <th:block th:fragment="header">
-  <nav class="navbar navbar-expand navbar-dark bg-dark shadow-lg p-3">
+  <nav class="navbar navbar-expand navbar-dark bg-dark">
     <a class="h3 navbar-brand text-warning font-weight-bold" href="./landing">e-Services</a>
 
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -35,7 +35,7 @@
           <a class="nav-link" href="#">Contact Us<span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="../userProfile">Profile<span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="../userProfile">View profile<span class="sr-only">(current)</span></a>
         </li>
       </ul>
       <form class="form-inline my-2 my-lg-0" action="#" th:action="@{/signout}" method="post">

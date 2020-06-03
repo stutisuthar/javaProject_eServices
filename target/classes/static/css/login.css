@@ -54,3 +54,12 @@
 .rate > label:hover ~ input:checked ~ label {
     color: #c59b08;
 }
+
+
+div[contenteditable=true] {
+    border: 1px solid #AAA;
+    border-radius: 5px;
+    width: auto;
+    padding: 5px;
+    text-align: left;
+  }
