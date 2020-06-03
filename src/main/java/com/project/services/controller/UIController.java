@@ -46,17 +46,25 @@ public class UIController {
     // private Location location;
 
     @GetMapping("/")
-    public String renderRoot(Model model) {
-        UserDetails user = new UserDetails();
-        model.addAttribute("user", user);
-        return "login";
+    public String renderRoot(Model model, HttpServletRequest request) {
+        if (request.getSession().getAttribute("userName") != null) {
+            return "redirect:/landing";
+        } else {
+            UserDetails user = new UserDetails();
+            model.addAttribute("user", user);
+            return "redirect:/login";
+        }
     }
 
     @GetMapping("/index")
-    public String renderIndex(Model model) {
-        UserDetails user = new UserDetails();
-        model.addAttribute("user", user);
-        return "redirect:/login";
+    public String renderIndex(Model model, HttpServletRequest request) {
+        if (request.getSession().getAttribute("userName") != null) {
+            return "redirect:/landing";
+        } else {
+            UserDetails user = new UserDetails();
+            model.addAttribute("user", user);
+            return "redirect:/login";
+        }
     }
 
     @GetMapping("/login")
@@ -75,13 +83,19 @@ public class UIController {
 
     @GetMapping("/landing")
     public String renderLanding(Model model, HttpServletRequest request) {
-        System.out.println("\n Service Providers \n\t");
-        List<ServiceProvider> serviceList = serviceProviderRepo.findAll();
+
+        // System.out.println("\n Service Providers \n\t");
         // serviceList.forEach(data -> System.out.println(data.getContact_number()));
-        String userName = (String) request.getSession().getAttribute("userName");
-        model.addAttribute("userName", userName);
-        model.addAttribute("serviceList", serviceList);
-        return "landing";
+        if(request.getSession().getAttribute("userName")!=null){
+            String userName = (String)request.getSession().getAttribute("userName");
+            System.out.println(userName);
+            model.addAttribute("userName", userName);
+            List<ServiceProvider> serviceList = serviceProviderRepo.findAll();
+            model.addAttribute("serviceList", serviceList);
+            return "landing";
+        }else{
+            return "redirect:/forbidden";
+        }
     }
 
     @GetMapping("/navbar")
@@ -185,16 +199,22 @@ public class UIController {
     }
 
     @GetMapping("/service/{srvId}")
-    public String renderServices(@PathVariable("srvId") int srvId,Model model) {
-        System.out.println(srvId);
-        ServiceProvider serviceP = new ServiceProvider();
-        serviceP = serviceProviderRepo.findById(srvId);
-        System.out.println(serviceP);
-        if(serviceP==null){
-            return "redirect:/error";
+    public String renderServices(@PathVariable("srvId") int srvId,Model model, HttpServletRequest request) {
+        if(request.getSession().getAttribute("userName")!=null){
+            System.out.println(srvId);
+            String userName = (String) request.getSession().getAttribute("userName");
+            model.addAttribute("userName", userName);
+            ServiceProvider serviceP = new ServiceProvider();
+            serviceP = serviceProviderRepo.findById(srvId);
+            System.out.println(serviceP);
+            if(serviceP==null){
+                return "redirect:/error";
+            }
+            model.addAttribute("service", serviceP);
+            return "service";
+        }else{
+            return "redirect:/forbidden";
         }
-        model.addAttribute("service", serviceP);
-        return "service";
     }
 
     @GetMapping("/addService")
@@ -228,14 +248,19 @@ public class UIController {
         System.out.println("\n Service Providers \n\t");
         List<ServiceProvider> serviceList = serviceProviderRepo.findAll();
         // serviceList.forEach(data -> System.out.println(data.getContact_number()));
-        String userName = (String) request.getSession().getAttribute("userName");
-        model.addAttribute("userName", userName);
+        // String userName = (String) request.getSession().getAttribute("userName");
+        // model.addAttribute("userName", userName);
         model.addAttribute("serviceList", serviceList);
         return "userProfile";
     }
 
-    @GetMapping("/error")
-    public String renderError() {
-        return "error";
+    // @GetMapping("/error")
+    // public String renderError() {
+    //     return "error";
+    // }
+
+    @GetMapping("/forbidden")
+    public String render403() {
+        return "forbidden";
     }
 }
