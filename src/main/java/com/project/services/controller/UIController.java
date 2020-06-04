@@ -5,6 +5,7 @@ import com.project.services.model.Service;
 import com.project.services.model.ServiceProvider;
 import com.project.services.model.UserDetails;
 import com.project.services.repository.ServiceProviderRepository;
+import com.project.services.repository.UserProfileDetailsRepo;
 import com.project.services.repository.userDetailsRepository;
 import com.project.services.repository.LocationRepository;
 // import com.project.services.service.ServiceService;
@@ -26,6 +27,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 
 // Session Management
+import javax.jws.soap.SOAPBinding;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -45,6 +47,8 @@ public class UIController {
     private ServiceProviderRepository serviceProviderRepo;
     @Autowired
     private userDetailsRepository userRepo;
+    @Autowired
+    private UserProfileDetailsRepo userProfile;
 
     @GetMapping("/")
     public String renderRoot(Model model, HttpServletRequest request) {
@@ -119,15 +123,39 @@ public class UIController {
             int userId = Integer.parseInt(user);
             String userName = userRepo.findById(userId).getName();
             model.addAttribute("userName", userName);
-            model.addAttribute("userName", userName);
             model.addAttribute("serviceList", serviceList);
+//            UserDetails details= new UserDetails();
+//            model.addAttribute("userDetails",details);
+//            List<UserDetails> details= userProfile.findById(userId);
+            String name = userProfile.findById(userId).getName();
+            String mail = userRepo.findById(userId).getEmail();
+            String pass = userRepo.findById(userId).getPassword();
+            System.out.println("test2"+ name);
+            System.out.println("test3"+ mail);
+            System.out.println("test3"+ pass);
+            model.addAttribute("name",name);
+            model.addAttribute("email",mail);
+            model.addAttribute("password",pass);
+//            model.addAttribute("userProfile" , details);
             return "userProfile";
         }
         else {
             return "redirect:/forbidden";
         }
     }
+    @PostMapping("/detailsUpdate/{id}")
+    public String updateUser(@PathVariable("id") int id, UserDetails details,
+                             BindingResult result, Model model) {
+//        if (result.hasErrors()) {
+//            user.setId(id);
+//            return "update-user";
+//        }
+        System.out.println("test4"+ id);
 
+        userRepo.save(details);
+        model.addAttribute("details", userRepo.findAll());
+        return "index";
+    }
 
     // @GetMapping("/services")
     // public String renderService() {
