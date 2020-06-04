@@ -1,5 +1,6 @@
 package com.project.services.controller;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 import com.project.services.model.Location;
 import com.project.services.model.Service;
 import com.project.services.model.ServiceProvider;
@@ -133,9 +134,13 @@ public class UIController {
             System.out.println("test2"+ name);
             System.out.println("test3"+ mail);
             System.out.println("test3"+ pass);
+            model.addAttribute("id", userId);
             model.addAttribute("name",name);
             model.addAttribute("email",mail);
             model.addAttribute("password",pass);
+
+            UserDetails userModel = new UserDetails();
+            model.addAttribute("details",userModel);
 //            model.addAttribute("userProfile" , details);
             return "userProfile";
         }
@@ -143,18 +148,33 @@ public class UIController {
             return "redirect:/forbidden";
         }
     }
-    @PostMapping("/detailsUpdate/{id}")
-    public String updateUser(@PathVariable("id") int id, UserDetails details,
-                             BindingResult result, Model model) {
+
+    @PostMapping("/detailsUpdate")
+    public String updateUser(@ModelAttribute("details") UserDetails user,@ModelAttribute("id") String Id, Model model, HttpServletRequest request) {
 //        if (result.hasErrors()) {
 //            user.setId(id);
 //            return "update-user";
 //        }
-        System.out.println("test4"+ id);
-
-        userRepo.save(details);
-        model.addAttribute("details", userRepo.findAll());
-        return "index";
+        // Changing String Id to int id
+        // System.out.println("test4"+ Id);
+        // int id = Integer.parseInt(Id);
+        String userId = request.getSession().getAttribute("userName").toString();
+        int id = Integer.parseInt(userId);
+        System.out.println(user.getName());
+        UserDetails updatedUser = userRepo.findById(id);
+        if (!user.getName().isEmpty()) {
+            updatedUser.setName(user.getName());
+        }
+        if (!user.getEmail().isEmpty()) {
+            updatedUser.setEmail(user.getEmail());
+        }
+        if (!user.getPassword().isEmpty()) {
+            updatedUser.setPassword(user.getPassword());
+        }
+        // userRepo.save(updatedUser);
+        // userRepo.save(details);
+        // model.addAttribute("details", userRepo.findAll());
+        return "redirect:/userProfile";
     }
 
     // @GetMapping("/services")

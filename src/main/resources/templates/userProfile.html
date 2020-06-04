@@ -126,17 +126,16 @@
           class="card border-right-0 border-bottom-0 border-left-0 rounded-0 border-warning  bg-light view-profile-container"
           style="width: 18rem; margin-top: 10px; border-style:solid; border-width:8px;">
           <div class="card-body">
-            <form action= " @{/detailsUpdate/{id}(id=${details.id})} " th:object="${details}" method="post">
+            <form action="#" th:action="@{/detailsUpdate}" method="post">
               <div class="form-row justify-content-start">
                 <div class="form-group mb-2">
                   <label  class="mb-0 font-weight-bold" > Name </label>
                 </div>
               </div>
-
+              
               <div class="form-row justify-content-start">
                 <div class="form-group">
-                  <input type="text" class="form-control-plaintext disabled-input-field" id="name1"
-                        th:value="*{name}"  th:field="*{name}" disabled>
+                  <input type="text" class="form-control-plaintext disabled-input-field" id="name" th:placeholder="${name}" th:field="${details.name}" disabled>
                 </div>
               </div>
 
@@ -148,8 +147,7 @@
 
               <div class="form-row justify-content-start">
                 <div class="form-group">
-                  <input type="password" class="form-control-plaintext disabled-input-field" id="pass"
-                       th:value="*{password}" th:field="*{password}" disabled>
+                  <input type="password" class="form-control-plaintext disabled-input-field" id="pass" placeholder="*****" th:field="${details.password}"  disabled>
                 </div>
               </div>
 
@@ -161,8 +159,7 @@
 
               <div class="form-row justify-content-start">
                 <div class="form-group">
-                  <input type="text" class="form-control-plaintext disabled-input-field" id="email"
-                         th:value="*{email}"  th:field="*{email}" disabled>
+                  <input type="text" class="form-control-plaintext disabled-input-field" id="email"  th:placeholder="${email}" th:field="${details.email}" disabled>
                 </div>
               </div>
 
@@ -170,7 +167,7 @@
                 <div class="form-group mb-2">
                   <button class="btn btn-dark edit-button-view-profile rounded-0">Edit</button>
                   <button class="btn btn-dark save-button-view-profile rounded-0" style="display: none"
-                    type="submit">Save changes</button>
+                    th:type="submit">Save changes</button>
                   <button class="btn btn-dark close-button-view-profile rounded-0" style="display: none"
                     type="reset">Close</button>
                 </div>
