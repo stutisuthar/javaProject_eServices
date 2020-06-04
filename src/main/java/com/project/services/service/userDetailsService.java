@@ -34,7 +34,7 @@ public class userDetailsService {
         return true;
     }
 
-    public String AuthenticateUser(UserDetails data) {
+    public int AuthenticateUser(UserDetails data) {
         UserDetails details = new UserDetails();
         // int auth = 0;
         // insRow.setName(data.getName());
@@ -46,13 +46,13 @@ public class userDetailsService {
             if(details.getPassword().contentEquals(data.getPassword())){
                 System.out.println(details.getName());
                 // auth = 1;
-                return details.getName();
+                return details.getId();
             }else{
-                return "invalid";
+                return 0;
             }
         } catch (Exception e) {
             System.out.println("Error: " + e);
-            return "error";
+            return -1;
         }
         // return "false";
     }

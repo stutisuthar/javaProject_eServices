@@ -5,6 +5,7 @@ import com.project.services.model.Service;
 import com.project.services.model.ServiceProvider;
 import com.project.services.model.UserDetails;
 import com.project.services.repository.ServiceProviderRepository;
+import com.project.services.repository.userDetailsRepository;
 import com.project.services.repository.LocationRepository;
 // import com.project.services.service.ServiceService;
 import com.project.services.service.addServiceToDB;
@@ -42,8 +43,8 @@ public class UIController {
     private addServiceToDB addingService;
     @Autowired
     private ServiceProviderRepository serviceProviderRepo;
-    // @Autowired
-    // private Location location;
+    @Autowired
+    private userDetailsRepository userRepo;
 
     @GetMapping("/")
     public String renderRoot(Model model, HttpServletRequest request) {
@@ -87,8 +88,9 @@ public class UIController {
         // System.out.println("\n Service Providers \n\t");
         // serviceList.forEach(data -> System.out.println(data.getContact_number()));
         if(request.getSession().getAttribute("userName")!=null){
-            String userName = (String)request.getSession().getAttribute("userName");
-            System.out.println(userName);
+            String user = request.getSession().getAttribute("userName").toString();
+            int userId = Integer.parseInt(user);
+            String userName = userRepo.findById(userId).getName();
             model.addAttribute("userName", userName);
             List<ServiceProvider> serviceList = serviceProviderRepo.findAll();
             model.addAttribute("serviceList", serviceList);
@@ -100,7 +102,9 @@ public class UIController {
 
     @GetMapping("/navbar")
     public String renderNavbar(Model model, HttpServletRequest request) {
-        String userName = (String) request.getSession().getAttribute("userName");
+        String user = request.getSession().getAttribute("userName").toString();
+        int userId = Integer.parseInt(user); 
+        String userName = userRepo.findById(userId).getName();
         model.addAttribute("userName", userName);
         return "navbar";
     }
@@ -110,13 +114,14 @@ public class UIController {
     @GetMapping("/userProfile")
     public String renderUserProfile(Model model, HttpServletRequest request) {
         if(request.getSession().getAttribute("userName")!=null) {
-            
-        System.out.println("\n Service Providers \n\t");
-        List<ServiceProvider> serviceList = serviceProviderRepo.findAll();
-        String userName = (String) request.getSession().getAttribute("userName");
-        model.addAttribute("userName", userName);
-        model.addAttribute("serviceList", serviceList);
-        return "userProfile";
+            List<ServiceProvider> serviceList = serviceProviderRepo.findAll();
+            String user = request.getSession().getAttribute("userName").toString();
+            int userId = Integer.parseInt(user);
+            String userName = userRepo.findById(userId).getName();
+            model.addAttribute("userName", userName);
+            model.addAttribute("userName", userName);
+            model.addAttribute("serviceList", serviceList);
+            return "userProfile";
         }
         else {
             return "redirect:/forbidden";
@@ -190,12 +195,12 @@ public class UIController {
     @PostMapping("/login")
     public String submitLogin(@ModelAttribute("user") UserDetails user, HttpServletRequest request) {
         // System.out.println(user.getName());
-        String signedUser = userService.AuthenticateUser(user);
+        int signedUser = userService.AuthenticateUser(user);
         System.out.println(signedUser);
-        if (signedUser == "invalid") {
+        if (signedUser == 0) {
             System.out.println("invalid User");
             return "login";
-        } else if (signedUser == "error") {
+        } else if (signedUser == -1) {
             return "login";
         } else {
             request.getSession().setAttribute("userName", signedUser);
@@ -221,7 +226,9 @@ public class UIController {
     public String renderServices(@PathVariable("srvId") int srvId,Model model, HttpServletRequest request) {
         if(request.getSession().getAttribute("userName")!=null){
             System.out.println(srvId);
-            String userName = (String) request.getSession().getAttribute("userName");
+            String user = request.getSession().getAttribute("userName").toString();
+            int userId = Integer.parseInt(user);
+            String userName = userRepo.findById(userId).getName();
             model.addAttribute("userName", userName);
             ServiceProvider serviceP = new ServiceProvider();
             serviceP = serviceProviderRepo.findById(srvId);
