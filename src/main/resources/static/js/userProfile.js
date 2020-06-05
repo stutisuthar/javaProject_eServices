@@ -24,7 +24,17 @@ $(document).ready(function() {
         $('.disabled-input-field').removeClass('form-control-plaintext')
     })
 
-    $(".save-button-view-profile").click(function() {
+    // $(".save-button-view-profile").click(function() {
+    //     event.preventDefault(); 
+    //     $(".edit-button-view-profile").show();
+    //     $(".save-button-view-profile").hide();
+    //     $(".close-button-view-profile").hide();
+    //     $('.form-control-plaintext').prop('disabled',true);
+    //     $('.disabled-input-field').removeClass('form-control')
+    //     $('.disabled-input-field').addClass('form-control-plaintext')
+    // })
+
+    $(".close-button-view-profile").click(function () {
         event.preventDefault(); 
         $(".edit-button-view-profile").show();
         $(".save-button-view-profile").hide();
