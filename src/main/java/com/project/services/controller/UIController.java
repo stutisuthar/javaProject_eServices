@@ -2,7 +2,6 @@ package com.project.services.controller;
 
 // import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 import com.project.services.model.Location;
-import com.project.services.model.OrderDetails;
 import com.project.services.model.Service;
 import com.project.services.model.ServiceProvider;
 import com.project.services.model.UserDetails;
@@ -10,12 +9,9 @@ import com.project.services.repository.ServiceProviderRepository;
 import com.project.services.repository.UserProfileDetailsRepo;
 import com.project.services.repository.userDetailsRepository;
 import com.project.services.repository.LocationRepository;
-import com.project.services.repository.OrderDetailsRepository;
 // import com.project.services.service.ServiceService;
 import com.project.services.service.addServiceToDB;
 import com.project.services.service.userDetailsService;
-
-import com.project.services.forms.*;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -54,8 +50,6 @@ public class UIController {
     private userDetailsRepository userRepo;
     @Autowired
     private UserProfileDetailsRepo userProfile;
-    @Autowired
-    private OrderDetailsRepository orderDetailsRepo;
 
     @GetMapping("/")
     public String renderRoot(Model model, HttpServletRequest request) {
@@ -98,7 +92,7 @@ public class UIController {
 
         // System.out.println("\n Service Providers \n\t");
         // serviceList.forEach(data -> System.out.println(data.getContact_number()));
-        if (request.getSession().getAttribute("userName") != null) {
+        if(request.getSession().getAttribute("userName")!=null){
             String user = request.getSession().getAttribute("userName").toString();
             int userId = Integer.parseInt(user);
             String userName = userRepo.findById(userId).getName();
@@ -106,7 +100,7 @@ public class UIController {
             List<ServiceProvider> serviceList = serviceProviderRepo.findAll();
             model.addAttribute("serviceList", serviceList);
             return "landing";
-        } else {
+        }else{
             return "redirect:/forbidden";
         }
     }
@@ -114,56 +108,55 @@ public class UIController {
     @GetMapping("/navbar")
     public String renderNavbar(Model model, HttpServletRequest request) {
         String user = request.getSession().getAttribute("userName").toString();
-        int userId = Integer.parseInt(user);
+        int userId = Integer.parseInt(user); 
         String userName = userRepo.findById(userId).getName();
         model.addAttribute("userName", userName);
         return "navbar";
     }
 
-    // Currently using all the service ( Ordered and not ordered ) in "Your orders"
-    // inside userProfile
+    // Curretly using all the service ( Ordered and not ordered ) in "Your orders" inside userProfile
 
     @GetMapping("/userProfile")
     public String renderUserProfile(Model model, HttpServletRequest request) {
-        if (request.getSession().getAttribute("userName") != null) {
+        if(request.getSession().getAttribute("userName")!=null) {
             List<ServiceProvider> serviceList = serviceProviderRepo.findAll();
             String user = request.getSession().getAttribute("userName").toString();
             int userId = Integer.parseInt(user);
             String userName = userRepo.findById(userId).getName();
             model.addAttribute("userName", userName);
             model.addAttribute("serviceList", serviceList);
-            // UserDetails details= new UserDetails();
-            // model.addAttribute("userDetails",details);
-            // List<UserDetails> details= userProfile.findById(userId);
+//            UserDetails details= new UserDetails();
+//            model.addAttribute("userDetails",details);
+//            List<UserDetails> details= userProfile.findById(userId);
             String name = userProfile.findById(userId).getName();
             String mail = userRepo.findById(userId).getEmail();
             String pass = userRepo.findById(userId).getPassword();
-            System.out.println("test2" + name);
-            System.out.println("test3" + mail);
-            System.out.println("test3" + pass);
+            System.out.println("test2"+ name);
+            System.out.println("test3"+ mail);
+            System.out.println("test3"+ pass);
             model.addAttribute("id", userId);
-            model.addAttribute("name", name);
-            model.addAttribute("email", mail);
-            model.addAttribute("password", pass);
+            model.addAttribute("name",name);
+            model.addAttribute("email",mail);
+            model.addAttribute("password",pass);
 
             UserDetails userModel = new UserDetails();
-            model.addAttribute("details", userModel);
-            // model.addAttribute("userProfile" , details);
+            model.addAttribute("details",userModel);
+//            model.addAttribute("userProfile" , details);
             return "userProfile";
-        } else {
+        }
+        else {
             return "redirect:/forbidden";
         }
     }
 
     @PostMapping("/detailsUpdate")
-    public String updateUser(@ModelAttribute("details") UserDetails user, @ModelAttribute("id") String Id, Model model,
-            HttpServletRequest request) {
-        // if (result.hasErrors()) {
-        // user.setId(id);
-        // return "update-user";
-        // }
+    public String updateUser(@ModelAttribute("details") UserDetails user,@ModelAttribute("id") String Id, Model model, HttpServletRequest request) {
+//        if (result.hasErrors()) {
+//            user.setId(id);
+//            return "update-user";
+//        }
         // Changing String Id to int id
-        // TODO:Check again if this works
+        //TODO:Check again if this works
         // System.out.println("test4"+ Id);
         // int id = Integer.parseInt(Id);
         String userId = request.getSession().getAttribute("userName").toString();
@@ -185,34 +178,9 @@ public class UIController {
         return "redirect:/userProfile";
     }
 
-    @PostMapping("/orderService")
-    public String orderService(@ModelAttribute("orderForm") OrderForm orderForm, Model model,
-            HttpServletRequest request) {
-        // System.out.println(
-        // orderForm.getUserName() + "::" + orderForm.getServiceId() + "::" +
-        // orderForm.getAddress() + "::\n");
-        String userId = request.getSession().getAttribute("userName").toString();
-        int id = Integer.parseInt(userId);
-        UserDetails user = userRepo.findById(id);
-        ServiceProvider service = serviceProviderRepo.findById(orderForm.getServiceId());
-        // // // //
-        System.out.println("::\n" + service.getService_name() + "::" + service.getContact_name() + "::\n");
-        System.out.println("::\n" + user.getEmail() + "::" + user.getName() + "::" + user.getOrderDetails().toString()
-                + "::" + user.getId() + "::\n");
-        // // // //
-        OrderDetails newOrder = new OrderDetails();
-        newOrder.setUser(user);
-        newOrder.setService(service);
-        newOrder.setStatus(orderForm.getStatus());
-        newOrder.setAddress(orderForm.getAddress());
-        OrderDetails savedOrder = orderDetailsRepo.save(newOrder);
-        System.out.println("\nSAVED ORDER ID: " + savedOrder.getId() + "\n");
-        return "redirect:/userProfile";
-    }
-
     // @GetMapping("/services")
     // public String renderService() {
-    // return "service";
+    //     return "service";
     // }
 
     // @GetMapping("/test")
@@ -250,20 +218,20 @@ public class UIController {
     // // model.addAttribute("service", service);
     // return "service";
     // }
-
+    
     // @PostMapping(value)
+
 
     // @RequestMapping(value = "/services/{srvid}", params = { "srvid" })
     // @GetMapping("/services")
     // public String renderServices(){
-    // public String renderService(@PathVariable("srvId") int srvId, ServiceProvider
-    // service, BindingResult bindingResult, HttpServletRequest req) {
-    // Integer serviceId = Integer.valueOf(req.getParameter("srvid"));
-    // System.out.println(srvId);
-    // ServiceProvider serviceP = new ServiceProvider();
-    // serviceP = serviceProviderRepo.findById(srvId);
-    // System.out.println(serviceP);
-    // return "service";
+    // public String renderService(@PathVariable("srvId") int srvId, ServiceProvider service, BindingResult bindingResult, HttpServletRequest req) {
+        // Integer serviceId = Integer.valueOf(req.getParameter("srvid"));
+        // System.out.println(srvId);
+        // ServiceProvider serviceP = new ServiceProvider();
+        // serviceP = serviceProviderRepo.findById(srvId);
+        // System.out.println(serviceP);
+    //     return "service";
     // }
 
     @PostMapping("/register")
@@ -304,8 +272,8 @@ public class UIController {
     }
 
     @GetMapping("/service/{srvId}")
-    public String renderServices(@PathVariable("srvId") int srvId, Model model, HttpServletRequest request) {
-        if (request.getSession().getAttribute("userName") != null) {
+    public String renderServices(@PathVariable("srvId") int srvId,Model model, HttpServletRequest request) {
+        if(request.getSession().getAttribute("userName")!=null){
             System.out.println(srvId);
             String user = request.getSession().getAttribute("userName").toString();
             int userId = Integer.parseInt(user);
@@ -314,14 +282,12 @@ public class UIController {
             ServiceProvider serviceP = new ServiceProvider();
             serviceP = serviceProviderRepo.findById(srvId);
             System.out.println(serviceP);
-            if (serviceP == null) {
+            if(serviceP==null){
                 return "redirect:/error";
             }
-            // model.addAttribute("orderForm");
-            model.addAttribute("orderForm", new OrderForm());
             model.addAttribute("service", serviceP);
             return "service";
-        } else {
+        }else{
             return "redirect:/forbidden";
         }
     }
@@ -351,10 +317,11 @@ public class UIController {
     public String renderAdminNavBar() {
         return "adminNavbar";
     }
-
+  
+   
     // @GetMapping("/error")
     // public String renderError() {
-    // return "error";
+    //     return "error";
     // }
 
     @GetMapping("/forbidden")
