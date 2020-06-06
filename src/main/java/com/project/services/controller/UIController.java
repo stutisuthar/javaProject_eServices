@@ -38,6 +38,7 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 // import java.util.Map;
 // import java.util.Optional;
+import java.util.Set;
 
 @Controller
 public class UIController {
@@ -126,12 +127,10 @@ public class UIController {
     @GetMapping("/userProfile")
     public String renderUserProfile(Model model, HttpServletRequest request) {
         if (request.getSession().getAttribute("userName") != null) {
-            List<ServiceProvider> serviceList = serviceProviderRepo.findAll();
             String user = request.getSession().getAttribute("userName").toString();
             int userId = Integer.parseInt(user);
             String userName = userRepo.findById(userId).getName();
             model.addAttribute("userName", userName);
-            model.addAttribute("serviceList", serviceList);
             // UserDetails details= new UserDetails();
             // model.addAttribute("userDetails",details);
             // List<UserDetails> details= userProfile.findById(userId);
@@ -148,6 +147,11 @@ public class UIController {
 
             UserDetails userModel = new UserDetails();
             model.addAttribute("details", userModel);
+            List<OrderDetails> orderList = userProfile.findById(userId).getOrderDetails();
+            System.out.println(orderList.get(1).getStatus());
+            // List<OrderDetails> orderList = userRepo.findOrderDetailsById(userId);
+            model.addAttribute("orderList", orderList);
+
             // model.addAttribute("userProfile" , details);
             return "userProfile";
         } else {
