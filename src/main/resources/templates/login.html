@@ -20,6 +20,8 @@
   </script>
 
   <link rel="stylesheet" href="css/login.css" />
+  <script src="js/validations.js"></script>
+  
 </head>
 
 <body>
@@ -31,9 +33,9 @@
             e-Services
           </div>
           <div class="card-body">
-            <form action="#" th:action="@{/login}" method="post" th:object="${user}">
+            <form name="login" action="#" th:action="@{/login}" method="post" th:object="${user}" onsubmit="return validateForm()">
               <div class="form-group">
-                <input type="email" class="form-control" id="loginEmailAddress" aria-describedby="emailHelp"
+                <input type="email" name='email' class="form-control" id="loginEmailAddress" aria-describedby="emailHelp"
                   placeholder="Email address" 
                   th:field="*{email}"/>
               </div>
