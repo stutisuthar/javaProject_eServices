@@ -55,9 +55,9 @@
       <div class="row serviceModule" style="height: 29vh">
         <div class="col-4 bg-dark d-flex align-items-center justify-content-center">
           <form th:action="@{/orderService}" method="post" th:object="${orderForm}" modelAttribute="orderForm">
-            <input type="text" path="serviceId" th:name="serviceId" th:id="*{serviceId}" th:value="${service.id}" />
-            <input type="text" path="userName" th:name="userName" th:id="*{userName}" th:value="${userName}" />
-            <input type="text" path="address" th:name="address" th:id="*{address}" value="example address" />
+            <input type="hidden" path="serviceId" th:name="serviceId" th:id="*{serviceId}" th:value="${service.id}" />
+            <input type="hidden" path="userName" th:name="userName" th:id="*{userName}" th:value="${userName}" />
+            <input type="text" path="address" th:name="address" th:id="*{address}" value="Enter your address" />
             <input type="hidden" path="status" th:name="status" th:id="*{status}" value="inprocess" />
             <div class=" form-row justify-content-start">
               <div class="form-group mb-2">
