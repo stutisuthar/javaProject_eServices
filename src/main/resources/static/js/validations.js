@@ -1,8 +1,13 @@
 function validateLoginForm() {
-  validateEmail("login", "email", "asdas");
-  validatePassword("login", "password", "asfas");
+  validateEmail("login", "email");
+  validatePassword("login", "password");
 }
 
+function validateRegistrationForm() {
+  validateEmail("registration", "email");
+  validatePassword("registration", "password");
+  validateName("registration","name")
+}
 
 function validateEmail(formDOMName, inputDOMName) {
 
@@ -13,6 +18,7 @@ function validateEmail(formDOMName, inputDOMName) {
   email.classList.remove('is-invalid');
   
   if(email.value.match(mailformat)) {
+
     email.classList.add('is-valid');
     feedback = document.getElementById('valid-email');
     feedback.innerHTML = "Legit" 
@@ -42,11 +48,35 @@ function validatePassword(formDOMName, inputDOMName) {
 
   else {
     password.classList.add('is-valid');
-    feedback = document.getElementById('invalid-password');
-    feedback.innerHTML = "Please provide a password"
+    feedback = document.getElementById('valid-password');
+    feedback.innerHTML = "Legit"
   }
 
 }
+
+function validateName(formDOMName, inputDOMName) {
+
+  var name = document.forms[formDOMName][inputDOMName];
+
+  name.classList.remove('is-valid');
+  name.classList.remove('is-invalid');
+  
+  if (name.value == "") {
+    event.preventDefault();
+    name.classList.add('is-invalid');
+    feedback = document.getElementById('invalid-name');
+    feedback.innerHTML = "Please provide a name"
+    return false;
+  }
+
+  else {
+    name.classList.add('is-valid');
+    feedback = document.getElementById('valid-name');
+    feedback.innerHTML = "Legit"
+  }
+
+}
+
 
 //verify
 
