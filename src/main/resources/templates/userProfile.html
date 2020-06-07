@@ -28,6 +28,8 @@
   <link rel="stylesheet" href="css/login.css" />
 
   <script src="js/userProfile.js"></script>
+  <script src="js/validations.js"></script>
+
 </head>
 
 <body>
@@ -126,7 +128,7 @@
           class="card border-right-0 border-bottom-0 border-left-0 rounded-0 border-warning  bg-light view-profile-container"
           style="width: 18rem; margin-top: 10px; border-style:solid; border-width:8px;">
           <div class="card-body">
-            <form action="#" th:action="@{/detailsUpdate}" method="post">
+            <form name="update-profile" action="#" th:action="@{/detailsUpdate}" method="post" onsubmit="return validateUpdatedUserForm()">
               <div class="form-row justify-content-start">
                 <div class="form-group mb-2">
                   <label  class="mb-0 font-weight-bold" > Name </label>
@@ -135,7 +137,13 @@
               
               <div class="form-row justify-content-start">
                 <div class="form-group">
-                  <input type="text" class="form-control-plaintext disabled-input-field" id="name" th:placeholder="${name}" th:field="${details.name}" disabled>
+                  <input name="name" type="text" class="form-control-plaintext disabled-input-field" id="name" th:placeholder="${name}" th:field="${details.name}" disabled>
+                  <div class="valid-feedback" id="valid-name">
+
+                  </div>
+                  <div class="invalid-feedback"id="invalid-name" >
+  
+                  </div>
                 </div>
               </div>
 
@@ -147,7 +155,13 @@
 
               <div class="form-row justify-content-start">
                 <div class="form-group">
-                  <input type="password" class="form-control-plaintext disabled-input-field" id="pass" placeholder="*****" th:field="${details.password}"  disabled>
+                  <input name="password" type="password" class="form-control-plaintext disabled-input-field" id="pass" placeholder="*****" th:field="${details.password}"  disabled>
+                  <div class="valid-feedback" id="valid-password">
+
+                  </div>
+                  <div class="invalid-feedback"id="invalid-password" >
+                    
+                  </div>
                 </div>
               </div>
 
@@ -159,7 +173,13 @@
 
               <div class="form-row justify-content-start">
                 <div class="form-group">
-                  <input type="text" class="form-control-plaintext disabled-input-field" id="email"  th:placeholder="${email}" th:field="${details.email}" disabled>
+                  <input name="email" type="text" class="form-control-plaintext disabled-input-field" id="email"  th:placeholder="${email}" th:field="${details.email}" disabled>
+                  <div class="valid-feedback" id="valid-email">
+
+                  </div>
+                  <div class="invalid-feedback"id="invalid-email" >
+                    
+                  </div>
                 </div>
               </div>
 

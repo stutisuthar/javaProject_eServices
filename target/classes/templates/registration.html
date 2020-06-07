@@ -19,6 +19,7 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
     integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous" />
 
+  <script src="js/validations.js"></script>
 
   <link rel="stylesheet" href="css/login.css" />
 </head>
@@ -32,7 +33,7 @@
             e-Services
           </div>
           <div class="card-body">
-            <form action="#" th:action="@{/register}" method="post" th:object="${user}">
+            <form name="registration" action="#" th:action="@{/register}" method="post" th:object="${user}" onsubmit="return validateRegistrationForm()">
               <!-- I removed this as currently DB only takes name -->
               <!-- <div class="form-row">
                 <div class="form-group col-6">
@@ -44,7 +45,13 @@
               </div> -->
 
               <div class="form-group">
-                <input type="text" class="form-control" id="inputName" placeholder="Name" th:field="*{name}"/>
+                <input name="name" type="text" class="form-control" id="inputName" placeholder="Name" th:field="*{name}"/>
+                <div class="valid-feedback" id="valid-name">
+
+                </div>
+                <div class="invalid-feedback"id="invalid-name" >
+
+                </div>
               </div>
 
               <!-- <div class="form-group">
@@ -62,11 +69,23 @@
               </div> -->
 
               <div class="form-group">
-                <input type="email" class="form-control" id="loginEmailAddress" aria-describedby="emailHelp"
+                <input name="email" type="email" class="form-control" id="loginEmailAddress" aria-describedby="emailHelp"
                   placeholder="Email address" th:field="*{email}"/>
+                  <div class="valid-feedback" id="valid-email">
+
+                  </div>
+                  <div class="invalid-feedback"id="invalid-email" >
+                    
+                  </div>
               </div>
               <div class="form-group">
-                <input type="password" class="form-control" placeholder="Password" th:field="*{password}" />
+                <input name="password" type="password" class="form-control" placeholder="Password" th:field="*{password}" />
+                <div class="valid-feedback" id="valid-password">
+
+                </div>
+                <div class="invalid-feedback"id="invalid-password" >
+                  
+                </div>
               </div>
 
               <div class="btn-group" role="group" aria-label="Basic example">
