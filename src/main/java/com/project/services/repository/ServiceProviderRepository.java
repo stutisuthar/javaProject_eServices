@@ -25,8 +25,14 @@ public interface ServiceProviderRepository extends JpaRepository<ServiceProvider
     public ServiceProvider findById(int id);
     
     // public ServiceProvider findServiceProvider(int id);
-    @Query("select s from ServiceProvider s where s.service_name = :service_name")
+    @Query(value="select * from service_provider s where LOWER(s.service_name) like %:service_name%",nativeQuery=true)
     List<ServiceProvider> findByServiceName(@Param("service_name") String service_name);
+
+    // @Query(value = "select * from service_provider s where LOWER(s.service_name) like %:service_name%", nativeQuery = true)
+    // List<ServiceProvider> findByLocation(@Param("service_name") String service_name);
+    
+    // @Query("select s from ServiceProvider s where s.service_name = :service_name")
+    // List<ServiceProvider> findByServiceName(@Param("service_name") String service_name);
     // public ServiceProvider findByServiceName(String service_name);
     // public List<ServiceProvider> findByService_Name(String service_name);
 }
