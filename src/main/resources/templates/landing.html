@@ -24,18 +24,35 @@
   <link rel="stylesheet" href="css/login.css" />
 
   <!-- <script src="js/reuseNavbar.js"></script> -->
+<!-- Script for Autocomplete search -->
+<link href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="Stylesheet">
+</link>
+<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+<script type="text/javascript" th:inline="javascript">
+  // var src = /*[[${list}]]*/ null;
+  // console.log(src);
+  $(function () {
+    $("#serviceNameFilterBoxText").autocomplete({
+      // source: "search",
+      // source:['akki','akshat','anshika','choi','vaibhav'],
+      // source:/*"[[${list}]]"*/ null,
+      source:/*[[${list}]]*/ null,
+      minLength: 1,
+    });
+
+  });
+</script>
 </head>
 
 <body>
   <!-- <div layout:fragment="content" th:remove="tag"> -->
   <div th:replace="fragments/header :: header"></div>
   <div id="navbar-user-frame"></div>
-
   <div class="container-fluid main-body">
     <div class="row">
       <div class="col-2 sidebar bg-light main-body d-flex align-items-start">
 
-        <form class="mt-5">
+        <form class="mt-5" th:action="@{/search}" method="POST">
 
           <div class="form-row">
             <div class="form-group">
@@ -53,10 +70,12 @@
             </div>
   
           </div>
-          
+
+          <!-- TODO: -->
           <div class="form-row">
             <div class="form-group">
-              <input type="text" class="form-control" id="serviceNameFilterBox" placeholder="Service Name">
+              <input type="text" th:field="${service.service_name}" class="form-control" id="serviceNameFilterBoxText"
+                placeholder="Service Name">
             </div>
           </div>
 
@@ -89,12 +108,12 @@
             </div>
           </div>
 
-          <button type="submit" class="btn btn-dark">Filter</button>
+          <button type="submit" class="btn btn-dark">Search</button>
         </form>
       </div>
       <div class="col-10 d-flex align-items-center">
-        <div class="row row-cols-1 row-cols-md-3" style="margin-top: 2vh;">
-          <div class="col mb-4" th:each="service: ${serviceList}">
+        <div class="row" style="margin-top: 2vh; width: inherit;">
+          <div class="col-lg-4 col-md-4 col-sm-10 mb-4" th:each="service: ${serviceList}">
             <div class="card">
               <div class="card-header">
                 <h5 class="card-title mb-0" th:text="${service.serviceCategory}"></h5>
@@ -129,68 +148,6 @@
               </div>
             </div>
           </div>
-          <!-- <div class="row row-cols-1 row-cols-md-3">
-          <div class="col mb-4">
-            <div class="card border-dark">
-              <div class="card-body">
-                <h5 class="card-title">Civil</h5>
-                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                <a href="#" class="btn btn-dark">Open service</a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col mb-4">
-            <div class="card border-dark">
-              <div class="card-body">
-                <h5 class="card-title">Electronics</h5>
-                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                <a href="#" class="btn btn-dark">Open service</a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col mb-4">
-            <div class="card border-dark">
-              <div class="card-body">
-                <h5 class="card-title">Electrical</h5>
-                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                <a href="./services" class="btn btn-dark">Open service</a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col mb-4">
-            <div class="card border-dark">
-              <div class="card-body">
-                <h5 class="card-title">Civil</h5>
-                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                <a href="#" class="btn btn-dark">Open service</a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col mb-4">
-            <div class="card border-dark">
-              <div class="card-body">
-                <h5 class="card-title">Electronics</h5>
-                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                <a href="#" class="btn btn-dark">Open service</a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col mb-4">
-            <div class="card border-dark">
-              <div class="card-body">
-                <h5 class="card-title">Electrical</h5>
-                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                <a href="#" class="btn btn-dark">Open service</a>
-              </div>
-            </div>
-          </div>
-
-        </div> -->
         </div>
       </div>
     </div>
