@@ -9,6 +9,13 @@ function validateRegistrationForm() {
   validateName("registration","name")
 }
 
+function validateUpdatedUserForm() {
+  validateEmail("update-profile", "email");
+  validatePassword("update-profile", "password");
+  validateName("update-profile","name")
+}
+
+
 function validateEmail(formDOMName, inputDOMName) {
 
   var email = document.forms[formDOMName][inputDOMName];
@@ -80,15 +87,10 @@ function validateName(formDOMName, inputDOMName) {
 
 //verify
 
-function verifyEmail(formDOMName, inputDOMName) {
+function verifyEmailAndPassword(formDOMName, inputEmailDOMName, inputPasswordDOMName) {
+  var email = document.forms[formDOMName][inputEmailDOMName].value.trim();
+  var password = document.forms[formDOMName][inputPasswordDOMName].value.trim();
 
-  var email = document.forms[formDOMName][inputDOMName];
-  var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+  console.log(email,password);
 
-  if (email.value == "") {
-    event.preventDefault();
-    email.classList.add('is-invalid');
-    feedback = document.getElementById('invalid-email');
-    feedback.innerHTML = "Please provide an email"   
-  }  
 }
