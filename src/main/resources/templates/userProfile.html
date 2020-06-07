@@ -33,6 +33,15 @@
 </head>
 
 <body>
+  <!-- <script th:inline="javascript" type="text/javascript">
+    /*<![CDATA[*/
+    var uN = /*[[${orderList[1].user.name}]]*/ 'Namer';
+    var stat = /*[[${orderList[1].status}]]*/ 'Cat';
+    var ad = /*[[${orderList[1].address}]]*/ '100';
+    console.log(uN);
+    console.log(stat);
+    console.log(ad);
+  </script> -->
   <!-- <div layout:fragment="content" th:remove="tag"> -->
   <div th:replace="fragments/header :: header"></div>
   <div id="navbar-user-frame"></div>
@@ -74,54 +83,47 @@
                 <p class="card-text text-muted mb-0" th:text="${service.service_name}"></p>
                 <p class="card-text" th:text="${service.cost}"></p>
 
-                <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#feedback">
-                  Feedback
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
 
-        <!-- Feedback Popup -->
-        <div class="modal fade" id="feedback" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-          aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Feedback</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <form>
-                  <div class="form-group">
-                    <label for="exampleFeedback">Rate us</label>
-                    <div class="rate">
-                      <input type="radio" id="star5" name="rate" value="5" />
-                      <label for="star5">5 stars</label>
-                      <input type="radio" id="star4" name="rate" value="4" />
-                      <label for="star4">4 stars</label>
-                      <input type="radio" id="star3" name="rate" value="3" />
-                      <label for="star3">3 stars</label>
-                      <input type="radio" id="star2" name="rate" value="2" />
-                      <label for="star2">2 stars</label>
-                      <input type="radio" id="star1" name="rate" value="1" />
-                      <label for="star1">1 star</label>
-                    </div>
-                  </div>
+<!--        &lt;!&ndash; Feedback Popup &ndash;&gt;-->
+<!--        <div class="modal fade" id="feedback" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"-->
+<!--          aria-hidden="true">-->
+<!--          <div class="modal-dialog">-->
+<!--            <div class="modal-content">-->
+<!--              <div class="modal-header">-->
+<!--                <h5 class="modal-title" id="exampleModalLabel">Feedback</h5>-->
+<!--                <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+<!--                  <span aria-hidden="true">&times;</span>-->
+<!--                </button>-->
+<!--              </div>-->
+<!--              <div class="modal-body">-->
+<!--                <form th:action="@{/updateFeedback}" method="post">-->
+<!--                  <div class="form-group">-->
+<!--                    <label for="exampleFeedback">Rate us</label>-->
+<!--                    <div class="rate">-->
+<!--                      <input type="radio" id="star5" name="rate" value="5" th:field="${feedback.rating}" />-->
+<!--                      <label for="star5">5 stars</label>-->
+<!--                      <input type="radio" id="star4" name="rate" value="4" th:field="${feedback.rating}" />-->
+<!--                      <label for="star4">4 stars</label>-->
+<!--                      <input type="radio" id="star3" name="rate" value="3" th:field="${feedback.rating}" />-->
+<!--                      <label for="star3">3 stars</label>-->
+<!--                      <input type="radio" id="star2" name="rate" value="2" th:field="${feedback.rating}" />-->
+<!--                      <label for="star2">2 stars</label>-->
+<!--                      <input type="radio" id="star1" name="rate" value="1" th:field=${feedback.rating}" />-->
+<!--                      <label for="star1">1 star</label>-->
+<!--                    </div>-->
+<!--                  </div>-->
 
-                  <div class="form-group">
-                    <label for="exampleFeedback">How did you like the service ?</label>
-                    <textarea class="form-control" aria-label="With textarea"></textarea>
-                  </div>
+<!--                  <div class="form-group">-->
+<!--                    <label for="exampleFeedback">How did you like the service ?</label>-->
+<!--                    <textarea class="form-control" aria-label="With textarea" th:field="${feedback.feedback}" ></textarea>-->
+<!--                  </div>-->
 
-                  <button type="submit" class="btn btn-dark">Submit</button>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
+<!--                  <button type="submit" class="btn btn-dark">Submit</button>-->
+<!--                </form>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
 
         <!-- Profile  -->
         <div
@@ -131,10 +133,10 @@
             <form name="update-profile" action="#" th:action="@{/detailsUpdate}" method="post" onsubmit="return validateUpdatedUserForm()">
               <div class="form-row justify-content-start">
                 <div class="form-group mb-2">
-                  <label  class="mb-0 font-weight-bold" > Name </label>
+                  <label class="mb-0 font-weight-bold"> Name </label>
                 </div>
               </div>
-              
+
               <div class="form-row justify-content-start">
                 <div class="form-group">
                   <input name="name" type="text" class="form-control-plaintext disabled-input-field" id="name" th:placeholder="${name}" th:field="${details.name}" disabled>
@@ -194,11 +196,77 @@
               </div>
 
             </form>
-
           </div>
         </div>
 
+        <div
+          class="border-right-0 border-bottom-0 border-left-0 rounded-0 border-warning bg-light your-orders-container"
+          style="margin-top: 2vh;">
+          <div class="col mb-3" th:each="order: ${orderList}">
+            <!-- <script th:inline="javascript" type="text/javascript">
+              /*<![CDATA[*/
+              var uN = /*[[${order.user.name}]]*/ 'Namer';
+              var stat = /*[[${order.status}]]*/ 'Cat';
+              var ad = /*[[${order.address}]]*/ '100';
+              console.log(uN);
+              console.log(stat);
+              console.log(ad);
+            </script> -->
+            <div class="card">
+              <div class="card-header">
+                <h5 class="card-title mb-1" th:text="${order.user.name}"></h5>
+              </div>
+              <div class="card-body">
+                <p class="card-text text-muted mb-0" th:text="${order.status}"></p>
+                <p class="card-text" th:text="${order.address}"></p>
+                <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#feedback">
+                  Feedback
+                </button>
+              </div>
 
+              <div class="modal fade" id="feedback" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Feedback</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <form th:action="@{/feedbackUpdate}"  th:object="${feed}" method="post" id="form1">
+                        <div class="form-group">
+                          <input type="hidden"  path ="id" th:name="id" th:id="${feed.id}" th:value="${order.id}" />
+                          <label >Rate us</label>
+                          <div class="rate">
+                            <input type="radio" id="star5"  th:name="rating" value="5" th:field ="${feed.rating}" />
+                            <label for="star5">5 stars</label>
+                            <input type="radio" id="star4" th:name="rating" value="4" th:field="${feed.rating}" />
+                            <label for="star4">4 stars</label>
+                            <input type="radio" id="star3" th:name="rating" value="3" th:field="${feed.rating}" />
+                            <label for="star3">3 stars</label>
+                            <input type="radio" id="star2" th:name="rating" value="2" th:field="${feed.rating}" />
+                            <label for="star2">2 stars</label>
+                            <input type="radio" id="star1" th:name="rating" value="1" th:field= "${feed.rating}" />
+                            <label for="star1">1 star</label>
+                          </div>
+                        </div>
+
+                        <div class="form-group">
+                          <label >How did you like the service ?</label>
+                          <input type="text" class="form-control" aria-label="With textarea" th:field="${feed.feedback}" />
+                        </div>
+
+<!--                        <button type="submit" class="btn btn-dark">Submit</button>-->
+                        <input class="btn btn-dark save-button-view-profile rounded-0" th:type="submit" />
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
       </div>
     </div>

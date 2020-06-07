@@ -2,6 +2,9 @@ package com.project.services.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.util.Date;
 
 @Entity
 @Table(name = "orderDetails")
@@ -20,15 +23,13 @@ public class OrderDetails implements Serializable {
     @Column(name = "status")
     private String status;
 
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "user_id", nullable = false)
+    private UserDetails user;
 
-     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-     @JoinColumn(name = "user_id" , nullable = false)
-     private UserDetails user;
-
-
-     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-     @JoinColumn(name = "s_Id" ,nullable = false)
-     private ServiceProvider service;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "s_Id", nullable = false)
+    private ServiceProvider service;
 
     @Column(name = "feedback")
     private String feedback;
@@ -41,6 +42,49 @@ public class OrderDetails implements Serializable {
 
     @Column(name = "Contact")
     private long contact;
+
+    // @Column(name = "serviceTime")
+    // private String serviceTime;
+    //
+    // @Column(name = "serviceDate")
+    // private String serviceDate;
+    @Column(name = "serviceTimestamp")
+    private Date serviceTimestamp;
+
+    @Column(name = "orderTimestamp")
+    private Date orderTimestamp;
+
+    // public String getServiceTime() {
+    // return serviceTime;
+    // }
+
+    // public void setServiceTime(String serviceTime) {
+    // this.serviceTime = serviceTime;
+    // }
+    //
+    // public String getServiceDate() {
+    // return serviceDate;
+    // }
+
+    // public void setServiceDate(String serviceDate) {
+    // this.serviceDate = serviceDate;
+    // }
+
+    public Date getServiceTimestamp() {
+        return serviceTimestamp;
+    }
+
+    public void setServiceTimestamp(Date serviceTimestamp) {
+        this.serviceTimestamp = serviceTimestamp;
+    }
+
+    public Date getOrderTimestamp() {
+        return orderTimestamp;
+    }
+
+    public void setOrderTimestamp(Date orderTimestamp) {
+        this.orderTimestamp = orderTimestamp;
+    }
 
     public int getId() {
         return id;
@@ -58,20 +102,20 @@ public class OrderDetails implements Serializable {
         this.status = status;
     }
 
-    public int getUser() {
-        return user.getId();
+    public UserDetails getUser() {
+        return user;
     }
 
-    public void setUser(int user_id) {
-        this.user.setId(user_id);
+    public void setUser(UserDetails user) {
+        this.user = user;
     }
 
-    public int getService() {
-        return service.getId();
+    public ServiceProvider getService() {
+        return service;
     }
 
-    public void setService(int service) {
-        this.service.setId(service);
+    public void setService(ServiceProvider service) {
+        this.service = service;
     }
 
     public String getFeedback() {
@@ -106,7 +150,3 @@ public class OrderDetails implements Serializable {
         this.contact = contact;
     }
 }
-
-
-
-

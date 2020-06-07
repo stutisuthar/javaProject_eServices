@@ -2,6 +2,7 @@ package com.project.services.controller;
 
 // import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 import com.project.services.model.Location;
+import com.project.services.model.OrderDetails;
 import com.project.services.model.Service;
 import com.project.services.model.ServiceProvider;
 import com.project.services.model.UserDetails;
@@ -9,10 +10,14 @@ import com.project.services.repository.ServiceProviderRepository;
 import com.project.services.repository.UserProfileDetailsRepo;
 import com.project.services.repository.userDetailsRepository;
 import com.project.services.repository.LocationRepository;
+import com.project.services.repository.OrderDetailsRepository;
 // import com.project.services.service.ServiceService;
 import com.project.services.service.addServiceToDB;
 import com.project.services.service.userDetailsService;
 
+import com.project.services.forms.*;
+
+import org.hibernate.criterion.Order;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 // import org.springframework.validation.BindingResult;
@@ -32,13 +37,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 // Session Management
 // import javax.jws.soap.SOAPBinding;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import java.util.ArrayList;
 import java.util.List;
 // import java.util.Map;
 // import java.util.Optional;
+import java.util.Set;
 
 @Controller
 public class UIController {
@@ -55,6 +65,8 @@ public class UIController {
     private userDetailsRepository userRepo;
     @Autowired
     private UserProfileDetailsRepo userProfile;
+    @Autowired
+    private OrderDetailsRepository orderDetailsRepo;
 
     @GetMapping("/")
     public String renderRoot(Model model, HttpServletRequest request) {
@@ -183,8 +195,13 @@ public class UIController {
             model.addAttribute("password",pass);
 
             UserDetails userModel = new UserDetails();
-            model.addAttribute("details",userModel);
-//            model.addAttribute("userProfile" , details);
+            model.addAttribute("details", userModel);
+            List<OrderDetails> orderList = userProfile.findById(userId).getOrderDetails();
+            System.out.println(orderList.get(1).getStatus());
+            // List<OrderDetails> orderList = userRepo.findOrderDetailsById(userId);
+            model.addAttribute("orderList", orderList);
+            model.addAttribute("feed", new OrderDetails());
+            // model.addAttribute("userProfile" , details);
             return "userProfile";
         }
         else {
@@ -218,6 +235,72 @@ public class UIController {
         // userRepo.save(updatedUser);
         // userRepo.save(details);
         // model.addAttribute("details", userRepo.findAll());
+        return "redirect:/userProfile";
+    }
+
+
+    @PostMapping("/feedbackUpdate" )
+    public String updateFeedback(@ModelAttribute("feed") OrderDetails order, Model model,
+                                 HttpServletRequest request  )
+    {
+//        String userId = request.getSession().getAttribute("userName").toString();
+//        int id = Integer.parseInt(userId);
+        int id1= order.getId();
+//
+        System.out.println("testblah"+id1);
+        OrderDetails updatedFeed = orderDetailsRepo.findById(order.getId());
+        updatedFeed.setFeedback(order.getFeedback());
+        updatedFeed.setRating(order.getRating());
+        return "redirect:/userProfile";
+    }
+    private static Date parseDate(String date) {
+        try {
+//            return new SimpleDateFormat("yyyy-MM-dd").parse(date);
+            return new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(date);
+        } catch (ParseException e) {
+            return null;
+        }
+    }
+
+    @PostMapping("/orderService")
+    public String orderService(@ModelAttribute("orderForm") OrderForm orderForm, OrderDetails order, Model model,
+                               HttpServletRequest request) {
+        // System.out.println(
+        // orderForm.getUserName() + "::" + orderForm.getServiceId() + "::" +
+        // orderForm.getAddress() + "::\n");
+        String userId = request.getSession().getAttribute("userName").toString();
+        int id = Integer.parseInt(userId);
+        UserDetails user = userRepo.findById(id);
+        ServiceProvider service = serviceProviderRepo.findById(orderForm.getServiceId());
+        // // // //
+        System.out.println("::\n" + service.getService_name() + "::" + service.getContact_name() + "::\n");
+        System.out.println("::\n" + user.getEmail() + "::" + user.getName() + "::" + user.getOrderDetails().toString()
+                + "::" + user.getId() + "::\n");
+        // // // //
+        OrderDetails newOrder = new OrderDetails();
+        newOrder.setUser(user);
+        newOrder.setService(service);
+        newOrder.setStatus(orderForm.getStatus());
+        newOrder.setAddress(orderForm.getAddress());
+        System.out.println("Date"+orderForm.getServiceDate());
+        System.out.println("Time"+orderForm.getServiceTime());
+        String d=orderForm.getServiceDate()+" " +orderForm.getServiceTime() +":00";
+        System.out.println("str"+d);
+        Date date1= parseDate(d);
+        System.out.println("dateobject"+ date1.getTime());
+//        newOrder.setServiceTime(orderForm.getServiceTime());
+//        newOrder.setServiceDate(orderForm.getServiceDate());
+//            Date d2=new Date();
+//            System.out.println("curr"+d2);
+//        if(d2.getTime() >= date1.getTime());
+//        {
+//
+//        }
+        newOrder.setServiceTimestamp(date1);
+        Date date=new Date();
+        newOrder.setOrderTimestamp(date);
+        OrderDetails savedOrder = orderDetailsRepo.save(newOrder);
+        System.out.println("\nSAVED ORDER ID: " + savedOrder.getId() + "\n");
         return "redirect:/userProfile";
     }
 
@@ -316,7 +399,7 @@ public class UIController {
 
     @GetMapping("/service/{srvId}")
     public String renderServices(@PathVariable("srvId") int srvId,Model model, HttpServletRequest request) {
-        if(request.getSession().getAttribute("userName")!=null){
+        if(request.getSession().getAttribute("userName") != null){
             System.out.println(srvId);
             String user = request.getSession().getAttribute("userName").toString();
             int userId = Integer.parseInt(user);
@@ -327,7 +410,7 @@ public class UIController {
             System.out.println(serviceP);
             if(serviceP==null){
                 return "redirect:/error";
-            }
+            } model.addAttribute("orderForm", new OrderForm());
             model.addAttribute("service", serviceP);
             return "service";
         }else{

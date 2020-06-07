@@ -1,11 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
+<<<<<<< HEAD
+    <list default="true" id="b07c32ba-7885-45bf-ade5-01320b48515d" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/services/controller/UIController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/services/controller/UIController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/services/forms/OrderForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/services/forms/OrderForm.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/services/model/OrderDetails.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/services/model/OrderDetails.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/service.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/service.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/service.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/service.html" afterDir="false" />
+=======
     <list default="true" id="3431bec5-dcbe-4fd2-8695-af76ef670f38" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/static/js/validations.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/js/validations.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/login.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/login.html" afterDir="false" />
+>>>>>>> feature
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -13,17 +23,10 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Interface" />
-      </list>
-    </option>
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectId" id="1cqWR0RGUwLw13WIPKL3HvmAOA0" />
+  <component name="ProjectId" id="1cwhHADlop6P7OXXE0y9xpIAKLe" />
   <component name="PropertiesComponent">
     <property name="RequestMappingsPanelOrder0" value="0" />
     <property name="RequestMappingsPanelOrder1" value="1" />
@@ -77,14 +80,19 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="3431bec5-dcbe-4fd2-8695-af76ef670f38" name="Default Changelist" comment="" />
-      <created>1591256591398</created>
+      <changelist id="b07c32ba-7885-45bf-ade5-01320b48515d" name="Default Changelist" comment="" />
+      <created>1591445472230</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
+<<<<<<< HEAD
+      <updated>1591445472230</updated>
+      <workItem from="1591445473632" duration="27191000" />
+=======
       <updated>1591256591398</updated>
       <workItem from="1591256592863" duration="12338000" />
       <workItem from="1591385886984" duration="919000" />
       <workItem from="1591511687033" duration="3892000" />
+>>>>>>> feature
     </task>
     <servers />
   </component>
