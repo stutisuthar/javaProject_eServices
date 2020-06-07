@@ -151,7 +151,7 @@ public class UIController {
             System.out.println(orderList.get(1).getStatus());
             // List<OrderDetails> orderList = userRepo.findOrderDetailsById(userId);
             model.addAttribute("orderList", orderList);
-
+            model.addAttribute("feed", new OrderDetails());
             // model.addAttribute("userProfile" , details);
             return "userProfile";
         } else {
@@ -188,6 +188,23 @@ public class UIController {
         // model.addAttribute("details", userRepo.findAll());
         return "redirect:/userProfile";
     }
+
+
+    @PostMapping("/feedbackUpdate" )
+    public String updateFeedback(@ModelAttribute("feed") OrderDetails order, Model model,
+                                 HttpServletRequest request  )
+    {
+//        String userId = request.getSession().getAttribute("userName").toString();
+//        int id = Integer.parseInt(userId);
+        int id1= order.getId();
+//
+        System.out.println("testblah"+id1);
+        OrderDetails updatedFeed = orderDetailsRepo.findById(order.getId());
+        updatedFeed.setFeedback(order.getFeedback());
+        updatedFeed.setRating(order.getRating());
+        return "redirect:/userProfile";
+    }
+
 
     @PostMapping("/orderService")
     public String orderService(@ModelAttribute("orderForm") OrderForm orderForm, Model model,
