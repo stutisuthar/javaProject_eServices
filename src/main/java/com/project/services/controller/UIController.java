@@ -20,6 +20,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 // import org.springframework.web.bind.annotation.RequestBody;
 // import org.springframework.web.bind.annotation.RequestMapping;
 // import org.springframework.web.bind.annotation.RequestParam;
@@ -31,6 +34,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 // import javax.jws.soap.SOAPBinding;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
+import java.util.ArrayList;
 import java.util.List;
 // import java.util.Map;
 // import java.util.Optional;
@@ -99,6 +104,15 @@ public class UIController {
             model.addAttribute("userName", userName);
             List<ServiceProvider> serviceList = serviceProviderRepo.findAll();
             model.addAttribute("serviceList", serviceList);
+            List<String> list = new ArrayList<String>();
+            for(int i =0;i<serviceList.size();i++){
+                list.add(serviceList.get(i).getService_name());
+            }
+            // list.add("Akshat");
+            // list.add("Anshika");
+            // list.add("Choi");
+            // list.add("Vaibhav");
+            model.addAttribute("list", list);
             return "landing";
         }else{
             return "redirect:/forbidden";
@@ -303,6 +317,22 @@ public class UIController {
         model.addAttribute("cities", list);
         System.out.println("testing" + list);
         return "adminAddService";
+    }
+
+    // @RequestMapping(value="/search")
+    // @ResponseBody
+    // public List<String> search(@RequestParam(value="term", required= false, defaultValue = "")String term){
+    //     List<String> list = new ArrayList<String>();
+    //     list.add("Akshat");
+    //     list.add("Anshika");
+    //     list.add("Choi");
+    //     list.add("Vaibhav");
+    //     return list;
+    // }
+
+    @PostMapping("/search")
+    public String search(){
+        return "Test";
     }
 
     @PostMapping("/addService")
