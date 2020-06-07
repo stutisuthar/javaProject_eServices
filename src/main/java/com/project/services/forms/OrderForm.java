@@ -1,5 +1,8 @@
 package com.project.services.forms;
 
+import java.sql.Time;
+import java.util.Date;
+
 public class OrderForm {
 
     private int serviceId;
@@ -9,6 +12,26 @@ public class OrderForm {
     private String address;
 
     private String status;
+
+    private String serviceDate;
+
+    private String serviceTime;
+
+    public String getServiceDate() {
+        return serviceDate;
+    }
+
+    public void setServiceDate(String serviceDate) {
+        this.serviceDate = serviceDate;
+    }
+
+    public String getServiceTime() {
+        return serviceTime;
+    }
+
+    public void setServiceTime(String serviceTime) {
+        this.serviceTime = serviceTime;
+    }
 
     public int getServiceId() {
         return serviceId;

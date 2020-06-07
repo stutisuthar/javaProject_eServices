@@ -2,11 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b07c32ba-7885-45bf-ade5-01320b48515d" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/$PRODUCT_WORKSPACE_FILE$" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/$PRODUCT_WORKSPACE_FILE$" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/project/services/controller/UIController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/services/controller/UIController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/services/repository/OrderDetailsRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/services/repository/OrderDetailsRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/userProfile.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/userProfile.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/services/forms/OrderForm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/services/forms/OrderForm.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/services/model/OrderDetails.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/services/model/OrderDetails.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/service.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/service.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/service.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/service.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -53,7 +54,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1591445472230</updated>
-      <workItem from="1591445473632" duration="14105000" />
+      <workItem from="1591445473632" duration="27191000" />
     </task>
     <servers />
   </component>

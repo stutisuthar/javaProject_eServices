@@ -17,6 +17,7 @@ import com.project.services.service.userDetailsService;
 
 import com.project.services.forms.*;
 
+import org.hibernate.criterion.Order;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 // import org.springframework.validation.BindingResult;
@@ -33,8 +34,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 // Session Management
 // import javax.jws.soap.SOAPBinding;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 // import java.util.Map;
 // import java.util.Optional;
@@ -204,11 +209,18 @@ public class UIController {
         updatedFeed.setRating(order.getRating());
         return "redirect:/userProfile";
     }
-
+    private static Date parseDate(String date) {
+        try {
+//            return new SimpleDateFormat("yyyy-MM-dd").parse(date);
+            return new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(date);
+        } catch (ParseException e) {
+            return null;
+        }
+    }
 
     @PostMapping("/orderService")
-    public String orderService(@ModelAttribute("orderForm") OrderForm orderForm, Model model,
-            HttpServletRequest request) {
+    public String orderService(@ModelAttribute("orderForm") OrderForm orderForm, OrderDetails order, Model model,
+                               HttpServletRequest request) {
         // System.out.println(
         // orderForm.getUserName() + "::" + orderForm.getServiceId() + "::" +
         // orderForm.getAddress() + "::\n");
@@ -226,6 +238,23 @@ public class UIController {
         newOrder.setService(service);
         newOrder.setStatus(orderForm.getStatus());
         newOrder.setAddress(orderForm.getAddress());
+        System.out.println("Date"+orderForm.getServiceDate());
+        System.out.println("Time"+orderForm.getServiceTime());
+        String d=orderForm.getServiceDate()+" " +orderForm.getServiceTime() +":00";
+        System.out.println("str"+d);
+        Date date1= parseDate(d);
+        System.out.println("dateobject"+ date1.getTime());
+//        newOrder.setServiceTime(orderForm.getServiceTime());
+//        newOrder.setServiceDate(orderForm.getServiceDate());
+//            Date d2=new Date();
+//            System.out.println("curr"+d2);
+//        if(d2.getTime() >= date1.getTime());
+//        {
+//
+//        }
+        newOrder.setServiceTimestamp(date1);
+        Date date=new Date();
+        newOrder.setOrderTimestamp(date);
         OrderDetails savedOrder = orderDetailsRepo.save(newOrder);
         System.out.println("\nSAVED ORDER ID: " + savedOrder.getId() + "\n");
         return "redirect:/userProfile";
