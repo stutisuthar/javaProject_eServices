@@ -2,7 +2,7 @@ package com.project.services.service;
 
 import com.project.services.model.Location;
 // import com.project.services.model.ServiceProvider;
-// import com.project.services.repository.AddServiceProviderRepository;
+// import com.project.services.repository.ServiceProviderRepository;
 import com.project.services.repository.LocationRepository;
 
 // import org.springframework.beans.BeanUtils;

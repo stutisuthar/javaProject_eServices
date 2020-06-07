@@ -3,7 +3,7 @@ package com.project.services.service;
 import com.project.services.model.UserDetails;
 import com.project.services.repository.userDetailsRepository;
 
-import org.springframework.beans.BeanUtils;
+// import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,28 +34,30 @@ public class userDetailsService {
         return true;
     }
 
-    public String AuthenticateUser(UserDetails data) {
-        // UserDetails details = new UserDetails();
+    public int AuthenticateUser(UserDetails data) {
+        UserDetails details = new UserDetails();
         // int auth = 0;
         // insRow.setName(data.getName());
         // insRow.setPassword(data.getPassword());
         // insRow.setEmail(data.getEmail());
         try {
-            String email = userDetailsRepo.findByEmail(data.getEmail()).getEmail();
-            String password = userDetailsRepo.findByEmail(data.getEmail()).getPassword(); 
-            String name = userDetailsRepo.findByEmail(data.getEmail()).getName();
-            System.out.println(email+" and "+ data.getPassword());
-            if(password.contentEquals(data.getPassword())){
-                System.out.println(name);
+            details = userDetailsRepo.findByEmail(data.getEmail());
+            System.out.println(details.getPassword()+" and "+ data.getPassword());
+            if(details.getPassword().contentEquals(data.getPassword())){
+                System.out.println(details.getName());
                 // auth = 1;
-                return name;
+                return details.getId();
             }else{
-                return "invalid";
+                return 0;
             }
         } catch (Exception e) {
-            System.out.println("Error: "+e);
-            return "error";
+            System.out.println("Error: " + e);
+            return -1;
         }
         // return "false";
+    }
+    public void updateUserData(UserDetails data)
+    {
+
     }
 }

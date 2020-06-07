@@ -1,8 +1,6 @@
 <!DOCTYPE html>
-<html lang="en"
-xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-xmlns:th="http://www.thymeleaf.org"
-layout:decorate="~{fragments/layout}">
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org"
+  layout:decorate="~{fragments/layout}">
 
 <head>
   <meta charset="UTF-8" />
@@ -14,7 +12,7 @@ layout:decorate="~{fragments/layout}">
   <!-- <link rel="stylesheet"  th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
     integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous" /> -->
 
-  <link rel="stylesheet"  th:href="@{/webjars/bootstrap/4.5.0/css/bootstrap.min.css}" />
+  <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.0/css/bootstrap.min.css}" />
 
   <!-- <script defer src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
     integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous">
@@ -26,21 +24,58 @@ layout:decorate="~{fragments/layout}">
   <link rel="stylesheet" href="css/login.css" />
 
   <!-- <script src="js/reuseNavbar.js"></script> -->
+<!-- Script for Autocomplete search -->
+<link href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="Stylesheet">
+</link>
+<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+<script type="text/javascript" th:inline="javascript">
+  // var src = /*[[${list}]]*/ null;
+  // console.log(src);
+  $(function () {
+    $("#serviceNameFilterBoxText").autocomplete({
+      // source: "search",
+      // source:['akki','akshat','anshika','choi','vaibhav'],
+      // source:/*"[[${list}]]"*/ null,
+      source:/*[[${list}]]*/ null,
+      minLength: 1,
+    });
+
+  });
+</script>
 </head>
 
 <body>
   <!-- <div layout:fragment="content" th:remove="tag"> -->
   <div th:replace="fragments/header :: header"></div>
   <div id="navbar-user-frame"></div>
-  
   <div class="container-fluid main-body">
     <div class="row">
       <div class="col-2 sidebar bg-light main-body d-flex align-items-start">
-        
-        <form class="mt-5">
+
+        <form class="mt-5" th:action="@{/search}" method="POST">
+
           <div class="form-row">
             <div class="form-group">
-              <input type="text" class="form-control" id="serviceNameFilterBox" placeholder="Service Name">
+              <select id="inputState" class="form-control">
+                <option selected>Choose a service category</option>
+                <option>Civil</option>
+                <option>Electronics</option>
+                <option>Electrical</option>
+                <option>Carpentry</option>
+                <option>Sanitary</option>
+                <option>Software</option>
+                <option>Hardware</option>
+                <option>Interior Decorators</option>
+              </select>
+            </div>
+  
+          </div>
+
+          <!-- TODO: -->
+          <div class="form-row">
+            <div class="form-group">
+              <input type="text" th:field="${service.service_name}" class="form-control" id="serviceNameFilterBoxText"
+                placeholder="Service Name">
             </div>
           </div>
 
@@ -60,98 +95,63 @@ layout:decorate="~{fragments/layout}">
               </select>
             </div>
 
-            <div class="form-group">
-              <select id="inputState" class="form-control">
-                <option selected>Choose a service category</option>
-                <option>Civil</option>
-                <option>Electronics</option>
-                <option>Electrical</option>
-                <option>Carpentry</option>
-                <option>Sanitary</option>
-                <option>Software</option>
-                <option>Hardware</option>
-                <option>Interior Decorators</option>
-              </select>
-            </div>
-
             <div class="form-row">
-              <div class="form-group col-12 ">
-                <input type="text" class="form-control" id="serviceNameFilterBox" placeholder="Cost">
+              <div class="form-group col-6 ">
+                <input type="number" class="form-control" id="serviceNameFilterBox" placeholder="Min">
+                
+              </div>
+              
+              <div class="form-group col-6 ">
+                <input type="number" class="form-control" id="serviceNameFilterBox" placeholder="Max">
+                
               </div>
             </div>
           </div>
 
-          <button type="submit" class="btn btn-dark">Filter</button>
+          <button type="submit" class="btn btn-dark">Search</button>
         </form>
       </div>
       <div class="col-10 d-flex align-items-center">
-        <div class="row row-cols-1 row-cols-md-3">
-
-          <div class="col mb-4">
-            <div class="card border-dark">
+        <div class="row" style="margin-top: 2vh; width: inherit;">
+          <div class="col-lg-4 col-md-4 col-sm-10 mb-4" th:each="service: ${serviceList}">
+            <div class="card">
+              <div class="card-header">
+                <h5 class="card-title mb-0" th:text="${service.serviceCategory}"></h5>
+              </div>
               <div class="card-body">
-                <h5 class="card-title">Civil</h5>
-                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                <a href="#" class="btn btn-dark">Open service</a>
+                <!-- <script th:inline="javascript" type="text/javascript">
+                  /*<![CDATA[*/
+                  var servN = /*[[${service.service_name}]]*/ 'Namer';
+                  var servcat = /*[[${service.serviceCategory}]]*/ 'Cat';
+                  var co = /*[[${service.cost}]]*/ 100;
+                  console.log(servN);
+                  console.log(servcat);
+                  console.log(co);
+                </script> -->
+                <p class="card-text text-muted mb-0" th:text="${service.service_name}"></p>
+                <p class="card-text" th:text="${service.cost}"></p>
+                <!--TODO:Check why this was not working-->
+                <!-- <p class="card-text" th:text="${srvIter.index}"></p> -->
+                <p class="card-text" th:text="${service.id}"></p>
+                <!-- Creating a small hidden form for security -->
+                <!-- <form th:action="@{/services}" th:object="${serviceList[__${srvIter.index}__]}" method="post"> -->
+                <!-- <form th:action="@{/services}" th:object="${service}" method="post"> -->
+                <!-- <form action="#" th:action="@{/services/}" th:object="${service}" method="get"> -->
+                  <!-- <form th:action="@{/services}" method="post"> -->
+                  <!-- <input type="hidden" th:value="*{id}" />
+                    <button type="submit" class="btn btn-dark">Open details</button> -->
+                  <!-- <input type="hidden" th:field="*{id}" /> -->
+                  <!-- <input type="hidden" th:value="*{id}" th:name="id" /> -->
+                  <!-- <button th:value="{id}" type="submit" name="srvid" class="btn btn-dark">Open details</button> -->
+                  <a th:href="@{service/{id}(id=${service.id})}" class="btn btn-dark">Open details</a>
+                </form>
               </div>
             </div>
           </div>
-
-          <div class="col mb-4">
-            <div class="card border-dark">
-              <div class="card-body">
-                <h5 class="card-title">Electronics</h5>
-                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                <a href="#" class="btn btn-dark">Open service</a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col mb-4">
-            <div class="card border-dark">
-              <div class="card-body">
-                <h5 class="card-title">Electrical</h5>
-                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                <a href="./service" class="btn btn-dark">Open service</a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col mb-4">
-            <div class="card border-dark">
-              <div class="card-body">
-                <h5 class="card-title">Civil</h5>
-                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                <a href="#" class="btn btn-dark">Open service</a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col mb-4">
-            <div class="card border-dark">
-              <div class="card-body">
-                <h5 class="card-title">Electronics</h5>
-                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                <a href="#" class="btn btn-dark">Open service</a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col mb-4">
-            <div class="card border-dark">
-              <div class="card-body">
-                <h5 class="card-title">Electrical</h5>
-                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                <a href="#" class="btn btn-dark">Open service</a>
-              </div>
-            </div>
-          </div>
-
         </div>
       </div>
     </div>
   </div>
-</div>
 </body>
 
 </html>

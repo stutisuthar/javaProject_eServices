@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org"
+  layout:decorate="~{fragments/layout}">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Landing Page</title>
+
+  <script src="js/jquery-3.5.1.js"></script>
+
+  <!-- <link rel="stylesheet"  th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous" /> -->
+
+  <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.0/css/bootstrap.min.css}" />
+
+  <!-- JS, Popper.js, and jQuery -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+    integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+    crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="css/login.css" />
+
+  <script src="js/userProfile.js"></script>
+  <script src="js/validations.js"></script>
+
+</head>
+
+<body>
+  <!-- <div layout:fragment="content" th:remove="tag"> -->
+  <div th:replace="fragments/header :: header"></div>
+  <div id="navbar-user-frame"></div>
+
+  <div class="container-fluid main-body">
+    <div class="row">
+      <div class="col-2 sidebar bg-light main-body d-flex align-items-start">
+        <div style="width: inherit;">
+          <button type="button" class="btn btn-outline-dark btn-block view-profile-btn text-wrap"
+            style="margin-top: 4vh;">
+            View profile
+          </button>
+          <button type="button" class="btn btn-outline-dark btn-block your-orders-btn text-wrap"
+            style="margin-top: 1.6vh;">
+            Your orders
+          </button>
+        </div>
+      </div>
+
+      <div class="col-10 d-flex align-items-start justify-content-lg-start">
+
+        <!-- Your orders starts -->
+        <div class="row your-orders-container" style="margin-top: 2vh; width: inherit;">
+          <div class="col-lg-4 col-md-4 col-sm-10 mb-3" th:each="service: ${serviceList}">
+            <div class="card">
+              <div class="card-header">
+                <h5 class="card-title mb-1" th:text="${service.serviceCategory}"></h5>
+              </div>
+              <div class="card-body">
+                <!-- <script th:inline="javascript" type="text/javascript">
+                    /*<![CDATA[*/
+                    var servN = /*[[${service.service_name}]]*/ 'Namer';
+                    var servcat = /*[[${service.serviceCategory}]]*/ 'Cat';
+                    var co = /*[[${service.cost}]]*/ 100;
+                    console.log(servN);
+                    console.log(servcat);
+                    console.log(co);
+                  </script> -->
+                <p class="card-text text-muted mb-0" th:text="${service.service_name}"></p>
+                <p class="card-text" th:text="${service.cost}"></p>
+
+                <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#feedback">
+                  Feedback
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Feedback Popup -->
+        <div class="modal fade" id="feedback" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+          aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Feedback</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form>
+                  <div class="form-group">
+                    <label for="exampleFeedback">Rate us</label>
+                    <div class="rate">
+                      <input type="radio" id="star5" name="rate" value="5" />
+                      <label for="star5">5 stars</label>
+                      <input type="radio" id="star4" name="rate" value="4" />
+                      <label for="star4">4 stars</label>
+                      <input type="radio" id="star3" name="rate" value="3" />
+                      <label for="star3">3 stars</label>
+                      <input type="radio" id="star2" name="rate" value="2" />
+                      <label for="star2">2 stars</label>
+                      <input type="radio" id="star1" name="rate" value="1" />
+                      <label for="star1">1 star</label>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="exampleFeedback">How did you like the service ?</label>
+                    <textarea class="form-control" aria-label="With textarea"></textarea>
+                  </div>
+
+                  <button type="submit" class="btn btn-dark">Submit</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Profile  -->
+        <div
+          class="card border-right-0 border-bottom-0 border-left-0 rounded-0 border-warning  bg-light view-profile-container"
+          style="width: 18rem; margin-top: 10px; border-style:solid; border-width:8px;">
+          <div class="card-body">
+            <form name="update-profile" action="#" th:action="@{/detailsUpdate}" method="post" onsubmit="return validateUpdatedUserForm()">
+              <div class="form-row justify-content-start">
+                <div class="form-group mb-2">
+                  <label  class="mb-0 font-weight-bold" > Name </label>
+                </div>
+              </div>
+              
+              <div class="form-row justify-content-start">
+                <div class="form-group">
+                  <input name="name" type="text" class="form-control-plaintext disabled-input-field" id="name" th:placeholder="${name}" th:field="${details.name}" disabled>
+                  <div class="valid-feedback" id="valid-name">
+
+                  </div>
+                  <div class="invalid-feedback"id="invalid-name" >
+  
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-row justify-content-start">
+                <div class="form-group mb-2">
+                  <label for="pass" class="mb-0 font-weight-bold"> Password </label>
+                </div>
+              </div>
+
+              <div class="form-row justify-content-start">
+                <div class="form-group">
+                  <input name="password" type="password" class="form-control-plaintext disabled-input-field" id="pass" placeholder="*****" th:field="${details.password}"  disabled>
+                  <div class="valid-feedback" id="valid-password">
+
+                  </div>
+                  <div class="invalid-feedback"id="invalid-password" >
+                    
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-row justify-content-start">
+                <div class="form-group mb-2">
+                  <label for="email" class="mb-0 font-weight-bold"> E-mail </label>
+                </div>
+              </div>
+
+              <div class="form-row justify-content-start">
+                <div class="form-group">
+                  <input name="email" type="text" class="form-control-plaintext disabled-input-field" id="email"  th:placeholder="${email}" th:field="${details.email}" disabled>
+                  <div class="valid-feedback" id="valid-email">
+
+                  </div>
+                  <div class="invalid-feedback"id="invalid-email" >
+                    
+                  </div>
+                </div>
+              </div>
+
+              <div class=" form-row justify-content-start">
+                <div class="form-group mb-2">
+                  <button class="btn btn-dark edit-button-view-profile rounded-0">Edit</button>
+                  <button class="btn btn-dark save-button-view-profile rounded-0" style="display: none"
+                    th:type="submit">Save changes</button>
+                  <button class="btn btn-dark close-button-view-profile rounded-0" style="display: none"
+                    type="reset">Close</button>
+                </div>
+              </div>
+
+            </form>
+
+          </div>
+        </div>
+
+
+
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

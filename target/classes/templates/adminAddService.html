@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+xmlns:th="http://www.thymeleaf.org">
 
 <head>
   <meta charset="UTF-8" />
@@ -61,7 +63,20 @@
             </div>
           </div>
 
-          <button type="submit" class="btn btn-warning">Save</button>
+          <div>
+            <select id="Location" th:field="${location.locName}">
+              <option value=""> CHOOSE A LOCATION </option>
+              <option th:each="city : ${cities}"
+                      th:value="${city.locName}"
+                      th:utext="${city.locName}"></option>
+            </select>
+          </div>
+<div>
+  <div>
+  <button type="submit" class="btn btn-warning">Save</button>
+</div>
+</div>
+
         </form>
       </div>
     </div>

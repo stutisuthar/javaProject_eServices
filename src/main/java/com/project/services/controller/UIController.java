@@ -1,10 +1,13 @@
 package com.project.services.controller;
 
+// import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 import com.project.services.model.Location;
 import com.project.services.model.Service;
 import com.project.services.model.ServiceProvider;
 import com.project.services.model.UserDetails;
-import com.project.services.repository.AddServiceProviderRepository;
+import com.project.services.repository.ServiceProviderRepository;
+import com.project.services.repository.UserProfileDetailsRepo;
+import com.project.services.repository.userDetailsRepository;
 import com.project.services.repository.LocationRepository;
 // import com.project.services.service.ServiceService;
 import com.project.services.service.addServiceToDB;
@@ -12,17 +15,30 @@ import com.project.services.service.userDetailsService;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+// import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+// import org.springframework.web.bind.annotation.RequestBody;
+// import org.springframework.web.bind.annotation.RequestMapping;
+// import org.springframework.web.bind.annotation.RequestParam;
 // import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.List;
+// import org.springframework.http.MediaType;
 
 // Session Management
+// import javax.jws.soap.SOAPBinding;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
+import java.util.ArrayList;
+import java.util.List;
+// import java.util.Map;
+// import java.util.Optional;
 
 @Controller
 public class UIController {
@@ -34,22 +50,32 @@ public class UIController {
     @Autowired
     private addServiceToDB addingService;
     @Autowired
-    private AddServiceProviderRepository serviceProviderRepo;
-    // @Autowired
-    // private Location location;
+    private ServiceProviderRepository serviceProviderRepo;
+    @Autowired
+    private userDetailsRepository userRepo;
+    @Autowired
+    private UserProfileDetailsRepo userProfile;
 
     @GetMapping("/")
-    public String renderRoot(Model model) {
-        UserDetails user = new UserDetails();
-        model.addAttribute("user", user);
-        return "login";
+    public String renderRoot(Model model, HttpServletRequest request) {
+        if (request.getSession().getAttribute("userName") != null) {
+            return "redirect:/landing";
+        } else {
+            UserDetails user = new UserDetails();
+            model.addAttribute("user", user);
+            return "redirect:/login";
+        }
     }
 
     @GetMapping("/index")
-    public String renderIndex(Model model) {
-        UserDetails user = new UserDetails();
-        model.addAttribute("user", user);
-        return "redirect:/login";
+    public String renderIndex(Model model, HttpServletRequest request) {
+        if (request.getSession().getAttribute("userName") != null) {
+            return "redirect:/landing";
+        } else {
+            UserDetails user = new UserDetails();
+            model.addAttribute("user", user);
+            return "redirect:/login";
+        }
     }
 
     @GetMapping("/login")
@@ -68,29 +94,137 @@ public class UIController {
 
     @GetMapping("/landing")
     public String renderLanding(Model model, HttpServletRequest request) {
-        String userName =(String)request.getSession().getAttribute("userName");
-        model.addAttribute("userName", userName);
-        return "landing";
+        // System.out.println("URI"+request.getQueryString()+" "+request.getParameter("search"));
+        // System.out.println("\n Service Providers \n\t");
+        // serviceList.forEach(data -> System.out.println(data.getContact_number()));
+        if(request.getSession().getAttribute("userName")!=null){
+            
+            String user = request.getSession().getAttribute("userName").toString();
+            int userId = Integer.parseInt(user);
+            String userName = userRepo.findById(userId).getName();
+            model.addAttribute("userName", userName);
+
+            if(request.getParameter("search")==null){
+                List<ServiceProvider> serviceList = serviceProviderRepo.findAll();
+                model.addAttribute("serviceList", serviceList);
+                List<String> list = new ArrayList<String>();
+                for (int i = 0; i < serviceList.size(); i++) {
+                    list.add(serviceList.get(i).getService_name());
+                }
+                model.addAttribute("list", list);
+            }else{
+                List<ServiceProvider> searchServiceList = serviceProviderRepo.findByServiceName(request.getParameter("search").toLowerCase());
+                if(searchServiceList.size()==0){
+                    // TODO: Add msg that no result found
+                    List<ServiceProvider> serviceList = serviceProviderRepo.findAll();
+                    model.addAttribute("serviceList", serviceList);
+                    List<String> list = new ArrayList<String>();
+                    for (int i = 0; i < serviceList.size(); i++) {
+                        list.add(serviceList.get(i).getService_name());
+                    }
+                    model.addAttribute("list", list);
+                }else{
+                    model.addAttribute("serviceList", searchServiceList);
+                    List<ServiceProvider> serviceList = serviceProviderRepo.findAll();
+                    List<String> list = new ArrayList<String>();
+                    for (int i = 0; i < serviceList.size(); i++) {
+                        list.add(serviceList.get(i).getService_name());
+                    }
+                    model.addAttribute("list", list);
+                }
+            }
+            
+            ServiceProvider service = new ServiceProvider(); 
+            model.addAttribute("service", service);
+            return "landing";
+        }else{
+            return "redirect:/forbidden";
+        }
     }
 
-    @GetMapping("/service")
-    public String renderService() {
-        return "service";
+    @PostMapping("/search")
+    public String search(@ModelAttribute("service") ServiceProvider service) {
+        System.out.println("Test1\t" + service.getService_name());
+        return "redirect:/landing?search="+service.getService_name();
     }
 
     @GetMapping("/navbar")
     public String renderNavbar(Model model, HttpServletRequest request) {
-        String userName =(String)request.getSession().getAttribute("userName");
+        String user = request.getSession().getAttribute("userName").toString();
+        int userId = Integer.parseInt(user); 
+        String userName = userRepo.findById(userId).getName();
         model.addAttribute("userName", userName);
         return "navbar";
     }
 
-    @PostMapping("/signout")
-    public String signOut(HttpSession session){
-        session.invalidate();
-        return "redirect:/login";
+    // Curretly using all the service ( Ordered and not ordered ) in "Your orders" inside userProfile
+
+    @GetMapping("/userProfile")
+    public String renderUserProfile(Model model, HttpServletRequest request) {
+        if(request.getSession().getAttribute("userName")!=null) {
+            List<ServiceProvider> serviceList = serviceProviderRepo.findAll();
+            String user = request.getSession().getAttribute("userName").toString();
+            int userId = Integer.parseInt(user);
+            String userName = userRepo.findById(userId).getName();
+            model.addAttribute("userName", userName);
+            model.addAttribute("serviceList", serviceList);
+//            UserDetails details= new UserDetails();
+//            model.addAttribute("userDetails",details);
+//            List<UserDetails> details= userProfile.findById(userId);
+            String name = userProfile.findById(userId).getName();
+            String mail = userRepo.findById(userId).getEmail();
+            String pass = userRepo.findById(userId).getPassword();
+            System.out.println("test2"+ name);
+            System.out.println("test3"+ mail);
+            System.out.println("test3"+ pass);
+            model.addAttribute("id", userId);
+            model.addAttribute("name",name);
+            model.addAttribute("email",mail);
+            model.addAttribute("password",pass);
+
+            UserDetails userModel = new UserDetails();
+            model.addAttribute("details",userModel);
+//            model.addAttribute("userProfile" , details);
+            return "userProfile";
+        }
+        else {
+            return "redirect:/forbidden";
+        }
     }
 
+    @PostMapping("/detailsUpdate")
+    public String updateUser(@ModelAttribute("details") UserDetails user,@ModelAttribute("id") String Id, Model model, HttpServletRequest request) {
+//        if (result.hasErrors()) {
+//            user.setId(id);
+//            return "update-user";
+//        }
+        // Changing String Id to int id
+        //TODO:Check again if this works
+        // System.out.println("test4"+ Id);
+        // int id = Integer.parseInt(Id);
+        String userId = request.getSession().getAttribute("userName").toString();
+        int id = Integer.parseInt(userId);
+        System.out.println(user.getName());
+        UserDetails updatedUser = userRepo.findById(id);
+        if (!user.getName().isEmpty()) {
+            updatedUser.setName(user.getName());
+        }
+        if (!user.getEmail().isEmpty()) {
+            updatedUser.setEmail(user.getEmail());
+        }
+        if (!user.getPassword().isEmpty()) {
+            updatedUser.setPassword(user.getPassword());
+        }
+        // userRepo.save(updatedUser);
+        // userRepo.save(details);
+        // model.addAttribute("details", userRepo.findAll());
+        return "redirect:/userProfile";
+    }
+
+    // @GetMapping("/services")
+    // public String renderService() {
+    //     return "service";
+    // }
 
     // @GetMapping("/test")
     // public String renderTest(@RequestParam(name = "name", required = false,
@@ -98,12 +232,50 @@ public class UIController {
     // model.addAttribute("name", name);
     // return "test";
     // }
+
     @GetMapping("/test")
     public String renderTest(Model model) {
         Service user = new Service();
         model.addAttribute("user", user);
         return "test";
     }
+
+    @PostMapping("/signout")
+    public String signOut(HttpSession session) {
+        session.invalidate();
+        return "redirect:/login";
+    }
+
+    // @PostMapping(value = "/services/", consumes =
+    // MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    // "application/x-www-form-urlencoded"
+    // @PostMapping("/services/")
+    // public String renderService(@ModelAttribute("service") ServiceProvider
+    // service, Model model) {
+    // // public String rendService(@RequestBody Map<String, String> params, Model
+    // // model) {
+    // // public String renderService(@ModelAttribute("service") ServiceProvider
+    // // service, Model model) {
+    // System.out.println(service.getId());
+    // // ServiceProvider service = serviceProviderRepo.findById(id);
+    // // model.addAttribute("service", service);
+    // return "service";
+    // }
+    
+    // @PostMapping(value)
+
+
+    // @RequestMapping(value = "/services/{srvid}", params = { "srvid" })
+    // @GetMapping("/services")
+    // public String renderServices(){
+    // public String renderService(@PathVariable("srvId") int srvId, ServiceProvider service, BindingResult bindingResult, HttpServletRequest req) {
+        // Integer serviceId = Integer.valueOf(req.getParameter("srvid"));
+        // System.out.println(srvId);
+        // ServiceProvider serviceP = new ServiceProvider();
+        // serviceP = serviceProviderRepo.findById(srvId);
+        // System.out.println(serviceP);
+    //     return "service";
+    // }
 
     @PostMapping("/register")
     public String submitUser(@ModelAttribute("user") UserDetails user) {
@@ -115,25 +287,23 @@ public class UIController {
     @PostMapping("/login")
     public String submitLogin(@ModelAttribute("user") UserDetails user, HttpServletRequest request) {
         // System.out.println(user.getName());
-        String signedUser = userService.AuthenticateUser(user);
+        int signedUser = userService.AuthenticateUser(user);
         System.out.println(signedUser);
-        if(signedUser == "invalid"){
+        if (signedUser == 0) {
             System.out.println("invalid User");
             return "login";
-        }
-        else if(signedUser == "error"){    
+        } else if (signedUser == -1) {
             return "login";
-        }
-        else{
+        } else {
             request.getSession().setAttribute("userName", signedUser);
             System.out.println(request.getSession().getAttribute("userName"));
             return "redirect:/landing";
         }
-        
+
     }
 
     // admin URLS mapping
-    
+
     @GetMapping("/adminLogin")
     public String renderAdminLogin() {
         return "adminLogin";
@@ -144,32 +314,73 @@ public class UIController {
         return "adminDashboard";
     }
 
+    @GetMapping("/service/{srvId}")
+    public String renderServices(@PathVariable("srvId") int srvId,Model model, HttpServletRequest request) {
+        if(request.getSession().getAttribute("userName")!=null){
+            System.out.println(srvId);
+            String user = request.getSession().getAttribute("userName").toString();
+            int userId = Integer.parseInt(user);
+            String userName = userRepo.findById(userId).getName();
+            model.addAttribute("userName", userName);
+            ServiceProvider serviceP = new ServiceProvider();
+            serviceP = serviceProviderRepo.findById(srvId);
+            System.out.println(serviceP);
+            if(serviceP==null){
+                return "redirect:/error";
+            }
+            model.addAttribute("service", serviceP);
+            return "service";
+        }else{
+            return "redirect:/forbidden";
+        }
+    }
+
     @GetMapping("/addService")
     public String renderAdminAddService(Model model) {
         ServiceProvider service = new ServiceProvider();
         model.addAttribute("service", service);
+        Location location = new Location();
+        // String loca = null;
+        model.addAttribute("location", location);
+        List<Location> list = locationRepo.findAll();
+        model.addAttribute("cities", list);
+        System.out.println("testing" + list);
         return "adminAddService";
     }
+
+    // @RequestMapping(value="/search")
+    // @ResponseBody
+    // public List<String> search(@RequestParam(value="term", required= false, defaultValue = "")String term){
+    //     List<String> list = new ArrayList<String>();
+    //     list.add("Akshat");
+    //     list.add("Anshika");
+    //     list.add("Choi");
+    //     list.add("Vaibhav");
+    //     return list;
+    // }
+
 
     @PostMapping("/addService")
-    public String addServiceToDB(@ModelAttribute("service") ServiceProvider service) {
-        addingService.SaveServicesData(service);
-        // try {
-        //     System.out.println(locationRepo.findAll());
-        //     service.setLocation(locationRepo.findById(3));
-        //     System.out.println("Service:\t"+service.toString());
-        //     System.out.println(service.getLocation().getLocName());
-        //     serviceProviderRepo.save(service);
-        // } catch (Exception e) {
-        //     System.out.println(e);
-        // }
-        return "adminAddService";
+    public String addServiceToDB(@ModelAttribute("service") ServiceProvider service,
+            @ModelAttribute("location") Location location) {
+        System.out.println("test1:\t " + location.toString());
+        addingService.SaveServicesData(service, location);
+        return "redirect:/addService";
     }
-
 
     @GetMapping("/adminNavbar")
     public String renderAdminNavBar() {
         return "adminNavbar";
     }
+  
+   
+    // @GetMapping("/error")
+    // public String renderError() {
+    //     return "error";
+    // }
 
+    @GetMapping("/forbidden")
+    public String render403() {
+        return "forbidden";
+    }
 }
