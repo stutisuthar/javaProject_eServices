@@ -94,29 +94,47 @@ public class UIController {
 
     @GetMapping("/landing")
     public String renderLanding(Model model, HttpServletRequest request) {
-
+        // System.out.println("URI"+request.getQueryString()+" "+request.getParameter("search"));
         // System.out.println("\n Service Providers \n\t");
         // serviceList.forEach(data -> System.out.println(data.getContact_number()));
         if(request.getSession().getAttribute("userName")!=null){
+            
             String user = request.getSession().getAttribute("userName").toString();
             int userId = Integer.parseInt(user);
             String userName = userRepo.findById(userId).getName();
             model.addAttribute("userName", userName);
-            List<ServiceProvider> serviceList = serviceProviderRepo.findAll();
-            model.addAttribute("serviceList", serviceList);
-            List<String> list = new ArrayList<String>();
-            for(int i =0;i<serviceList.size();i++){
-                list.add(serviceList.get(i).getService_name());
+
+            if(request.getParameter("search")==null){
+                List<ServiceProvider> serviceList = serviceProviderRepo.findAll();
+                model.addAttribute("serviceList", serviceList);
+                List<String> list = new ArrayList<String>();
+                for (int i = 0; i < serviceList.size(); i++) {
+                    list.add(serviceList.get(i).getService_name());
+                }
+                model.addAttribute("list", list);
+            }else{
+                List<ServiceProvider> searchServiceList = serviceProviderRepo.findByServiceName(request.getParameter("search"));
+                model.addAttribute("serviceList", searchServiceList);
+                List<ServiceProvider> serviceList = serviceProviderRepo.findAll();
+                List<String> list = new ArrayList<String>();
+                for (int i = 0; i < serviceList.size(); i++) {
+                    list.add(serviceList.get(i).getService_name());
+                }
+                model.addAttribute("list", list);
             }
-            // list.add("Akshat");
-            // list.add("Anshika");
-            // list.add("Choi");
-            // list.add("Vaibhav");
-            model.addAttribute("list", list);
+            
+            ServiceProvider service = new ServiceProvider(); 
+            model.addAttribute("service", service);
             return "landing";
         }else{
             return "redirect:/forbidden";
         }
+    }
+
+    @PostMapping("/search")
+    public String search(@ModelAttribute("service") ServiceProvider service) {
+        System.out.println("Test1\t" + service.getService_name());
+        return "redirect:/landing?search="+service.getService_name();
     }
 
     @GetMapping("/navbar")
@@ -330,10 +348,6 @@ public class UIController {
     //     return list;
     // }
 
-    @PostMapping("/search")
-    public String search(){
-        return "Test";
-    }
 
     @PostMapping("/addService")
     public String addServiceToDB(@ModelAttribute("service") ServiceProvider service,
