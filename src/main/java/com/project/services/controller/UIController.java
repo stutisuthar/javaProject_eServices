@@ -20,6 +20,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 // import org.springframework.web.bind.annotation.RequestBody;
 // import org.springframework.web.bind.annotation.RequestMapping;
 // import org.springframework.web.bind.annotation.RequestParam;
@@ -31,6 +34,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 // import javax.jws.soap.SOAPBinding;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
+import java.util.ArrayList;
 import java.util.List;
 // import java.util.Map;
 // import java.util.Optional;
@@ -89,20 +94,58 @@ public class UIController {
 
     @GetMapping("/landing")
     public String renderLanding(Model model, HttpServletRequest request) {
-
+        // System.out.println("URI"+request.getQueryString()+" "+request.getParameter("search"));
         // System.out.println("\n Service Providers \n\t");
         // serviceList.forEach(data -> System.out.println(data.getContact_number()));
         if(request.getSession().getAttribute("userName")!=null){
+            
             String user = request.getSession().getAttribute("userName").toString();
             int userId = Integer.parseInt(user);
             String userName = userRepo.findById(userId).getName();
             model.addAttribute("userName", userName);
-            List<ServiceProvider> serviceList = serviceProviderRepo.findAll();
-            model.addAttribute("serviceList", serviceList);
+
+            if(request.getParameter("search")==null){
+                List<ServiceProvider> serviceList = serviceProviderRepo.findAll();
+                model.addAttribute("serviceList", serviceList);
+                List<String> list = new ArrayList<String>();
+                for (int i = 0; i < serviceList.size(); i++) {
+                    list.add(serviceList.get(i).getService_name());
+                }
+                model.addAttribute("list", list);
+            }else{
+                List<ServiceProvider> searchServiceList = serviceProviderRepo.findByServiceName(request.getParameter("search").toLowerCase());
+                if(searchServiceList.size()==0){
+                    // TODO: Add msg that no result found
+                    List<ServiceProvider> serviceList = serviceProviderRepo.findAll();
+                    model.addAttribute("serviceList", serviceList);
+                    List<String> list = new ArrayList<String>();
+                    for (int i = 0; i < serviceList.size(); i++) {
+                        list.add(serviceList.get(i).getService_name());
+                    }
+                    model.addAttribute("list", list);
+                }else{
+                    model.addAttribute("serviceList", searchServiceList);
+                    List<ServiceProvider> serviceList = serviceProviderRepo.findAll();
+                    List<String> list = new ArrayList<String>();
+                    for (int i = 0; i < serviceList.size(); i++) {
+                        list.add(serviceList.get(i).getService_name());
+                    }
+                    model.addAttribute("list", list);
+                }
+            }
+            
+            ServiceProvider service = new ServiceProvider(); 
+            model.addAttribute("service", service);
             return "landing";
         }else{
             return "redirect:/forbidden";
         }
+    }
+
+    @PostMapping("/search")
+    public String search(@ModelAttribute("service") ServiceProvider service) {
+        System.out.println("Test1\t" + service.getService_name());
+        return "redirect:/landing?search="+service.getService_name();
     }
 
     @GetMapping("/navbar")
@@ -304,6 +347,18 @@ public class UIController {
         System.out.println("testing" + list);
         return "adminAddService";
     }
+
+    // @RequestMapping(value="/search")
+    // @ResponseBody
+    // public List<String> search(@RequestParam(value="term", required= false, defaultValue = "")String term){
+    //     List<String> list = new ArrayList<String>();
+    //     list.add("Akshat");
+    //     list.add("Anshika");
+    //     list.add("Choi");
+    //     list.add("Vaibhav");
+    //     return list;
+    // }
+
 
     @PostMapping("/addService")
     public String addServiceToDB(@ModelAttribute("service") ServiceProvider service,

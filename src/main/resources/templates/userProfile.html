@@ -55,8 +55,8 @@
       <div class="col-10 d-flex align-items-start justify-content-lg-start">
 
         <!-- Your orders starts -->
-        <div class="row row-cols-1 row-cols-md-3 your-orders-container" style="margin-top: 2vh;">
-          <div class="col mb-3" th:each="service: ${serviceList}">
+        <div class="row your-orders-container" style="margin-top: 2vh; width: inherit;">
+          <div class="col-lg-4 col-md-4 col-sm-10 mb-3" th:each="service: ${serviceList}">
             <div class="card">
               <div class="card-header">
                 <h5 class="card-title mb-1" th:text="${service.serviceCategory}"></h5>
