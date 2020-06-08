@@ -34,8 +34,13 @@
 			</div>
 			<h2>403 - Access Denied</h2>
 			<p>The page you are looking for needs you to login first, if you are new, you can register a new account.</p>
-			<a href="/login" style='margin-right:25px'>Login</a>
-			<a href="/registration">Register</a>
+			<div th:if="${param.admin}">
+				<a href="/adminLogin" style='margin-right:25px'>Admin Login</a>
+			</div>
+			<div th:unless="${param.admin}">
+				<a href="/login" style='margin-right:25px'>Login</a>
+				<a href="/registration">Register</a>
+			</div>
 		</div>
 	</div>
 

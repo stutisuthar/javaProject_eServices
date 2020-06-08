@@ -290,13 +290,37 @@ public class UIController {
     // admin URLS mapping
 
     @GetMapping("/adminLogin")
-    public String renderAdminLogin() {
+    public String renderAdminLogin(Model model) {
+        UserDetails user = new UserDetails();
+        model.addAttribute("user", user);
         return "adminLogin";
     }
 
+    @PostMapping("/adminLogin")
+    public String adminSubmitLogin(@ModelAttribute("user") UserDetails user, HttpServletRequest request) {
+        if(user.getName().equals("admin")&&user.getPassword().equals("admin")){
+            request.getSession().setAttribute("adminStatus", "1");
+            return "redirect:/dashboard";
+        }
+        else
+            return "redirect:/adminLogin?error=1";
+    }
+
     @GetMapping("/dashboard")
-    public String renderAdminDashboard() {
-        return "adminDashboard";
+    public String renderAdminDashboard(HttpServletRequest request) {
+        if(request.getSession().getAttribute("adminStatus")!=null) {
+            return "adminDashboard";
+        }
+        else{
+            return "redirect:/forbidden?admin=1";
+        }
+        
+    }
+
+    @PostMapping("/signoutAdmin")
+    public String signOutAdmin(HttpSession session) {
+        session.invalidate();
+        return "redirect:/adminLogin";
     }
 
     @GetMapping("/service/{srvId}")
