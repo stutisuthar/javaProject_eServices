@@ -123,7 +123,13 @@
                   <p class="card-text text-muted mb-0">Price:</p>
                   <p class="card-text" th:text="${service.cost}"></p>
                 </div>
+                <div>
+                  <p class="card-text text-muted mb-0">Location:</p>
+                  <p class="card-text" th:text="${service.location.locName}"></p>
+                </div>
+                <div style="margin-top: 25px;">
                   <a th:href="@{service/{id}(id=${service.id})}" class="btn btn-dark">Open details</a>
+                </div>
                 </form>
               </div>
             </div>
