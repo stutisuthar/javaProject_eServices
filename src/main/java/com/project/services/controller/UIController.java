@@ -108,25 +108,94 @@ public class UIController {
                 }
                 model.addAttribute("list", list);
             }else{
-                List<ServiceProvider> searchServiceList = serviceProviderRepo.findByServiceName(request.getParameter("search").toLowerCase());
-                if(searchServiceList.size()==0){
-                    // TODO: Add msg that no result found
-                    List<ServiceProvider> serviceList = serviceProviderRepo.findAll();
-                    model.addAttribute("serviceList", serviceList);
-                    List<String> list = new ArrayList<String>();
-                    for (int i = 0; i < serviceList.size(); i++) {
-                        list.add(serviceList.get(i).getService_name());
+
+                if(request.getParameter("search")==null){
+                    String Locname= request.getParameter("location");
+                    System.out.println();
+                    int locationId = locationRepo.findBylocName(Locname).getId();
+                    List<ServiceProvider> searchServiceList = serviceProviderRepo.findByLocation(locationId);
+                    if (searchServiceList.size() == 0) {
+                        // TODO: Add msg that no result found
+                        List<ServiceProvider> serviceList = serviceProviderRepo.findAll();
+                        model.addAttribute("serviceList", serviceList);
+                        List<String> list = new ArrayList<String>();
+                        for (int i = 0; i < serviceList.size(); i++) {
+                            list.add(serviceList.get(i).getService_name());
+                        }
+                        model.addAttribute("list", list);
+                    } else {
+                        model.addAttribute("serviceList", searchServiceList);
+                        List<ServiceProvider> serviceList = serviceProviderRepo.findAll();
+                        List<String> list = new ArrayList<String>();
+                        for (int i = 0; i < serviceList.size(); i++) {
+                            list.add(serviceList.get(i).getService_name());
+                        }
+                        model.addAttribute("list", list);
                     }
-                    model.addAttribute("list", list);
+                }else if(request.getParameter("location")==null){
+                    List<ServiceProvider> searchServiceList = serviceProviderRepo.findByServiceName(request.getParameter("search").toLowerCase());
+                    if (searchServiceList.size() == 0) {
+                        // TODO: Add msg that no result found
+                        List<ServiceProvider> serviceList = serviceProviderRepo.findAll();
+                        model.addAttribute("serviceList", serviceList);
+                        List<String> list = new ArrayList<String>();
+                        for (int i = 0; i < serviceList.size(); i++) {
+                            list.add(serviceList.get(i).getService_name());
+                        }
+                        model.addAttribute("list", list);
+                    } else {
+                        model.addAttribute("serviceList", searchServiceList);
+                        List<ServiceProvider> serviceList = serviceProviderRepo.findAll();
+                        List<String> list = new ArrayList<String>();
+                        for (int i = 0; i < serviceList.size(); i++) {
+                            list.add(serviceList.get(i).getService_name());
+                        }
+                        model.addAttribute("list", list);
+                    }
                 }else{
-                    model.addAttribute("serviceList", searchServiceList);
-                    List<ServiceProvider> serviceList = serviceProviderRepo.findAll();
-                    List<String> list = new ArrayList<String>();
-                    for (int i = 0; i < serviceList.size(); i++) {
-                        list.add(serviceList.get(i).getService_name());
+                    String Locname = request.getParameter("location");
+                    int locationId = locationRepo.findBylocName(Locname).getId();
+                    String strSearch = request.getParameter("search").toLowerCase();
+                    List<ServiceProvider> searchServiceList = serviceProviderRepo.findByServiceAndLocationName(strSearch,locationId);
+                    if (searchServiceList.size() == 0) {
+                        // TODO: Add msg that no result found
+                        List<ServiceProvider> serviceList = serviceProviderRepo.findAll();
+                        model.addAttribute("serviceList", serviceList);
+                        List<String> list = new ArrayList<String>();
+                        for (int i = 0; i < serviceList.size(); i++) {
+                            list.add(serviceList.get(i).getService_name());
+                        }
+                        model.addAttribute("list", list);
+                    } else {
+                        model.addAttribute("serviceList", searchServiceList);
+                        List<ServiceProvider> serviceList = serviceProviderRepo.findAll();
+                        List<String> list = new ArrayList<String>();
+                        for (int i = 0; i < serviceList.size(); i++) {
+                            list.add(serviceList.get(i).getService_name());
+                        }
+                        model.addAttribute("list", list);
                     }
-                    model.addAttribute("list", list);
                 }
+
+                // List<ServiceProvider> searchServiceList = serviceProviderRepo.findByServiceName(request.getParameter("search").toLowerCase());
+                // if(searchServiceList.size()==0){
+                //     // TODO: Add msg that no result found
+                //     List<ServiceProvider> serviceList = serviceProviderRepo.findAll();
+                //     model.addAttribute("serviceList", serviceList);
+                //     List<String> list = new ArrayList<String>();
+                //     for (int i = 0; i < serviceList.size(); i++) {
+                //         list.add(serviceList.get(i).getService_name());
+                //     }
+                //     model.addAttribute("list", list);
+                // }else{
+                //     model.addAttribute("serviceList", searchServiceList);
+                //     List<ServiceProvider> serviceList = serviceProviderRepo.findAll();
+                //     List<String> list = new ArrayList<String>();
+                //     for (int i = 0; i < serviceList.size(); i++) {
+                //         list.add(serviceList.get(i).getService_name());
+                //     }
+                //     model.addAttribute("list", list);
+                // }
             }
             
             ServiceProvider service = new ServiceProvider(); 
