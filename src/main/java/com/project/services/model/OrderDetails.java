@@ -2,8 +2,6 @@ package com.project.services.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.sql.Time;
-import java.sql.Timestamp;
 import java.util.Date;
 
 @Entity
@@ -43,32 +41,11 @@ public class OrderDetails implements Serializable {
     @Column(name = "Contact")
     private long contact;
 
-    // @Column(name = "serviceTime")
-    // private String serviceTime;
-    //
-    // @Column(name = "serviceDate")
-    // private String serviceDate;
     @Column(name = "serviceTimestamp")
     private Date serviceTimestamp;
 
     @Column(name = "orderTimestamp")
     private Date orderTimestamp;
-
-    // public String getServiceTime() {
-    // return serviceTime;
-    // }
-
-    // public void setServiceTime(String serviceTime) {
-    // this.serviceTime = serviceTime;
-    // }
-    //
-    // public String getServiceDate() {
-    // return serviceDate;
-    // }
-
-    // public void setServiceDate(String serviceDate) {
-    // this.serviceDate = serviceDate;
-    // }
 
     public Date getServiceTimestamp() {
         return serviceTimestamp;

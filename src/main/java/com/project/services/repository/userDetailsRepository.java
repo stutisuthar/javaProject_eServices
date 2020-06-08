@@ -8,7 +8,6 @@ import com.project.services.model.UserDetails;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import javax.jws.soap.SOAPBinding;
 import java.util.List;
 
 @Repository
@@ -17,5 +16,4 @@ public interface userDetailsRepository extends JpaRepository<UserDetails, Long> 
     UserDetails findById(int id);
 
     List<OrderDetails> findOrderDetailsById(int id);
-    // UserDetails findByEmailPassword(String email, String password);
 }

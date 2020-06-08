@@ -1,8 +1,5 @@
 package com.project.services.forms;
 
-import java.sql.Time;
-import java.util.Date;
-
 public class OrderForm {
 
     private int serviceId;
