@@ -10,9 +10,9 @@ function validateRegistrationForm() {
 }
 
 function validateUpdatedUserForm() {
-  validateEmail("update-profile", "email");
-  validatePassword("update-profile", "password");
-  validateName("update-profile","name")
+  // validateEmail("update-profile", "email");
+  // validatePassword("update-profile", "password");
+  // validateName("update-profile","name")
 }
 
 

@@ -141,7 +141,7 @@
           <div class="col-lg-5 mb-3" th:each="order: ${orderList}">
             <div class="card">
               <div class="card-header">
-                <h5 class="card-title mb-1" th:text="${order.user.name}"></h5>
+                <h5 class="card-title mb-1" th:text="${order.service.service_name}"></h5>
               </div>
               <div class="card-body">
                 <p class="card-text text-muted mb-0" th:text="${order.status}"></p>
