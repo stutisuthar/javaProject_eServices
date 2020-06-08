@@ -91,8 +91,15 @@ public class UIController {
             int userId = Integer.parseInt(user);
             String userName = userRepo.findById(userId).getName();
             model.addAttribute("userName", userName);
+            // ServiceProvider service = new ServiceProvider();
+            // model.addAttribute("service", service);
+            Location location = new Location();
+            model.addAttribute("location", location);
+            List<Location> listLocation = locationRepo.findAll();
+            model.addAttribute("cities", listLocation);
 
-            if(request.getParameter("search")==null){
+
+            if(request.getParameter("search")==null && request.getParameter("location")==null){
                 List<ServiceProvider> serviceList = serviceProviderRepo.findAll();
                 model.addAttribute("serviceList", serviceList);
                 List<String> list = new ArrayList<String>();
@@ -131,9 +138,10 @@ public class UIController {
     }
 
     @PostMapping("/search")
-    public String search(@ModelAttribute("service") ServiceProvider service) {
+    public String search(@ModelAttribute("service") ServiceProvider service, @ModelAttribute("location") Location location) {
+        System.out.println("Location:"+location.getLocName());
         System.out.println("Test1\t" + service.getService_name());
-        return "redirect:/landing?search="+service.getService_name();
+        return "redirect:/landing?search="+service.getService_name()+"&location="+location.getLocName();
     }
 
     @GetMapping("/navbar")
