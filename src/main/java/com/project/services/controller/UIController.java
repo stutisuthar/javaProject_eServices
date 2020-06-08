@@ -300,7 +300,7 @@ public class UIController {
     public String adminSubmitLogin(@ModelAttribute("user") UserDetails user, HttpServletRequest request) {
         if(user.getName().equals("admin")&&user.getPassword().equals("admin")){
             request.getSession().setAttribute("adminStatus", "1");
-            return "redirect:/dashboard";
+            return "redirect:/addService";
         }
         else
             return "redirect:/adminLogin?error=1";
