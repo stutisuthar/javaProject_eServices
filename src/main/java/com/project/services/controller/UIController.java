@@ -183,9 +183,12 @@ public class UIController {
     }
 
     @PostMapping("/search")
-    public String search(@ModelAttribute("service") ServiceProvider service,
-            @ModelAttribute("location") Location location) {
-        return "redirect:/landing?search=" + service.getService_name() + "&location=" + location.getLocName();
+    public String search(@ModelAttribute("service") ServiceProvider service,@ModelAttribute("location") Location location) {
+        if(location.getLocName().equals("")){
+            return "redirect:/landing?search=" + service.getService_name();
+        }else{
+            return "redirect:/landing?search=" + service.getService_name() + "&location=" + location.getLocName();
+        }
     }
 
     @GetMapping("/navbar")
