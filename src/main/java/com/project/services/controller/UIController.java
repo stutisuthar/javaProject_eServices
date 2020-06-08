@@ -172,26 +172,6 @@ public class UIController {
                         model.addAttribute("list", list);
                     }
                 }
-
-                // List<ServiceProvider> searchServiceList = serviceProviderRepo.findByServiceName(request.getParameter("search").toLowerCase());
-                // if(searchServiceList.size()==0){
-                //     // TODO: Add msg that no result found
-                //     List<ServiceProvider> serviceList = serviceProviderRepo.findAll();
-                //     model.addAttribute("serviceList", serviceList);
-                //     List<String> list = new ArrayList<String>();
-                //     for (int i = 0; i < serviceList.size(); i++) {
-                //         list.add(serviceList.get(i).getService_name());
-                //     }
-                //     model.addAttribute("list", list);
-                // }else{
-                //     model.addAttribute("serviceList", searchServiceList);
-                //     List<ServiceProvider> serviceList = serviceProviderRepo.findAll();
-                //     List<String> list = new ArrayList<String>();
-                //     for (int i = 0; i < serviceList.size(); i++) {
-                //         list.add(serviceList.get(i).getService_name());
-                //     }
-                //     model.addAttribute("list", list);
-                // }
             }
 
             ServiceProvider service = new ServiceProvider();
@@ -406,6 +386,11 @@ public class UIController {
     @GetMapping("/adminNavbar")
     public String renderAdminNavBar() {
         return "adminNavbar";
+    }
+
+    @GetMapping("/error")
+    public String render404() {
+        return "error";
     }
 
     @GetMapping("/forbidden")
