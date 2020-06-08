@@ -2,7 +2,6 @@ package com.project.services.controller;
 
 import com.project.services.model.Location;
 import com.project.services.model.OrderDetails;
-import com.project.services.model.Service;
 import com.project.services.model.ServiceProvider;
 import com.project.services.model.UserDetails;
 import com.project.services.repository.ServiceProviderRepository;
@@ -85,21 +84,18 @@ public class UIController {
 
     @GetMapping("/landing")
     public String renderLanding(Model model, HttpServletRequest request) {
-        if(request.getSession().getAttribute("userName")!=null){
-            
+        if (request.getSession().getAttribute("userName") != null) {
+
             String user = request.getSession().getAttribute("userName").toString();
             int userId = Integer.parseInt(user);
             String userName = userRepo.findById(userId).getName();
             model.addAttribute("userName", userName);
-            // ServiceProvider service = new ServiceProvider();
-            // model.addAttribute("service", service);
             Location location = new Location();
             model.addAttribute("location", location);
             List<Location> listLocation = locationRepo.findAll();
             model.addAttribute("cities", listLocation);
 
-
-            if(request.getParameter("search")==null && request.getParameter("location")==null){
+            if (request.getParameter("search") == null && request.getParameter("location") == null) {
                 List<ServiceProvider> serviceList = serviceProviderRepo.findAll();
                 model.addAttribute("serviceList", serviceList);
                 List<String> list = new ArrayList<String>();
@@ -107,9 +103,10 @@ public class UIController {
                     list.add(serviceList.get(i).getService_name());
                 }
                 model.addAttribute("list", list);
-            }else{
-                List<ServiceProvider> searchServiceList = serviceProviderRepo.findByServiceName(request.getParameter("search").toLowerCase());
-                if(searchServiceList.size()==0){
+            } else {
+                List<ServiceProvider> searchServiceList = serviceProviderRepo
+                        .findByServiceName(request.getParameter("search").toLowerCase());
+                if (searchServiceList.size() == 0) {
                     // TODO: Add msg that no result found
                     List<ServiceProvider> serviceList = serviceProviderRepo.findAll();
                     model.addAttribute("serviceList", serviceList);
@@ -118,7 +115,7 @@ public class UIController {
                         list.add(serviceList.get(i).getService_name());
                     }
                     model.addAttribute("list", list);
-                }else{
+                } else {
                     model.addAttribute("serviceList", searchServiceList);
                     List<ServiceProvider> serviceList = serviceProviderRepo.findAll();
                     List<String> list = new ArrayList<String>();
@@ -128,26 +125,25 @@ public class UIController {
                     model.addAttribute("list", list);
                 }
             }
-            
-            ServiceProvider service = new ServiceProvider(); 
+
+            ServiceProvider service = new ServiceProvider();
             model.addAttribute("service", service);
             return "landing";
-        }else{
+        } else {
             return "redirect:/forbidden";
         }
     }
 
     @PostMapping("/search")
-    public String search(@ModelAttribute("service") ServiceProvider service, @ModelAttribute("location") Location location) {
-        System.out.println("Location:"+location.getLocName());
-        System.out.println("Test1\t" + service.getService_name());
-        return "redirect:/landing?search="+service.getService_name()+"&location="+location.getLocName();
+    public String search(@ModelAttribute("service") ServiceProvider service,
+            @ModelAttribute("location") Location location) {
+        return "redirect:/landing?search=" + service.getService_name() + "&location=" + location.getLocName();
     }
 
     @GetMapping("/navbar")
     public String renderNavbar(Model model, HttpServletRequest request) {
         String user = request.getSession().getAttribute("userName").toString();
-        int userId = Integer.parseInt(user); 
+        int userId = Integer.parseInt(user);
         String userName = userRepo.findById(userId).getName();
         model.addAttribute("userName", userName);
         return "navbar";
@@ -155,47 +151,37 @@ public class UIController {
 
     @GetMapping("/userProfile")
     public String renderUserProfile(Model model, HttpServletRequest request) {
-        if(request.getSession().getAttribute("userName")!=null) {
+        if (request.getSession().getAttribute("userName") != null) {
             List<ServiceProvider> serviceList = serviceProviderRepo.findAll();
             String user = request.getSession().getAttribute("userName").toString();
             int userId = Integer.parseInt(user);
             String userName = userRepo.findById(userId).getName();
             model.addAttribute("userName", userName);
             model.addAttribute("serviceList", serviceList);
-//            UserDetails details= new UserDetails();
-//            model.addAttribute("userDetails",details);
-//            List<UserDetails> details= userProfile.findById(userId);
             String name = userProfile.findById(userId).getName();
             String mail = userRepo.findById(userId).getEmail();
             String pass = userRepo.findById(userId).getPassword();
-            System.out.println("test2"+ name);
-            System.out.println("test3"+ mail);
-            System.out.println("test3"+ pass);
             model.addAttribute("id", userId);
-            model.addAttribute("name",name);
-            model.addAttribute("email",mail);
-            model.addAttribute("password",pass);
+            model.addAttribute("name", name);
+            model.addAttribute("email", mail);
+            model.addAttribute("password", pass);
 
             UserDetails userModel = new UserDetails();
             model.addAttribute("details", userModel);
             List<OrderDetails> orderList = userProfile.findById(userId).getOrderDetails();
-            // System.out.println(orderList.get(1).getStatus());
-            // List<OrderDetails> orderList = userRepo.findOrderDetailsById(userId);
             model.addAttribute("orderList", orderList);
             model.addAttribute("feed", new OrderDetails());
-            // model.addAttribute("userProfile" , details);
             return "userProfile";
-        }
-        else {
+        } else {
             return "redirect:/forbidden";
         }
     }
 
     @PostMapping("/detailsUpdate")
-    public String updateUser(@ModelAttribute("details") UserDetails user,@ModelAttribute("id") String Id, Model model, HttpServletRequest request) {
+    public String updateUser(@ModelAttribute("details") UserDetails user, @ModelAttribute("id") String Id, Model model,
+            HttpServletRequest request) {
         String userId = request.getSession().getAttribute("userName").toString();
         int id = Integer.parseInt(userId);
-        System.out.println(user.getName());
         UserDetails updatedUser = userRepo.findById(id);
         if (!user.getName().isEmpty()) {
             updatedUser.setName(user.getName());
@@ -209,17 +195,14 @@ public class UIController {
         return "redirect:/userProfile";
     }
 
-
-    @PostMapping("/feedbackUpdate" )
-    public String updateFeedback(@ModelAttribute("feed") OrderDetails order, Model model,HttpServletRequest request)
-    {
-        int id1= order.getId();
-        System.out.println("testblah"+id1);
+    @PostMapping("/feedbackUpdate")
+    public String updateFeedback(@ModelAttribute("feed") OrderDetails order, Model model, HttpServletRequest request) {
         OrderDetails updatedFeed = orderDetailsRepo.findById(order.getId());
         updatedFeed.setFeedback(order.getFeedback());
         updatedFeed.setRating(order.getRating());
         return "redirect:/userProfile";
     }
+
     private static Date parseDate(String date) {
         try {
             return new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").parse(date);
@@ -229,39 +212,24 @@ public class UIController {
     }
 
     @PostMapping("/orderService")
-    public String orderService(@ModelAttribute("orderForm") OrderForm orderForm, OrderDetails order, Model model,HttpServletRequest request) {
+    public String orderService(@ModelAttribute("orderForm") OrderForm orderForm, OrderDetails order, Model model,
+            HttpServletRequest request) {
         String userId = request.getSession().getAttribute("userName").toString();
         int id = Integer.parseInt(userId);
         UserDetails user = userRepo.findById(id);
         ServiceProvider service = serviceProviderRepo.findById(orderForm.getServiceId());
-        // // // //
-        System.out.println("::\n" + service.getService_name() + "::" + service.getContact_name() + "::\n");
-        System.out.println("::\n" + user.getEmail() + "::" + user.getName() + "::" + user.getOrderDetails().toString()
-                + "::" + user.getId() + "::\n");
         OrderDetails newOrder = new OrderDetails();
         newOrder.setUser(user);
         newOrder.setService(service);
         newOrder.setStatus(orderForm.getStatus());
         newOrder.setAddress(orderForm.getAddress());
-        System.out.println("Date"+orderForm.getServiceDate());
-        System.out.println("Time"+orderForm.getServiceTime());
-        String d=orderForm.getServiceDate()+" " +orderForm.getServiceTime() +":00";
-        System.out.println("str"+d);
-        Date date1= parseDate(d);
-        System.out.println("dateobject"+ date1.getTime());
+        String d = orderForm.getServiceDate() + " " + orderForm.getServiceTime() + ":00";
+        Date date1 = parseDate(d);
         newOrder.setServiceTimestamp(date1);
-        Date date=new Date();
+        Date date = new Date();
         newOrder.setOrderTimestamp(date);
-        OrderDetails savedOrder = orderDetailsRepo.save(newOrder);
-        System.out.println("\nSAVED ORDER ID: " + savedOrder.getId() + "\n");
+        orderDetailsRepo.save(newOrder);
         return "redirect:/userProfile";
-    }
-
-    @GetMapping("/test")
-    public String renderTest(Model model) {
-        Service user = new Service();
-        model.addAttribute("user", user);
-        return "test";
     }
 
     @PostMapping("/signout")
@@ -272,24 +240,19 @@ public class UIController {
 
     @PostMapping("/register")
     public String submitUser(@ModelAttribute("user") UserDetails user) {
-        System.out.println(user.getName());
         userService.SaveUserData(user);
         return "redirect:/login";
     }
 
     @PostMapping("/login")
     public String submitLogin(@ModelAttribute("user") UserDetails user, HttpServletRequest request) {
-        // System.out.println(user.getName());
         int signedUser = userService.AuthenticateUser(user);
-        System.out.println(signedUser);
         if (signedUser == 0) {
-            System.out.println("invalid User");
             return "login";
         } else if (signedUser == -1) {
             return "login";
         } else {
             request.getSession().setAttribute("userName", signedUser);
-            System.out.println(request.getSession().getAttribute("userName"));
             return "redirect:/landing";
         }
 
@@ -306,23 +269,21 @@ public class UIController {
 
     @PostMapping("/adminLogin")
     public String adminSubmitLogin(@ModelAttribute("user") UserDetails user, HttpServletRequest request) {
-        if(user.getName().equals("admin")&&user.getPassword().equals("admin")){
+        if (user.getName().equals("admin") && user.getPassword().equals("admin")) {
             request.getSession().setAttribute("adminStatus", "1");
             return "redirect:/addService";
-        }
-        else
+        } else
             return "redirect:/adminLogin?error=1";
     }
 
     @GetMapping("/dashboard")
     public String renderAdminDashboard(HttpServletRequest request) {
-        if(request.getSession().getAttribute("adminStatus")!=null) {
+        if (request.getSession().getAttribute("adminStatus") != null) {
             return "adminDashboard";
-        }
-        else{
+        } else {
             return "redirect:/forbidden?admin=1";
         }
-        
+
     }
 
     @PostMapping("/signoutAdmin")
@@ -332,22 +293,21 @@ public class UIController {
     }
 
     @GetMapping("/service/{srvId}")
-    public String renderServices(@PathVariable("srvId") int srvId,Model model, HttpServletRequest request) {
-        if(request.getSession().getAttribute("userName") != null){
-            System.out.println(srvId);
+    public String renderServices(@PathVariable("srvId") int srvId, Model model, HttpServletRequest request) {
+        if (request.getSession().getAttribute("userName") != null) {
             String user = request.getSession().getAttribute("userName").toString();
             int userId = Integer.parseInt(user);
             String userName = userRepo.findById(userId).getName();
             model.addAttribute("userName", userName);
             ServiceProvider serviceP = new ServiceProvider();
             serviceP = serviceProviderRepo.findById(srvId);
-            System.out.println(serviceP);
-            if(serviceP==null){
+            if (serviceP == null) {
                 return "redirect:/error";
-            } model.addAttribute("orderForm", new OrderForm());
+            }
+            model.addAttribute("orderForm", new OrderForm());
             model.addAttribute("service", serviceP);
             return "service";
-        }else{
+        } else {
             return "redirect:/forbidden";
         }
     }
@@ -360,14 +320,12 @@ public class UIController {
         model.addAttribute("location", location);
         List<Location> list = locationRepo.findAll();
         model.addAttribute("cities", list);
-        System.out.println("testing" + list);
         return "adminAddService";
     }
 
     @PostMapping("/addService")
     public String addServiceToDB(@ModelAttribute("service") ServiceProvider service,
             @ModelAttribute("location") Location location) {
-        System.out.println("test1:\t " + location.toString());
         addingService.SaveServicesData(service, location);
         return "redirect:/addService";
     }
@@ -376,11 +334,6 @@ public class UIController {
     public String renderAdminNavBar() {
         return "adminNavbar";
     }
-  
-    // @GetMapping("/error")
-    // public String renderError() {
-    //     return "error";
-    // }
 
     @GetMapping("/forbidden")
     public String render403() {

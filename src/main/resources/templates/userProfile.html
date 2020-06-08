@@ -135,8 +135,7 @@
         <!-- Profile closes here -->
 
         <!-- Your orders -->
-        <div
-          class="border-right-0 border-bottom-0 border-left-0 rounded-0 your-orders-container"
+        <div class="border-right-0 border-bottom-0 border-left-0 rounded-0 your-orders-container"
           style="margin-top: 2vh; width: inherit;">
           <div class="col-lg-5 mb-3" th:each="order: ${orderList}">
             <div class="card">
@@ -144,8 +143,11 @@
                 <h5 class="card-title mb-1" th:text="${order.service.service_name}"></h5>
               </div>
               <div class="card-body">
-                <p class="card-text text-muted mb-0" th:text="${order.status}"></p>
-                <p class="card-text" th:text="${order.address}"></p>
+                <p class="card-text text-muted mb-0" th:text="${'Order Status: ' + order.status}"></p>
+                <p class="card-text" th:text="${'Servicing Address: ' + order.address}"></p>
+                <p class="card-text"
+                  th:text="${'Servicing Time: ' + #dates.day(order.serviceTimestamp) + ' ' + #dates.monthName(order.serviceTimestamp)  + ', ' + #dates.year(order.serviceTimestamp) + ' | ' + #dates.format(order.serviceTimestamp, 'HH:mm')}">
+                </p>
                 <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#feedback">
                   Feedback
                 </button>
