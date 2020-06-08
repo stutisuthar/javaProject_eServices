@@ -197,7 +197,7 @@ public class UIController {
             UserDetails userModel = new UserDetails();
             model.addAttribute("details", userModel);
             List<OrderDetails> orderList = userProfile.findById(userId).getOrderDetails();
-            System.out.println(orderList.get(1).getStatus());
+            // System.out.println(orderList.get(1).getStatus());
             // List<OrderDetails> orderList = userRepo.findOrderDetailsById(userId);
             model.addAttribute("orderList", orderList);
             model.addAttribute("feed", new OrderDetails());

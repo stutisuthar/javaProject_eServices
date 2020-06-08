@@ -33,15 +33,7 @@
 </head>
 
 <body>
-  <!-- <script th:inline="javascript" type="text/javascript">
-    /*<![CDATA[*/
-    var uN = /*[[${orderList[1].user.name}]]*/ 'Namer';
-    var stat = /*[[${orderList[1].status}]]*/ 'Cat';
-    var ad = /*[[${orderList[1].address}]]*/ '100';
-    console.log(uN);
-    console.log(stat);
-    console.log(ad);
-  </script> -->
+  
   <!-- <div layout:fragment="content" th:remove="tag"> -->
   <div th:replace="fragments/header :: header"></div>
   <div id="navbar-user-frame"></div>
@@ -203,15 +195,6 @@
           class="border-right-0 border-bottom-0 border-left-0 rounded-0 border-warning bg-light your-orders-container"
           style="margin-top: 2vh;">
           <div class="col mb-3" th:each="order: ${orderList}">
-            <!-- <script th:inline="javascript" type="text/javascript">
-              /*<![CDATA[*/
-              var uN = /*[[${order.user.name}]]*/ 'Namer';
-              var stat = /*[[${order.status}]]*/ 'Cat';
-              var ad = /*[[${order.address}]]*/ '100';
-              console.log(uN);
-              console.log(stat);
-              console.log(ad);
-            </script> -->
             <div class="card">
               <div class="card-header">
                 <h5 class="card-title mb-1" th:text="${order.user.name}"></h5>
