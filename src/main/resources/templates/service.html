@@ -45,6 +45,11 @@
     <div class="jumbotron jumbotron-fluid mb-0 ">
       <div class="container" th:object="${service}">
         <h1 class="display-5" th:text="*{service_name}"></h1>
+        Category:
+        <p class="lead" th:text="*{serviceCategory}"></p>
+        Location:
+        <p class="lead" th:text="*{location.locName}"></p>
+        Price:
         <p class="lead" th:text="*{cost}"></p>
         <hr class="my-4">
         <p>For more information, contact us at - <strong th:text="*{contact_name}"></strong> | <strong
@@ -59,14 +64,14 @@
             <input type="hidden" path="userName" th:name="userName" th:id="*{userName}" th:value="${userName}" />
 
             <!-- <input type="text" path="address" th:name="address" th:id="*{address}" value="Enter your address" /> -->
-            <div class="form-row" style="width:70%; margin-left:25%">
+            <div class="form-row justify-content-center">
               <div class="col-5">  
                   <input type="text" path="address" th:name="address" th:id="*{address}" placeholder="Enter your address" class="form-control" aria-label="address"/>
                 </div>
                 <div class="col-2">
                   <input class="form-control" type="date" path="serviceDate" th:name="serviceDate" th:id="*{serviceDate}" />
                 </div>
-              <div class="col-1">
+              <div class="col-2">
                 <input class="form-control" type="time" path="serviceTime" th:name="serviceTime" th:id="*{serviceTime}" />
               </div>
               

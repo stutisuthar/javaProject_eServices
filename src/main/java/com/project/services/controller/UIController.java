@@ -103,27 +103,95 @@ public class UIController {
                     list.add(serviceList.get(i).getService_name());
                 }
                 model.addAttribute("list", list);
-            } else {
-                List<ServiceProvider> searchServiceList = serviceProviderRepo
-                        .findByServiceName(request.getParameter("search").toLowerCase());
-                if (searchServiceList.size() == 0) {
-                    // TODO: Add msg that no result found
-                    List<ServiceProvider> serviceList = serviceProviderRepo.findAll();
-                    model.addAttribute("serviceList", serviceList);
-                    List<String> list = new ArrayList<String>();
-                    for (int i = 0; i < serviceList.size(); i++) {
-                        list.add(serviceList.get(i).getService_name());
+            }else{
+
+                if(request.getParameter("search")==null){
+                    String Locname= request.getParameter("location");
+                    System.out.println();
+                    int locationId = locationRepo.findBylocName(Locname).getId();
+                    List<ServiceProvider> searchServiceList = serviceProviderRepo.findByLocation(locationId);
+                    if (searchServiceList.size() == 0) {
+                        // TODO: Add msg that no result found
+                        List<ServiceProvider> serviceList = serviceProviderRepo.findAll();
+                        model.addAttribute("serviceList", serviceList);
+                        List<String> list = new ArrayList<String>();
+                        for (int i = 0; i < serviceList.size(); i++) {
+                            list.add(serviceList.get(i).getService_name());
+                        }
+                        model.addAttribute("list", list);
+                    } else {
+                        model.addAttribute("serviceList", searchServiceList);
+                        List<ServiceProvider> serviceList = serviceProviderRepo.findAll();
+                        List<String> list = new ArrayList<String>();
+                        for (int i = 0; i < serviceList.size(); i++) {
+                            list.add(serviceList.get(i).getService_name());
+                        }
+                        model.addAttribute("list", list);
                     }
-                    model.addAttribute("list", list);
-                } else {
-                    model.addAttribute("serviceList", searchServiceList);
-                    List<ServiceProvider> serviceList = serviceProviderRepo.findAll();
-                    List<String> list = new ArrayList<String>();
-                    for (int i = 0; i < serviceList.size(); i++) {
-                        list.add(serviceList.get(i).getService_name());
+                }else if(request.getParameter("location")==null){
+                    List<ServiceProvider> searchServiceList = serviceProviderRepo.findByServiceName(request.getParameter("search").toLowerCase());
+                    if (searchServiceList.size() == 0) {
+                        // TODO: Add msg that no result found
+                        List<ServiceProvider> serviceList = serviceProviderRepo.findAll();
+                        model.addAttribute("serviceList", serviceList);
+                        List<String> list = new ArrayList<String>();
+                        for (int i = 0; i < serviceList.size(); i++) {
+                            list.add(serviceList.get(i).getService_name());
+                        }
+                        model.addAttribute("list", list);
+                    } else {
+                        model.addAttribute("serviceList", searchServiceList);
+                        List<ServiceProvider> serviceList = serviceProviderRepo.findAll();
+                        List<String> list = new ArrayList<String>();
+                        for (int i = 0; i < serviceList.size(); i++) {
+                            list.add(serviceList.get(i).getService_name());
+                        }
+                        model.addAttribute("list", list);
                     }
-                    model.addAttribute("list", list);
+                }else{
+                    String Locname = request.getParameter("location");
+                    int locationId = locationRepo.findBylocName(Locname).getId();
+                    String strSearch = request.getParameter("search").toLowerCase();
+                    List<ServiceProvider> searchServiceList = serviceProviderRepo.findByServiceAndLocationName(strSearch,locationId);
+                    if (searchServiceList.size() == 0) {
+                        // TODO: Add msg that no result found
+                        List<ServiceProvider> serviceList = serviceProviderRepo.findAll();
+                        model.addAttribute("serviceList", serviceList);
+                        List<String> list = new ArrayList<String>();
+                        for (int i = 0; i < serviceList.size(); i++) {
+                            list.add(serviceList.get(i).getService_name());
+                        }
+                        model.addAttribute("list", list);
+                    } else {
+                        model.addAttribute("serviceList", searchServiceList);
+                        List<ServiceProvider> serviceList = serviceProviderRepo.findAll();
+                        List<String> list = new ArrayList<String>();
+                        for (int i = 0; i < serviceList.size(); i++) {
+                            list.add(serviceList.get(i).getService_name());
+                        }
+                        model.addAttribute("list", list);
+                    }
                 }
+
+                // List<ServiceProvider> searchServiceList = serviceProviderRepo.findByServiceName(request.getParameter("search").toLowerCase());
+                // if(searchServiceList.size()==0){
+                //     // TODO: Add msg that no result found
+                //     List<ServiceProvider> serviceList = serviceProviderRepo.findAll();
+                //     model.addAttribute("serviceList", serviceList);
+                //     List<String> list = new ArrayList<String>();
+                //     for (int i = 0; i < serviceList.size(); i++) {
+                //         list.add(serviceList.get(i).getService_name());
+                //     }
+                //     model.addAttribute("list", list);
+                // }else{
+                //     model.addAttribute("serviceList", searchServiceList);
+                //     List<ServiceProvider> serviceList = serviceProviderRepo.findAll();
+                //     List<String> list = new ArrayList<String>();
+                //     for (int i = 0; i < serviceList.size(); i++) {
+                //         list.add(serviceList.get(i).getService_name());
+                //     }
+                //     model.addAttribute("list", list);
+                // }
             }
 
             ServiceProvider service = new ServiceProvider();
@@ -313,14 +381,19 @@ public class UIController {
     }
 
     @GetMapping("/addService")
-    public String renderAdminAddService(Model model) {
-        ServiceProvider service = new ServiceProvider();
-        model.addAttribute("service", service);
-        Location location = new Location();
-        model.addAttribute("location", location);
-        List<Location> list = locationRepo.findAll();
-        model.addAttribute("cities", list);
-        return "adminAddService";
+    public String renderAdminAddService(Model model, HttpServletRequest request) {
+        if(request.getSession().getAttribute("adminStatus")!=null) {
+            ServiceProvider service = new ServiceProvider();
+            model.addAttribute("service", service);
+            Location location = new Location();
+            model.addAttribute("location", location);
+            List<Location> list = locationRepo.findAll();
+            model.addAttribute("cities", list);
+            System.out.println("testing" + list);
+            return "adminAddService";
+        }else{
+            return "redirect:/forbidden?admin=1";
+        }
     }
 
     @PostMapping("/addService")
