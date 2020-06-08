@@ -59,9 +59,9 @@
             <input type="hidden" path="userName" th:name="userName" th:id="*{userName}" th:value="${userName}" />
 
             <!-- <input type="text" path="address" th:name="address" th:id="*{address}" value="Enter your address" /> -->
-            <div class="form-row">
+            <div class="form-row" style="width:70%; margin-left:25%">
               <div class="col-5">  
-                  <input type="text" path="address" th:name="address" th:id="*{address}" value="Enter your address" class="form-control" aria-label="address"/>
+                  <input type="text" path="address" th:name="address" th:id="*{address}" placeholder="Enter your address" class="form-control" aria-label="address"/>
                 </div>
                 <div class="col-2">
                   <input class="form-control" type="date" path="serviceDate" th:name="serviceDate" th:id="*{serviceDate}" />
@@ -71,11 +71,11 @@
               </div>
               
             </div>
-            <div class="form-row mt-3">
+            <div class="form-row mt-3" style="width:70%; margin-left:47%">
               
               <input class="btn btn-dark text-warning save-button-view-profile" th:type="submit" />
             
-          </div>
+            </div>
             
             <input type="hidden" path="status" th:name="status" th:id="*{status}" value="inprocess" />
            

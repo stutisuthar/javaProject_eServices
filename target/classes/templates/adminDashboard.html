@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org"
+  layout:decorate="~{fragments/adminLayout}">
 
 <head>
   <meta charset="UTF-8" />
@@ -19,12 +20,13 @@
 
   <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.0/css/bootstrap.min.css}" />
 
-  <link rel="stylesheet" href="../static/css/login.css" />
+  <link rel="stylesheet" href="css/login.css" />
 
-  <script src="/resources/static/js/reuseNavbar.js"></script>
+  <!-- <script src="js/reuseNavbar.js"></script> -->
 </head>
 
 <body>
+  <div th:replace="fragments/adminHeader :: adminHeader"></div>
   <div id="navbar-frame"></div>
 </body>
 
