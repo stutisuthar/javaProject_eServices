@@ -2,25 +2,25 @@ package com.project.services.model;
 // import java.io.Serializable;
 
 import javax.persistence.*;
-import java.util.Set;
+
+import java.util.List;
 
 @Entity
 @Table(name = "userDetails")
-public class UserDetails{
+public class UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name="user_id")
+    @Column(name = "user_id")
     private int id;
 
-    @Column(name="name")
+    @Column(name = "name")
     private String name;
 
     @Column(name = "password")
     private String password;
 
-    @Column(name="email")
+    @Column(name = "email")
     private String email;
-
 
     public String getName() {
         return name;
@@ -46,8 +46,8 @@ public class UserDetails{
         this.email = email;
     }
 
-    @OneToMany(mappedBy="user", fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-    private Set<OrderDetails> orderDetails;
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<OrderDetails> orderDetails;
 
     public int getId() {
         return id;
@@ -57,11 +57,11 @@ public class UserDetails{
         this.id = id;
     }
 
-    public Set<OrderDetails> getOrderDetails() {
+    public List<OrderDetails> getOrderDetails() {
         return orderDetails;
     }
 
-    public void setOrderDetails(Set<OrderDetails> orderDetails) {
+    public void setOrderDetails(List<OrderDetails> orderDetails) {
         this.orderDetails = orderDetails;
     }
 }

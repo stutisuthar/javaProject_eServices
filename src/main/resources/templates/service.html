@@ -24,13 +24,13 @@
   <!-- JS, Popper.js, and jQuery -->
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
     integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
-    </script>
+  </script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
     integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
-    </script>
+  </script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
     integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous">
-    </script>
+  </script>
 
   <link rel="stylesheet" href="css/login.css" />
 
@@ -39,120 +39,48 @@
 
 <body>
   <div layout:fragment="content" th:remove="tag">
-  <div th:replace="fragments/header :: header"></div>
-  <div id="navbar-user-frame"></div>
+    <div th:replace="fragments/header :: header"></div>
+    <div id="navbar-user-frame"></div>
 
-  <div class="jumbotron jumbotron-fluid mb-0">
-    <div class="container" th:object="${service}">
-      <h1 class="display-5" th:text="*{service_name}"></h1>
-      <p class="lead" th:text="*{cost}"></p>
-      <hr class="my-4">
-      <p>For more information, contact us at - <strong th:text="*{contact_name}"></strong> | <strong
-          th:text="*{contact_number}"></strong></p>
-    </div>
-  </div>
-  <div class="container-fluid">
-    <div class="row serviceModule" style="height: 29vh">
-      <div class="col-4 bg-dark d-flex align-items-center justify-content-center">
-        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#orderNow">
-          Order Now
-        </button>
+    <div class="jumbotron jumbotron-fluid mb-0 ">
+      <div class="container" th:object="${service}">
+        <h1 class="display-5" th:text="*{service_name}"></h1>
+        <p class="lead" th:text="*{cost}"></p>
+        <hr class="my-4">
+        <p>For more information, contact us at - <strong th:text="*{contact_name}"></strong> | <strong
+            th:text="*{contact_number}"></strong></p>
       </div>
     </div>
-  </div>
+    <div class="container-fluid">
+      <div class="row serviceModule" style="height: 29vh">
+        <div class="col-12 bg-dark d-flex align-items-center justify-content-center">
+          <form th:action="@{/orderService}" method="post" th:object="${orderForm}" modelAttribute="orderForm" style="width: inherit;">
+            <input type="hidden" path="serviceId" th:name="serviceId" th:id="*{serviceId}" th:value="${service.id}" />
+            <input type="hidden" path="userName" th:name="userName" th:id="*{userName}" th:value="${userName}" />
 
-  <!-- <div class="jumbotron jumbotron-fluid mb-0">
-    <div class="container">
-      <h1 class="display-5">Omniverse</h1>
-      <p class="lead">It started when an alien device did what it did
-        It stuck itself upon his wrist with secrets that it hid
-        Now he's got superpowers he's no ordinary kid
-        He's Ben 10
-      </p>
-      <hr class="my-4">
-      <p>For more information, contact us at - <strong>test@serviceprovider.com</strong> & <strong>987654321</strong></p>
-    </div>
-  </div>
-  <div class="container-fluid">
-    <div class="row serviceModule">
-      <div class="col-4 bg-dark d-flex align-items-center justify-content-center">
-        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#orderNow">
-          Order Now
-        </button>
-      </div>
-  </div>
-</div> -->
-
-
-  <!-- Modal -->
-  <div class="modal fade" id="orderNow" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Ordering the service</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <form>
-            <div class="form-group">
-              <label for="exampleInputEmail1">Timing</label>
-              <input type="time" class="form-control" id="appt" name="appt">
-            </div>
-            <div class="form-group">
-              <label for="exampleInputPassword1">Note</label>
-              <textarea class="form-control" aria-label="With textarea"></textarea>
-            </div>
-            <button type="submit" class="btn btn-dark">Submit</button>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="modal fade" id="feedback" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Feedback</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <form>
-            <div class="form-group">
-
-              <label for="exampleFeedback">Rate us</label>
-              <div class="rate">
-                <input type="radio" id="star5" name="rate" value="5" />
-                <label for="star5">5 stars</label>
-                <input type="radio" id="star4" name="rate" value="4" />
-                <label for="star4">4 stars</label>
-                <input type="radio" id="star3" name="rate" value="3" />
-                <label for="star3">3 stars</label>
-                <input type="radio" id="star2" name="rate" value="2" />
-                <label for="star2">2 stars</label>
-                <input type="radio" id="star1" name="rate" value="1" />
-                <label for="star1">1 star</label>
+            <!-- <input type="text" path="address" th:name="address" th:id="*{address}" value="Enter your address" /> -->
+            <div class="form-row" style="width:70%; margin-left:25%">
+              <div class="col-5">  
+                  <input type="text" path="address" th:name="address" th:id="*{address}" placeholder="Enter your address" class="form-control" aria-label="address"/>
+                </div>
+                <div class="col-2">
+                  <input class="form-control" type="date" path="serviceDate" th:name="serviceDate" th:id="*{serviceDate}" />
+                </div>
+              <div class="col-1">
+                <input class="form-control" type="time" path="serviceTime" th:name="serviceTime" th:id="*{serviceTime}" />
               </div>
+              
             </div>
-
-            <div class="form-group">
-              <label for="exampleFeedback">How did you like the service ?</label>
-              <textarea class="form-control" aria-label="With textarea"></textarea>
+            <div class="form-row mt-3" style="width:70%; margin-left:47%">
+              
+              <input class="btn btn-dark text-warning save-button-view-profile" th:type="submit" />
+            
             </div>
-
-            <button type="submit" class="btn btn-dark">Submit</button>
+            
+            <input type="hidden" path="status" th:name="status" th:id="*{status}" value="inprocess" />
+           
           </form>
         </div>
-
-      </div>
-    </div>
-  </div>
 
 </body>
 

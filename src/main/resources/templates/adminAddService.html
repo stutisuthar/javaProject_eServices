@@ -1,7 +1,6 @@
 <!DOCTYPE html>
-<html lang="en"
-xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org"
+  layout:decorate="~{fragments/adminLayout}">
 
 <head>
   <meta charset="UTF-8" />
@@ -17,10 +16,11 @@ xmlns:th="http://www.thymeleaf.org">
     integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous">
   </script>
   <link rel="stylesheet" href="css/login.css" />
-  <script src="js/reuseNavbar.js"></script>
+  <!-- <script src="js/reuseNavbar.js"></script> -->
 </head>
 
 <body>
+  <div th:replace="fragments/adminHeader :: adminHeader"></div>
   <div id="navbar-frame"></div>
 
   <div class="container-fluid main-body">
@@ -28,14 +28,16 @@ xmlns:th="http://www.thymeleaf.org">
       <div class="col-8">
         <form action="#" th:action="@{/addService}" method="post" th:object="${service}">
           <div class="form-row">
-            <div class="form-group col-md-6">
+            <div class="form-group col-md-12">
               <input type="text" class="form-control" id="name" placeholder="Service Name" th:field="*{service_name}" />
             </div>
             <div class="form-group col-md-6">
-              <input type="text" class="form-control" id="cname" placeholder="Contact Name" th:field="*{contact_name}" />
+              <input type="text" class="form-control" id="cname" placeholder="Contact Name"
+                th:field="*{contact_name}" />
             </div>
             <div class="form-group col-md-6">
-              <input type="number" class="form-control" id="inputEmail4" placeholder="Contact Number" th:field="*{contact_number}" />
+              <input type="number" class="form-control" id="inputEmail4" placeholder="Contact Number"
+                th:field="*{contact_number}" />
             </div>
           </div>
 
@@ -57,25 +59,17 @@ xmlns:th="http://www.thymeleaf.org">
             <input type="number" class="form-control" id="cost" placeholder="Cost" th:field="*{cost}"/>
           </div>
 
-          <div class="form-row">
-            <div class="form-group col-md-6">
-              <!-- <input type="text" class="form-control" id="inputCity" placeholder="Location/City" th:field="*{location}" /> -->
-            </div>
-          </div>
-
-          <div>
-            <select id="Location" th:field="${location.locName}">
-              <option value=""> CHOOSE A LOCATION </option>
-              <option th:each="city : ${cities}"
-                      th:value="${city.locName}"
-                      th:utext="${city.locName}"></option>
+          <div class="form-group">
+            <select id="Location" class="form-control" th:field="${location.locName}">
+              <option value=""> Choose a location </option>
+              <option th:each="city : ${cities}" th:value="${city.locName}" th:utext="${city.locName}"></option>
             </select>
           </div>
-<div>
-  <div>
-  <button type="submit" class="btn btn-warning">Save</button>
-</div>
-</div>
+          <div>
+            <div>
+              <button type="submit" class="btn btn-warning">Save</button>
+            </div>
+          </div>
 
         </form>
       </div>
