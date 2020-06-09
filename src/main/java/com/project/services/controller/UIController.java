@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.text.ParseException;
@@ -314,13 +315,18 @@ public class UIController {
             int userId = Integer.parseInt(user);
             String userName = userRepo.findById(userId).getName();
             model.addAttribute("userName", userName);
-            ServiceProvider serviceP = new ServiceProvider();
-            serviceP = serviceProviderRepo.findById(srvId);
+            ServiceProvider serviceP = serviceProviderRepo.findById(srvId);
             if (serviceP == null) {
                 return "redirect:/error";
             }
+            Date currentDate = new Date();
+            String minTime = (currentDate.getHours() < 10 ? "0" + (currentDate.getHours() + 1)
+                    : (currentDate.getHours() + 1)) + ":"
+                    + (currentDate.getMinutes() < 10 ? "0" + currentDate.getMinutes() : currentDate.getMinutes());
+            System.out.println("minTime: " + minTime);
             model.addAttribute("orderForm", new OrderForm());
             model.addAttribute("service", serviceP);
+            model.addAttribute("minTime", minTime);
             return "service";
         } else {
             return "redirect:/forbidden";
