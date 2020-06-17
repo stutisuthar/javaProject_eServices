@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>com.project.services.controller.UIController</OriginalElement>
+  <nodes>
+    <node x="23.857569552478708" y="781.9478462824741">com.project.services.model.ServiceProvider</node>
+    <node x="1709.6403325647495" y="309.71965202905415">com.project.services.service.addServiceToDB</node>
+    <node x="0.0" y="2243.6894432790095">com.project.services.ServicesApplication</node>
+    <node x="980.8403494400841" y="2041.6894432790093">com.project.services.service.userDetailsService</node>
+    <node x="1056.7655402958967" y="0.0">com.project.services.service.LocationService</node>
+    <node x="2891.0511470308493" y="1067.68883715305">org.springframework.stereotype.Controller</node>
+    <node x="1417.8174469150626" y="82.81477156028393">com.project.services.repository.LocationRepository</node>
+    <node x="121.12610538640456" y="342.6294144862925">com.project.services.repository.ServiceProviderRepository</node>
+    <node x="2910.712924734952" y="1240.5786933008615">com.project.services.forms.OrderForm</node>
+    <node x="1914.1643626028124" y="743.4608743003298">com.project.services.controller.UIController</node>
+    <node x="1716.8611597036543" y="1826.5916894355523">com.project.services.repository.UserProfileDetailsRepo</node>
+    <node x="658.5414550525632" y="40.69690567317957">com.project.services.model.Location</node>
+    <node x="1416.263187350595" y="1970.2309648848302">com.project.services.model.UserDetails</node>
+    <node x="232.92231923145118" y="1716.5299474842932">com.project.services.repository.OrderDetailsRepository</node>
+    <node x="603.2222202375032" y="1842.2087145784922">com.project.services.model.OrderDetails</node>
+    <node x="0.0" y="1326.7048162460405">com.project.services.repository.userDetailsRepository</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.project.services.repository.userDetailsRepository" target="com.project.services.model.UserDetails">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.project.services.controller.UIController" target="com.project.services.repository.ServiceProviderRepository">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.project.services.controller.UIController" target="com.project.services.model.UserDetails">
+      <point x="0.0" y="-8.345915163767003" />
+      <point x="-6.244710759065697" y="0.0" />
+    </edge>
+    <edge source="com.project.services.controller.UIController" target="com.project.services.repository.OrderDetailsRepository">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.project.services.model.ServiceProvider" target="com.project.services.model.OrderDetails">
+      <point x="4.456864109268622" y="-2.2663544099530384" />
+      <point x="4.456864109268565" y="-2.26635440995301" />
+    </edge>
+    <edge source="com.project.services.controller.UIController" target="com.project.services.service.addServiceToDB">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.project.services.service.userDetailsService" target="com.project.services.repository.userDetailsRepository">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.project.services.model.Location" target="com.project.services.model.ServiceProvider">
+      <point x="19.375827380457622" y="0.0" />
+      <point x="19.37582738045751" y="2.8421709430404007E-14" />
+    </edge>
+    <edge source="com.project.services.repository.userDetailsRepository" target="com.project.services.model.OrderDetails">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.project.services.controller.UIController" target="com.project.services.service.userDetailsService">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.project.services.repository.OrderDetailsRepository" target="com.project.services.model.OrderDetails">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.project.services.service.addServiceToDB" target="com.project.services.repository.LocationRepository">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.project.services.controller.UIController" target="com.project.services.repository.userDetailsRepository">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.project.services.service.addServiceToDB" target="com.project.services.model.ServiceProvider">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.project.services.service.LocationService" target="com.project.services.repository.LocationRepository">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.project.services.model.OrderDetails" target="com.project.services.model.UserDetails">
+      <point x="0.0" y="-15.019612338585944" />
+      <point x="0.0" y="-15.019612338585944" />
+    </edge>
+    <edge source="com.project.services.service.addServiceToDB" target="com.project.services.model.Location">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.project.services.controller.UIController" target="com.project.services.model.OrderDetails">
+      <point x="2.4360066574638495" y="4.36644839254879" />
+      <point x="2.4360066574638495" y="4.3664483925488184" />
+    </edge>
+    <edge source="com.project.services.repository.UserProfileDetailsRepo" target="com.project.services.model.UserDetails">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.project.services.service.userDetailsService" target="com.project.services.model.UserDetails">
+      <point x="0.0" y="5.073238941523414" />
+      <point x="5.6843418860808015E-14" y="5.0732389415235275" />
+    </edge>
+    <edge source="com.project.services.repository.LocationRepository" target="com.project.services.model.Location">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.project.services.controller.UIController" target="com.project.services.repository.LocationRepository">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.project.services.service.addServiceToDB" target="com.project.services.repository.ServiceProviderRepository">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.project.services.controller.UIController" target="com.project.services.forms.OrderForm">
+      <point x="1.005057296238192" y="-4.897944449590895" />
+      <point x="1.005057296238192" y="-4.897944449590909" />
+    </edge>
+    <edge source="com.project.services.service.LocationService" target="com.project.services.model.Location">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.project.services.model.UserDetails" target="com.project.services.model.OrderDetails">
+      <point x="0.0" y="15.01961233858583" />
+      <point x="0.0" y="15.019612338585944" />
+    </edge>
+    <edge source="com.project.services.controller.UIController" target="com.project.services.model.Location">
+      <point x="0.0" y="-6.26628312688463" />
+      <point x="8.295150642560543" y="0.0" />
+    </edge>
+    <edge source="com.project.services.controller.UIController" target="com.project.services.repository.UserProfileDetailsRepo">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.project.services.controller.UIController" target="org.springframework.stereotype.Controller">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.project.services.repository.ServiceProviderRepository" target="com.project.services.model.ServiceProvider">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="com.project.services.model.OrderDetails" target="com.project.services.model.ServiceProvider">
+      <point x="-5.609325163854521" y="0.0" />
+      <point x="-5.609325163854237" y="0.0" />
+    </edge>
+    <edge source="com.project.services.controller.UIController" target="com.project.services.model.ServiceProvider">
+      <point x="0.0" y="-5.036723384328425" />
+      <point x="0.0" y="-5.036723384328411" />
+    </edge>
+    <edge source="com.project.services.model.ServiceProvider" target="com.project.services.model.Location">
+      <point x="-19.375827380457395" y="0.0" />
+      <point x="-19.375827380457565" y="0.0" />
+    </edge>
+  </edges>
+  <settings layout="Circular" zoom="1.0" x="683.0" y="433.5" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+    <Category>Inner Classes</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

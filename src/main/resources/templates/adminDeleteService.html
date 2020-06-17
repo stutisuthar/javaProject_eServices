@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org"
+    layout:decorate="~{fragments/adminLayout}">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Delete a Service</title>
+
+    <!-- Importing Jquery, Bootstrap (css + js) -->
+    <script src="js/jquery-3.5.1.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous" />
+
+    <script defer src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous">
+    </script>
+    <link rel="stylesheet" href="css/login.css" />
+    <!-- <script src="js/reuseNavbar.js"></script> -->
+</head>
+
+<body>
+    <div th:replace="fragments/adminHeader :: adminHeader"></div>
+    <div id="navbar-frame"></div>
+
+    <div class="container-fluid main-body">
+        <div class="row justify-content-center align-items-center h-100">
+            <div class="col-8">
+                <form action="#" th:action="@{/deleteService}" method="post" th:object="${service}">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <select id="service" class="form-control" th:field="${service.service_name}">
+                                <option value=""> Choose a Service</option>
+                                <option th:each="city : ${cities}" th:value="${city.id}"
+                                    th:utext="'Id: '+${city.id+' -- '+ city.service_name+ ' by ' + city.contact_name + ' , Contact: '+city.contact_number}">
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div>
+                        <button type="submit" class="btn btn-warning">Delete</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
