@@ -71,7 +71,7 @@
               <div class="form-row justify-content-start">
                 <div class="form-group">
                   <input name="name" type="text" class="form-control-plaintext disabled-input-field" id="name"
-                    th:placeholder="${name}" th:field="${details.name}" disabled>
+                    th:placeholder="${currentUser.name}" th:field="${details.name}" disabled>
                   <div class="valid-feedback" id="valid-name">
 
                   </div>
@@ -109,7 +109,7 @@
               <div class="form-row justify-content-start">
                 <div class="form-group">
                   <input name="email" type="text" class="form-control-plaintext disabled-input-field" id="email"
-                    th:placeholder="${email}" th:field="${details.email}" disabled>
+                    th:placeholder="${currentUser.email}" th:field="${details.email}" disabled>
                   <div class="valid-feedback" id="valid-email">
 
                   </div>

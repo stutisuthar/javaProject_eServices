@@ -24,17 +24,18 @@
   <!-- JS, Popper.js, and jQuery -->
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
     integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
-  </script>
+    </script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
     integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
-  </script>
+    </script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
     integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous">
-  </script>
+    </script>
 
   <link rel="stylesheet" href="css/login.css" />
 
   <!-- <script src="js/reuseNavbar.js"></script> -->
+
 </head>
 
 <body>
@@ -59,31 +60,37 @@
     <div class="container-fluid">
       <div class="row serviceModule" style="height: 29vh">
         <div class="col-12 bg-dark d-flex align-items-center justify-content-center">
-          <form th:action="@{/orderService}" method="post" th:object="${orderForm}" modelAttribute="orderForm" style="width: inherit;">
+          <form th:action="@{/orderService}" method="post" th:object="${orderForm}" modelAttribute="orderForm"
+            style="width: inherit;">
             <input type="hidden" path="serviceId" th:name="serviceId" th:id="*{serviceId}" th:value="${service.id}" />
             <input type="hidden" path="userName" th:name="userName" th:id="*{userName}" th:value="${userName}" />
 
             <!-- <input type="text" path="address" th:name="address" th:id="*{address}" value="Enter your address" /> -->
             <div class="form-row justify-content-center">
-              <div class="col-5">  
-                  <input type="text" path="address" th:name="address" th:id="*{address}" placeholder="Enter your address" class="form-control" aria-label="address"/>
-                </div>
-                <div class="col-2">
-                  <input class="form-control" type="date" path="serviceDate" th:name="serviceDate" th:id="*{serviceDate}" />
-                </div>
-              <div class="col-2">
-                <input class="form-control" type="time" path="serviceTime" th:name="serviceTime" th:id="*{serviceTime}" />
+              <div class="col-5">
+                <input type="text" path="address" th:name="address" th:id="*{address}" placeholder="Enter your address"
+                  class="form-control" aria-label="address" />
               </div>
-              
+              <div class="col-2">
+                <input class="form-control" type="date" path="serviceDate" th:name="serviceDate" th:id="*{serviceDate}"
+                  th:attr="min=${#dates.format(#dates.createToday(), 'yyyy-MM-dd')}"/>
+              </div>
+              <div class="col-2">
+                <!-- <input class="form-control" type="time" path="serviceTime" th:name="serviceTime"
+                  th:id="*{serviceTime}" th:attr="min=${#dates.format(#dates.createNow(), 'HH:mm')}"/> -->
+                  <input class="form-control" type="time" path="serviceTime" th:name="serviceTime" th:id="*{serviceTime}"
+                    th:attr="min=${minTime}"/>
+              </div>
+
             </div>
             <div class="form-row mt-3" style="width:70%; margin-left:47%">
-              
+
               <input class="btn btn-dark text-warning save-button-view-profile" th:type="submit" />
-            
+
             </div>
-            
+
             <input type="hidden" path="status" th:name="status" th:id="*{status}" value="inprocess" />
-           
+
           </form>
         </div>
 
