@@ -350,8 +350,7 @@ public class UIController {
     }
 
     @PostMapping("/addService")
-    public String addServiceToDB(@ModelAttribute("service") ServiceProvider service,
-            @ModelAttribute("location") Location location) {
+    public String addServiceToDB(@ModelAttribute("service") ServiceProvider service,@ModelAttribute("location") Location location) {
         addingService.SaveServicesData(service, location);
         return "redirect:/addService";
     }
@@ -434,13 +433,6 @@ public class UIController {
     public String signOutAdmin(HttpSession session) {
         session.invalidate();
         return "redirect:/adminLogin";
-    }
-
-    @PostMapping("/addService")
-    public String addServiceToDB(@ModelAttribute("service") ServiceProvider service,
-            @ModelAttribute("location") Location location) {
-        addingService.SaveServicesData(service, location);
-        return "redirect:/addService";
     }
 
     private static Date parseDate(String date) {
