@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org" layout:decorate="~{fragments/adminLayout}">
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org"
+    layout:decorate="~{fragments/adminLayout}">
 
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Adding a Location</title>
+    <title>Delete a Service</title>
 
     <!-- Importing Jquery, Bootstrap (css + js) -->
     <script src="js/jquery-3.5.1.js"></script>
@@ -25,15 +26,19 @@
     <div class="container-fluid main-body">
         <div class="row justify-content-center align-items-center h-100">
             <div class="col-8">
-                <form action="#" th:action="@{/addLocation}" method="post" th:object="${location}">
+                <form action="#" th:action="@{/deleteService}" method="post" th:object="${service}">
                     <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <input type="text" class="form-control" th:id="location" placeholder="Add New Location Name"
-                                th:field="*{locName}" />
+                        <div class="form-group">
+                            <select id="service" class="form-control" th:field="${service.service_name}">
+                                <option value=""> Choose a Service</option>
+                                <option th:each="city : ${cities}" th:value="${city.id}"
+                                    th:utext="'Id: '+${city.id+' -- '+ city.service_name+ ' by ' + city.contact_name + ' , Contact: '+city.contact_number}">
+                                </option>
+                            </select>
                         </div>
                     </div>
                     <div>
-                        <button type="submit" class="btn btn-warning">Save</button>
+                        <button type="submit" class="btn btn-warning">Delete</button>
                     </div>
                 </form>
             </div>

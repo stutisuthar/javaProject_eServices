@@ -396,9 +396,44 @@ public class UIController {
     @PostMapping("/addLocation")
     public String addLocationToDB(@ModelAttribute("location") Location location) {
         locationRepo.save(location);
-        // Location newLoc = new Location();
-        // newLoc.setLocName(location.getLocName());
         return "addLocation";
+    }
+
+    @GetMapping("/deleteLocation")
+    public String deleteLocation(Model model) {
+        Location location = new Location();
+            model.addAttribute("location", location);
+        List<Location> list = locationRepo.findAll();
+        model.addAttribute("cities", list);
+        return "adminDeleteLocation";
+    }
+
+    @PostMapping("/deleteLocation")
+    public String deleteLocationFromDB(@ModelAttribute("location") Location location) {
+        locationRepo.delete(locationRepo.findBylocName(location.getLocName()));
+        return "redirect:/deleteLocation";
+    }
+
+    @GetMapping("/deleteService")
+    public String deleteService(Model model) {
+        ServiceProvider service = new ServiceProvider();
+        model.addAttribute("service", service);
+        List<ServiceProvider> list = serviceProviderRepo.findAll();
+        model.addAttribute("cities", list);
+        return "adminDeleteService";
+    }
+
+    @PostMapping("/deleteService")
+    public String deleteLocationFromDB(@ModelAttribute("service") ServiceProvider service) {
+        System.out.println("Test2"+service.getService_name());
+        int ServiceId = Integer.parseInt(service.getService_name());
+        ServiceProvider serviceToDelete = serviceProviderRepo.findById(ServiceId);
+        // for(int i=0;i<serviceToDelete.size();i++){
+            System.out.println("Test\t"+serviceToDelete);
+        // }
+
+        serviceProviderRepo.delete(serviceToDelete);
+        return "redirect:/deleteService";
     }
 
     @GetMapping("/adminNavbar")
