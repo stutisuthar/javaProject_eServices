@@ -332,6 +332,22 @@ public class UIController {
         return "adminAddService";
     }
 
+    @GetMapping("/addLocation")
+    public String addLocation(Model model) {
+        Location location = new Location();
+        model.addAttribute("location", location);
+        return "addLocation";
+    }
+
+    @PostMapping("/addLocation")
+    public  String addLocationToDB(@ModelAttribute("location") Location location)
+    {
+        Location newLoc= new Location();
+        newLoc.setLocName(location.getLocName());
+        return "addLocation";
+    }
+
+
     @PostMapping("/addService")
     public String addServiceToDB(@ModelAttribute("service") ServiceProvider service,
             @ModelAttribute("location") Location location) {

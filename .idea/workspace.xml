@@ -1,15 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1a43b6bc-d7b2-4ddd-8979-c479921f781c" name="Default Changelist" comment="">
+    <list default="true" id="8966a4ee-04bb-41ce-a35f-7634349dfc6a" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/resources/templates/addLocation.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/$PRODUCT_WORKSPACE_FILE$" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/$PRODUCT_WORKSPACE_FILE$" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/userProfile.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/userProfile.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/services/controller/UIController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/services/controller/UIController.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1d1k08DUtEQdgqLzSyj7JEt6BI9" />
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -24,36 +36,27 @@
     </option>
   </component>
   <component name="RunManager">
-    <configuration name="ServicesApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+    <configuration name="ServicesApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="services" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.project.services.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.project.services.ServicesApplication" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Spring Boot.ServicesApplication" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="1a43b6bc-d7b2-4ddd-8979-c479921f781c" name="Default Changelist" comment="" />
-      <created>1591596951573</created>
+      <changelist id="8966a4ee-04bb-41ce-a35f-7634349dfc6a" name="Default Changelist" comment="" />
+      <created>1591599760356</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1591596951573</updated>
-      <workItem from="1591596957719" duration="1867000" />
+      <updated>1591599760356</updated>
+      <workItem from="1591599761668" duration="2830000" />
+      <workItem from="1591622254072" duration="2537000" />
+      <workItem from="1591720048850" duration="326000" />
     </task>
     <servers />
   </component>
@@ -65,7 +68,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
