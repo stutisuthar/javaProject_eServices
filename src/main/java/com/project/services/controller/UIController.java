@@ -386,6 +386,21 @@ public class UIController {
         return "redirect:/addService";
     }
 
+    @GetMapping("/addLocation")
+    public String addLocation(Model model) {
+        Location location = new Location();
+        model.addAttribute("location", location);
+        return "addLocation";
+    }
+
+    @PostMapping("/addLocation")
+    public String addLocationToDB(@ModelAttribute("location") Location location) {
+        locationRepo.save(location);
+        // Location newLoc = new Location();
+        // newLoc.setLocName(location.getLocName());
+        return "addLocation";
+    }
+
     @GetMapping("/adminNavbar")
     public String renderAdminNavBar() {
         return "adminNavbar";
