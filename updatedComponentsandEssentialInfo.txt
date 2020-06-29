@@ -1,0 +1,16 @@
+We have added the following components after the presentation as suggested by the professor:
+1. Added more functionalities to Admin:
+    a. Added Location adding Feature
+    b. Added Location Deletation Feature
+    c. Added Service Deletation Feature
+2. Oreder can not be made for passed time.
+3. UI changes for enhanced usage
+4. Created multiple diagrams which are present in the PPT (E-Services_All_Diagrams.pptx) for a better understanding of the product as well as the code.
+
+Code is already avaibale and running in a remote server: 
+https://java-e-services.herokuapp.com/
+
+P.S. :  We are using a free server so sometimes, it may take 30 seconds to start, but after that it'll work perfectly
+
+To logins admin, the following URl can be used: https://java-e-services.herokuapp.com/adminLogin
+Credentials for Admin: username: admin & password: admin
