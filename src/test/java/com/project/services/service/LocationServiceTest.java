@@ -16,7 +16,7 @@ public class LocationServiceTest {
   @Test(groups = { "checkin" })
   public void testGetDetails()
   {
-    public LocationService locationService = new LocationService();
+    LocationService locationService = new LocationService();
     Assert.assertNotNull(locationService.getDetails(5));
   }
 }
