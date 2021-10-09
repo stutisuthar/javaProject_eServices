@@ -2,6 +2,7 @@ package com.project.services.service;
 
 import com.project.services.model.Location;
 import com.project.services.repository.LocationRepository;
+import com.project.services.service.LocationService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,8 +16,8 @@ public class LocationServiceTest {
   @Test(groups = { "checkin" })
   public void testGetDetails()
   {
-    private LocationService locationService;
-    Assert.assertNotNull(getDetails(5));
+    public LocationService locationService = new LocationService();
+    Assert.assertNotNull(locationService getDetails(5));
   }
 }
     
