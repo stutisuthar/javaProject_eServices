@@ -17,7 +17,7 @@ public class LocationServiceTest {
   public void testGetDetails()
   {
     public LocationService locationService = new LocationService();
-    Assert.assertNotNull(locationService getDetails(5));
+    Assert.assertNotNull(locationService.getDetails(5));
   }
 }
     
